@@ -11,7 +11,7 @@ int main()
 	ActionType ActType;
 	//Create an object of ApplicationManager
 	ApplicationManager AppManager;
-	//test
+
 	do
 	{		
 		//Read user action
