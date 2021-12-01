@@ -39,7 +39,12 @@ class UI
 		//Note: Items are ordered here as they appear in the menu
 		//If you want to change the menu items order, just change the order here
 		ITM_RES,		//Resistor item in menu
-	
+		ITM_BULB,		//Bulb item in menu
+		ITM_BATTERY,		//Battery item in menu
+		ITM_SWITCH,		//Switch item in menu
+		ITM_GROUND,		//Ground item in menu
+		ITM_BUZZER,		//Buzzer item in menu
+		ITM_FUSE,		//Fuse item in menu
 		ITM_EXIT,		//Exit item
 		//TODO: Add more items names here
 	
@@ -71,7 +76,7 @@ class UI
 
 						//Arbitrary values, you can change as you wish
 						COMP_WIDTH = 100,		//Component Image width
-						COMP_HEIGHT = 20;		//Component Image height
+						COMP_HEIGHT = 100;		//Component Image height
 
 	color DrawColor;		//Drawing color
 	color SelectColor;		//Highlighting color
@@ -108,8 +113,15 @@ public:
 	void ClearDrawingArea() const;	//Clears the drawing area
 
 		
-	// Draws a resistor
+	// Draws components
 	void DrawResistor(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
+	void DrawBulb(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
+	void DrawBattery(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
+	void DrawSwitch(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
+	void DrawGround(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
+	void DrawBuzzer(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
+	void DrawFuse(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
+
 
 	///TODO: Make similar functions for drawing all other components, connections, .. etc
 

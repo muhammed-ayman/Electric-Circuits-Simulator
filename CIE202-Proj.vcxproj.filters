@@ -141,6 +141,20 @@
     <ClCompile Include="Actions\ActionAddRes.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\ActionAddBulb.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Actions\ActionAddBuzzer.cpp" />
+    <ClCompile Include="Actions\ActionAddBattery.cpp" />
+    <ClCompile Include="Actions\ActionAddFuse.cpp" />
+    <ClCompile Include="Actions\ActionAddGround.cpp" />
+    <ClCompile Include="Actions\ActionAddSwitch.cpp" />
+    <ClCompile Include="Components\Battery.cpp" />
+    <ClCompile Include="Components\Bulb.cpp" />
+    <ClCompile Include="Components\Buzzer.cpp" />
+    <ClCompile Include="Components\Fuse.cpp" />
+    <ClCompile Include="Components\Ground.cpp" />
+    <ClCompile Include="Components\Switch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Component.h">
@@ -220,6 +234,20 @@
     <ClInclude Include="Actions\ActionAddRes.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="Actions\ActionAddBulb.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\ActionAddBuzzer.h" />
+    <ClInclude Include="Actions\ActionAddBattery.h" />
+    <ClInclude Include="Actions\ActionAddFuse.h" />
+    <ClInclude Include="Actions\ActionAddGround.h" />
+    <ClInclude Include="Actions\ActionAddSwitch.h" />
+    <ClInclude Include="Components\Battery.h" />
+    <ClInclude Include="Components\Bulb.h" />
+    <ClInclude Include="Components\Buzzer.h" />
+    <ClInclude Include="Components\Fuse.h" />
+    <ClInclude Include="Components\Ground.h" />
+    <ClInclude Include="Components\Switch.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt">
