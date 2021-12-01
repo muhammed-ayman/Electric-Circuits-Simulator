@@ -98,6 +98,12 @@ ActionType UI::GetUserAction() const
 			switch (ClickedItemOrder)
 			{
 			case ITM_RES:	return ADD_RESISTOR;
+			case ITM_BULB:	return ADD_BULB;
+			case ITM_BATTERY:	return ADD_BATTERY;
+			case ITM_SWITCH:	return ADD_SWITCH;
+			case ITM_GROUND:	return ADD_GROUND;
+			case ITM_BUZZER:	return ADD_BUZZER;
+			case ITM_FUSE:	return ADD_FUSE;
 			case ITM_EXIT:	return EXIT;	
 			
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
@@ -182,6 +188,12 @@ void UI::CreateDesignToolBar()
 	//First prepare List of images for each menu item
 	string MenuItemImages[ITM_DSN_CNT];
 	MenuItemImages[ITM_RES] = "images\\Menu\\Menu_Resistor.jpg";
+	MenuItemImages[ITM_BULB] = "images\\Menu\\Menu_Resistor.jpg";
+	MenuItemImages[ITM_BATTERY] = "images\\Menu\\Menu_Resistor.jpg";
+	MenuItemImages[ITM_SWITCH] = "images\\Menu\\Menu_Resistor.jpg";
+	MenuItemImages[ITM_GROUND] = "images\\Menu\\Menu_Resistor.jpg";
+	MenuItemImages[ITM_BUZZER] = "images\\Menu\\Menu_Resistor.jpg";
+	MenuItemImages[ITM_FUSE] = "images\\Menu\\Menu_Resistor.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	//TODO: Prepare image for each menu item and add it to the list

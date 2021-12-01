@@ -141,6 +141,9 @@
     <ClCompile Include="Actions\ActionAddRes.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Actions\ActionAddBulb.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Component.h">
@@ -218,6 +221,9 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Actions\ActionAddRes.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Actions\ActionAddBulb.h">
       <Filter>Actions</Filter>
     </ClInclude>
   </ItemGroup>

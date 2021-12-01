@@ -39,7 +39,12 @@ class UI
 		//Note: Items are ordered here as they appear in the menu
 		//If you want to change the menu items order, just change the order here
 		ITM_RES,		//Resistor item in menu
-	
+		ITM_BULB,		//Bulb item in menu
+		ITM_BATTERY,		//Battery item in menu
+		ITM_SWITCH,		//Switch item in menu
+		ITM_GROUND,		//Ground item in menu
+		ITM_BUZZER,		//Buzzer item in menu
+		ITM_FUSE,		//Fuse item in menu
 		ITM_EXIT,		//Exit item
 		//TODO: Add more items names here
 	
