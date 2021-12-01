@@ -188,12 +188,12 @@ void UI::CreateDesignToolBar()
 	//First prepare List of images for each menu item
 	string MenuItemImages[ITM_DSN_CNT];
 	MenuItemImages[ITM_RES] = "images\\Menu\\Menu_Resistor.jpg";
-	MenuItemImages[ITM_BULB] = "images\\Menu\\Menu_Resistor.jpg";
-	MenuItemImages[ITM_BATTERY] = "images\\Menu\\Menu_Resistor.jpg";
-	MenuItemImages[ITM_SWITCH] = "images\\Menu\\Menu_Resistor.jpg";
-	MenuItemImages[ITM_GROUND] = "images\\Menu\\Menu_Resistor.jpg";
-	MenuItemImages[ITM_BUZZER] = "images\\Menu\\Menu_Resistor.jpg";
-	MenuItemImages[ITM_FUSE] = "images\\Menu\\Menu_Resistor.jpg";
+	MenuItemImages[ITM_BULB] = "images\\Menu\\Menu_Bulb.jpg";
+	MenuItemImages[ITM_BATTERY] = "images\\Menu\\Menu_Battery.jpg";
+	MenuItemImages[ITM_SWITCH] = "images\\Menu\\Menu_Switch.jpg";
+	MenuItemImages[ITM_GROUND] = "images\\Menu\\Menu_Ground.jpg";
+	MenuItemImages[ITM_BUZZER] = "images\\Menu\\Menu_Buzzer.jpg";
+	MenuItemImages[ITM_FUSE] = "images\\Menu\\Menu_Fuse.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	//TODO: Prepare image for each menu item and add it to the list
@@ -234,10 +234,72 @@ void UI::DrawResistor(const GraphicsInfo &r_GfxInfo, bool selected) const
 	//Draw Resistor at Gfx_Info (1st corner)
 	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
+void UI::DrawBulb(const GraphicsInfo &r_GfxInfo, bool selected) const
+{
+	string ResImage;
+	if(selected)	
+		ResImage ="Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
+	else  
+		ResImage = "Images\\Comp\\Bulb.jpg";	//use image of the normal bulb
 
-//TODO: Add similar functions to draw all other components
+	//Draw Bulb at Gfx_Info (1st corner)
+	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+}
+void UI::DrawBattery(const GraphicsInfo &r_GfxInfo, bool selected) const
+{
+	string ResImage;
+	if(selected)	
+		ResImage ="Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
+	else  
+		ResImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
 
+	//Draw Battery at Gfx_Info (1st corner)
+	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+}
+void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo, bool selected) const
+{
+	string ResImage;
+	if(selected)	
+		ResImage ="Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
+	else  
+		ResImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
 
+	//Draw Switch at Gfx_Info (1st corner)
+	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+}
+void UI::DrawGround(const GraphicsInfo &r_GfxInfo, bool selected) const
+{
+	string ResImage;
+	if(selected)	
+		ResImage ="Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
+	else  
+		ResImage = "Images\\Comp\\Ground.jpg";	//use image of the normal ground
+
+	//Draw Ground at Gfx_Info (1st corner)
+	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+}
+void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo, bool selected) const
+{
+	string ResImage;
+	if(selected)	
+		ResImage ="Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
+	else  
+		ResImage = "Images\\Comp\\Buzzer.jpg";	//use image of the normal buzzer
+
+	//Draw Buzzer at Gfx_Info (1st corner)
+	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+}
+void UI::DrawFuse(const GraphicsInfo &r_GfxInfo, bool selected) const
+{
+	string ResImage;
+	if(selected)	
+		ResImage ="Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
+	else  
+		ResImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fuse
+
+	//Draw Fuse at Gfx_Info (1st corner)
+	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+}
 
 
 void UI::DrawConnection(const GraphicsInfo &r_GfxInfo, bool selected) const

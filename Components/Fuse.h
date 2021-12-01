@@ -1,5 +1,5 @@
 #pragma once
-#include "Fuse.h"
+#include "Component.h"
 
 class Fuse:public Component
 {
