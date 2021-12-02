@@ -6,11 +6,8 @@
 #include "Actions\ActionAddGround.h"
 #include "Actions\ActionAddBuzzer.h"
 #include "Actions\ActionAddFuse.h"
-<<<<<<< HEAD
 #include "Actions\ActionSimWindow.h"
-=======
 #include "Actions\ActionAddMenu.h"
->>>>>>> f409b58e283a081af9a89e2ae1153a9eaadf0b69
 
 
 ApplicationManager::ApplicationManager()

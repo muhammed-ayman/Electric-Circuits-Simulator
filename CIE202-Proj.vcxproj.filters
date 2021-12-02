@@ -154,6 +154,7 @@
     <ClCompile Include="Components\Ground.cpp" />
     <ClCompile Include="Components\Switch.cpp" />
     <ClCompile Include="Actions\ActionAddSwitch.cpp" />
+    <ClCompile Include="Actions\ActionSimWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Component.h">
@@ -246,6 +247,7 @@
     <ClInclude Include="Components\Ground.h" />
     <ClInclude Include="Components\Switch.h" />
     <ClInclude Include="Actions\ActionAddSwitch.h" />
+    <ClInclude Include="Actions\ActionSimWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt">

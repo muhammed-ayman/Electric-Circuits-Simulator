@@ -1,5 +1,5 @@
 #include "ActionSimWindow.h"
-#include "ApplicationManager.h"
+#include "..\ApplicationManager.h"
 
 ActionSimWindow::ActionSimWindow(ApplicationManager* pApp) :Action(pApp)
 {

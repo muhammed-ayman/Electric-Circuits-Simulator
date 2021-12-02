@@ -45,6 +45,7 @@ class UI
 		ITM_GROUND,		//Ground item in menu
 		ITM_BUZZER,		//Buzzer item in menu
 		ITM_FUSE,		//Fuse item in menu
+		ITM_SIM,  // Simulation item in menu
 		ITM_EXIT,		//Exit item
 		//TODO: Add more items names here
 	
