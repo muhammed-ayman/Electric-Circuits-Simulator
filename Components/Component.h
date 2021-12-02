@@ -46,6 +46,10 @@ public:
 	
 	//Destructor must be virtual
 	virtual ~Component();
+
+
+	GraphicsInfo* getGraphicsInfo();
+	void setClick(bool clickStatus);
 };
 
 #endif
