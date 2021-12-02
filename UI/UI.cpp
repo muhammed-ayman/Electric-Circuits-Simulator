@@ -119,9 +119,24 @@ ActionType UI::GetUserAction() const
 		//[3] User clicks on the status bar
 		return STATUS_BAR;
 	}
-	else	//Application is in Simulation mode
+	else if (AppMode == SIMULATION)	//Application is in Simulation mode
 	{
-		return SIM_MODE;	//This should be changed after creating the compelete simulation bar 
+		if (y >= 0 && y < ToolBarHeight)
+		{
+			//Check whick Menu item was clicked
+			//==> This assumes that menu items are lined up horizontally <==
+			int ClickedItemOrder = (x / ToolItemWidth);
+			//Divide x coord of the point clicked by the menu item width (int division)
+			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
+
+			switch (ClickedItemOrder)
+			{
+
+			case ITM_SIM_EXIT:	return EXIT;
+			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
+			}
+		}
+
 	}
 
 }
@@ -215,7 +230,17 @@ void UI::CreateSimulationToolBar()
 	AppMode = SIMULATION;	//Simulation Mode
 
 	//TODO: Write code to draw the simualtion toolbar (similar to that of design toolbar drawing)
+	pWind->SetBrush(WHITE);
+	pWind->DrawRectangle(0, 0, pWind->GetWidth(), ToolBarHeight);
+	string MenuItemImages[ITM_SIM_CNT];
+	MenuItemImages[ITM_CIRC_SIM] = "images\\Menu\\Menu_Exit.jpg";
+	MenuItemImages[ITM_SIM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
+	for (int i = 0; i < ITM_SIM_CNT; i++)
+		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth, ToolBarHeight);
+
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, ToolBarHeight, width, ToolBarHeight);
 
 }
 

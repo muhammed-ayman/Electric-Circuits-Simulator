@@ -57,12 +57,13 @@ class UI
 	{
 		//Note: Items are ordered here as they appear in menu
 		ITM_CIRC_SIM,	//Circuit Simulate menu item
-	
+
 		//TODO:Add more items names here
-	
+		ITM_SIM_EXIT,
 		ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
-	
+
 	};
+
 
 
 
