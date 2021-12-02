@@ -27,7 +27,7 @@ struct GraphicsInfo
 		PointsCount = PtsCnt;
 		PointsList = new Point[PointsCount];	//allocate required points
 	}
-
+	int isClicked = false;
 };
 
 
@@ -123,15 +123,14 @@ public:
 	void DrawBuzzer(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
 	void DrawFuse(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
 
-
-	///TODO: Make similar functions for drawing all other components, connections, .. etc
-
 	// Draws Connection
 	void DrawConnection(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
 	
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 
 	~UI();
+
+	void GetLastPointClicked(int& x, int& y);
 };
 
 #endif

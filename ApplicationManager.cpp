@@ -6,7 +6,11 @@
 #include "Actions\ActionAddGround.h"
 #include "Actions\ActionAddBuzzer.h"
 #include "Actions\ActionAddFuse.h"
+<<<<<<< HEAD
 #include "Actions\ActionSimWindow.h"
+=======
+#include "Actions\ActionAddMenu.h"
+>>>>>>> f409b58e283a081af9a89e2ae1153a9eaadf0b69
 
 
 ApplicationManager::ApplicationManager()
@@ -65,6 +69,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_FUSE:
 			pAct = new ActionAddFuse(this);
 			break;
+		
+		case SELECT:
+			pAct = new ActionAddMenu(this);
+			break;
 
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
@@ -108,4 +116,12 @@ ApplicationManager::~ApplicationManager()
 		delete CompList[i];
 	delete pUI;
 	
+}
+
+///////////////////////////////////////////////////////////////////
+
+void ApplicationManager::GetComponentList(Component* CompListNew[]) {
+	for (int i = 0; i < MaxCompCount; i++) {
+		CompListNew[i] = CompList[i];
+	}
 }

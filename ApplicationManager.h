@@ -42,6 +42,9 @@ public:
 
 	//destructor
 	~ApplicationManager();
+
+
+	void GetComponentList(Component* CompListNew[]);
 };
 
 #endif
