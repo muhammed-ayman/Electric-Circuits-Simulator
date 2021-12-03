@@ -16,3 +16,11 @@ Component::Component()
 Component::~Component()
 {}
 
+GraphicsInfo* Component::getGraphicsInfo() {
+	return m_pGfxInfo;
+}
+
+
+void Component::setClick(bool clickStatus) {
+	m_pGfxInfo->isClicked = clickStatus;
+}

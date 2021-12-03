@@ -41,6 +41,13 @@ void UI::GetPointClicked(int &x, int &y)
 	pWind->WaitMouseClick(x, y);	//Wait for mouse click
 }
 
+void UI::GetLastPointClicked(int& x, int& y)
+{
+	pWind->GetMouseCoord(x, y);	//Wait for mouse click
+
+}
+
+
 string UI::GetSrting()
 {
 	//Reads a complete string from the user until the user presses "ENTER".
@@ -226,7 +233,7 @@ void UI::CreateSimulationToolBar()
 void UI::DrawResistor(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
 	string ResImage;
-	if(selected)	
+	if(r_GfxInfo.isClicked)
 		ResImage ="Images\\Comp\\Resistor_HI.jpg";	//use image of highlighted resistor
 	else  
 		ResImage = "Images\\Comp\\Resistor.jpg";	//use image of the normal resistor
@@ -237,7 +244,7 @@ void UI::DrawResistor(const GraphicsInfo &r_GfxInfo, bool selected) const
 void UI::DrawBulb(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
 	string ResImage;
-	if(selected)	
+	if(r_GfxInfo.isClicked)
 		ResImage ="Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
 	else  
 		ResImage = "Images\\Comp\\Bulb.jpg";	//use image of the normal bulb
@@ -248,7 +255,7 @@ void UI::DrawBulb(const GraphicsInfo &r_GfxInfo, bool selected) const
 void UI::DrawBattery(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
 	string ResImage;
-	if(selected)	
+	if(r_GfxInfo.isClicked)
 		ResImage ="Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
 	else  
 		ResImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
@@ -259,7 +266,7 @@ void UI::DrawBattery(const GraphicsInfo &r_GfxInfo, bool selected) const
 void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
 	string ResImage;
-	if(selected)	
+	if(r_GfxInfo.isClicked)
 		ResImage ="Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
 	else  
 		ResImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
@@ -270,7 +277,7 @@ void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo, bool selected) const
 void UI::DrawGround(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
 	string ResImage;
-	if(selected)	
+	if(r_GfxInfo.isClicked)
 		ResImage ="Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
 	else  
 		ResImage = "Images\\Comp\\Ground.jpg";	//use image of the normal ground
@@ -281,7 +288,7 @@ void UI::DrawGround(const GraphicsInfo &r_GfxInfo, bool selected) const
 void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
 	string ResImage;
-	if(selected)	
+	if(r_GfxInfo.isClicked)
 		ResImage ="Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
 	else  
 		ResImage = "Images\\Comp\\Buzzer.jpg";	//use image of the normal buzzer
@@ -292,7 +299,7 @@ void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo, bool selected) const
 void UI::DrawFuse(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
 	string ResImage;
-	if(selected)	
+	if(r_GfxInfo.isClicked)
 		ResImage ="Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
 	else  
 		ResImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fuse
