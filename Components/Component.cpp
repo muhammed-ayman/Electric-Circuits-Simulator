@@ -14,7 +14,10 @@ Component::Component()
 }
 
 Component::~Component()
-{}
+{
+	delete m_pGfxInfo;
+	m_pGfxInfo = nullptr;
+}
 
 GraphicsInfo* Component::getGraphicsInfo() {
 	return m_pGfxInfo;

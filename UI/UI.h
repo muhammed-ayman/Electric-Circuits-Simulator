@@ -129,6 +129,7 @@ public:
 
 	~UI();
 
+	// Gets the last point the user clicked by triggering the position of the x and y as they change.
 	void GetLastPointClicked(int& x, int& y);
 };
 
