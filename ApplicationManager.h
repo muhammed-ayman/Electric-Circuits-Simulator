@@ -43,7 +43,7 @@ public:
 	//destructor
 	~ApplicationManager();
 
-
+	//Retrieves the current list of added components. 	
 	void GetComponentList(Component* CompListNew[]);
 };
 

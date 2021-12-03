@@ -15,7 +15,7 @@ UI::UI()
 	pWind = new window(width, height, wx, wy);	
 
 
-	ChangeTitle("Logic Simulator Project");
+	ChangeTitle("Electric Circuit Simulator Project");
 
 	CreateDesignToolBar();	//Create the desgin toolbar
 	CreateStatusBar();		//Create Status bar
@@ -43,7 +43,7 @@ void UI::GetPointClicked(int &x, int &y)
 
 void UI::GetLastPointClicked(int& x, int& y)
 {
-	pWind->GetMouseCoord(x, y);	//Wait for mouse click
+	pWind->GetMouseCoord(x, y);	// Retrieves the current location of the mouse (x and y).
 
 }
 
@@ -345,4 +345,5 @@ void UI::DrawConnection(const GraphicsInfo &r_GfxInfo, bool selected) const
 UI::~UI()
 {
 	delete pWind;
+	pWind = nullptr;
 }
