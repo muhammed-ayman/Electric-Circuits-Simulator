@@ -45,6 +45,7 @@ class UI
 		ITM_GROUND,		//Ground item in menu
 		ITM_BUZZER,		//Buzzer item in menu
 		ITM_FUSE,		//Fuse item in menu
+		ITM_SIM,  // Simulation item in menu
 		ITM_EXIT,		//Exit item
 		//TODO: Add more items names here
 	
@@ -57,12 +58,13 @@ class UI
 	{
 		//Note: Items are ordered here as they appear in menu
 		ITM_CIRC_SIM,	//Circuit Simulate menu item
-	
+
 		//TODO:Add more items names here
-	
+		ITM_SIM_EXIT,
 		ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
-	
+
 	};
+
 
 
 

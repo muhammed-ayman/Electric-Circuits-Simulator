@@ -6,6 +6,7 @@
 #include "Actions\ActionAddGround.h"
 #include "Actions\ActionAddBuzzer.h"
 #include "Actions\ActionAddFuse.h"
+#include "Actions\ActionSimWindow.h"
 #include "Actions\ActionAddMenu.h"
 
 
@@ -72,6 +73,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case ADD_CONNECTION:
 			//TODO: Create AddConection Action here
+			break;
+
+		case SIM_MODE:
+			pAct = new ActionSimWindow(this);
 			break;
 
 		case EXIT:

@@ -4,5 +4,5 @@
 ---
 * Mohammed Ayman
 * Ahmed Hesham
-* Karim El-Ozerie
+* Kareem Elozeiri
 * Mohamed Ezzat
