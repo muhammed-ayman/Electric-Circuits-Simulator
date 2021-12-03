@@ -47,8 +47,10 @@ public:
 	//Destructor must be virtual
 	virtual ~Component();
 
-
+	// Gets graphical info of the component drawn
 	GraphicsInfo* getGraphicsInfo();
+
+	// changes the click of the mouse to true or false. Takes a boolean as a parameter and changes the mouse status as per the boolean
 	void setClick(bool clickStatus);
 };
 
