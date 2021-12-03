@@ -7,7 +7,7 @@
 #include "Actions\ActionAddBuzzer.h"
 #include "Actions\ActionAddFuse.h"
 #include "Actions\ActionSimWindow.h"
-#include "Actions\ActionAddMenu.h"
+#include "Actions\ActionSelect.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -68,7 +68,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		
 		case SELECT:
-			pAct = new ActionAddMenu(this);
+			pAct = new ActionSelect(this);
 			break;
 
 		case ADD_CONNECTION:

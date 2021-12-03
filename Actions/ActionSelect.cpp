@@ -1,17 +1,17 @@
-#include "ActionAddMenu.h"
+#include "ActionSelect.h"
 #include "../ApplicationManager.h"
 #include <sstream>
 
-ActionAddMenu::ActionAddMenu(ApplicationManager* pApp) :Action(pApp)
+ActionSelect::ActionSelect(ApplicationManager* pApp) :Action(pApp)
 {
 }
 
 
-ActionAddMenu::~ActionAddMenu(void)
+ActionSelect::~ActionSelect(void)
 {
 }
 
-void ActionAddMenu::Execute()
+void ActionSelect::Execute()
 {
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
@@ -56,9 +56,9 @@ void ActionAddMenu::Execute()
 
 }
 
-void ActionAddMenu::Undo()
+void ActionSelect::Undo()
 {}
 
-void ActionAddMenu::Redo()
+void ActionSelect::Redo()
 {}
 

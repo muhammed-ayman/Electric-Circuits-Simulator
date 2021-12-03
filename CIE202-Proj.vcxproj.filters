@@ -141,7 +141,7 @@
     <ClCompile Include="Actions\ActionAddRes.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
-    <ClCompile Include="Actions\ActionAddMenu.cpp" />
+    <ClCompile Include="Actions\ActionSelect.cpp" />
     <ClCompile Include="Actions\ActionAddBattery.cpp" />
     <ClCompile Include="Actions\ActionAddBulb.cpp" />
     <ClCompile Include="Actions\ActionAddBuzzer.cpp" />
@@ -234,7 +234,7 @@
     <ClInclude Include="Actions\ActionAddRes.h">
       <Filter>Actions</Filter>
     </ClInclude>
-    <ClInclude Include="Actions\ActionAddMenu.h" />
+    <ClInclude Include="Actions\ActionSelect.h" />
     <ClInclude Include="Actions\ActionAddBattery.h" />
     <ClInclude Include="Actions\ActionAddBulb.h" />
     <ClInclude Include="Actions\ActionAddBuzzer.h" />
