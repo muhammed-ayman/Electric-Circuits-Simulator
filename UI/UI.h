@@ -133,6 +133,11 @@ public:
 
 	// Gets the last point the user clicked by triggering the position of the x and y as they change.
 	void GetLastPointClicked(int& x, int& y);
+
+	// Drawing the Edit Menu
+	void DrawEditMenu();
+	void ClearEditMenu() const;
+	
 };
 
 #endif
