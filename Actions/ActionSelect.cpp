@@ -9,6 +9,8 @@ ActionSelect::ActionSelect(ApplicationManager* pApp) :Action(pApp)
 
 ActionSelect::~ActionSelect(void)
 {
+	delete pManager;
+	pManager = nullptr;
 }
 
 void ActionSelect::Execute()
@@ -36,7 +38,7 @@ void ActionSelect::Execute()
 			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
 				pUI->PrintMsg("Component Clicked");
 				clicked = 1; // Change the clicked status to true every time a component is clicked
-				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
+				CompList[i]->setClick(clicked); // setClick(true) makes drawResistor use the highlighted image
 			}
 		}
 	}
@@ -47,7 +49,7 @@ void ActionSelect::Execute()
 		for (int i = 0; i < 200; i++) {
 			// If there is component, proceed
 			if (CompList[i] != nullptr) {
-				CompList[i]->setClick(false); // Unselects all the components (unhighlighting the images)
+				CompList[i]->setClick(clicked); // Unselects all the components (unhighlighting the images)
 			}
 		}
 	}
