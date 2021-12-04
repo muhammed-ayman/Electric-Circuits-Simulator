@@ -2,6 +2,7 @@
 #define ACTION_ADD_MENU_H
 
 #include "../ApplicationManager.h"
+#include "../Components/Component.h"
 
 class ActionAddMenu {
 
@@ -12,7 +13,7 @@ public:
 
 	ActionAddMenu(ApplicationManager* pApp) { pManager = pApp; }
 
-	void DrawComponentMenu();
+	void DrawComponentMenu(Component* Comp);
 	
 	~ActionAddMenu();
 

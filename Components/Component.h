@@ -10,7 +10,7 @@
 class Component
 {
 private:
-	string m_Label;
+	string m_Label = "Component";
 protected:
 	//Each component has two ending terminals (term1, term2)
 	double term1_volt, term2_volt;	//voltage at terminals 1&2
@@ -52,6 +52,10 @@ public:
 
 	// changes the click of the mouse to true or false. Takes a boolean as a parameter and changes the mouse status as per the boolean
 	void setClick(bool clickStatus);
+
+	// Label Getter & Setter
+	string getLabel() const;
+	void setLabel(string label);
 };
 
 #endif
