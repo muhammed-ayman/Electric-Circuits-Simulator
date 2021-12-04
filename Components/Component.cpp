@@ -27,3 +27,12 @@ GraphicsInfo* Component::getGraphicsInfo() {
 void Component::setClick(bool clickStatus) {
 	m_pGfxInfo->isClicked = clickStatus;
 }
+
+ 
+string Component::getLabel() const {
+	return this->m_Label;
+}
+
+void Component::setLabel(string label) {
+	this->m_Label = label;
+}

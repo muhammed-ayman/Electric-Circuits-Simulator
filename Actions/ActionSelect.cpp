@@ -1,5 +1,6 @@
 #include "ActionSelect.h"
 #include "../ApplicationManager.h"
+#include "ActionAddMenu.h"
 #include <sstream>
 
 ActionSelect::ActionSelect(ApplicationManager* pApp) :Action(pApp)
@@ -23,6 +24,9 @@ void ActionSelect::Execute()
 	// Retrieves the mouse coordinates clicked by the user
 	pUI->GetLastPointClicked(x, y);
 
+	// Initializing the pointer to the ActionAddMenu
+	ActionAddMenu* Menu = new ActionAddMenu(pManager);;
+
 	Component* CompList[200];
 
 	pManager->GetComponentList(CompList);
@@ -39,6 +43,7 @@ void ActionSelect::Execute()
 				pUI->PrintMsg("Component Clicked");
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(clicked); // setClick(true) makes drawResistor use the highlighted image
+				Menu->DrawComponentMenu(CompList[i]);
 			}
 		}
 	}
@@ -52,10 +57,10 @@ void ActionSelect::Execute()
 				CompList[i]->setClick(clicked); // Unselects all the components (unhighlighting the images)
 			}
 		}
+		pUI->ClearEditMenu();
 	}
 
-
-
+	delete Menu;
 }
 
 void ActionSelect::Undo()

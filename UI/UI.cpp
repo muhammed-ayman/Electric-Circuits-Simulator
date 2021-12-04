@@ -347,3 +347,19 @@ UI::~UI()
 	delete pWind;
 	pWind = nullptr;
 }
+
+
+void UI::DrawEditMenu() {
+	// Draw a line under the toolbar
+	this->ClearEditMenu();
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(width-300, ToolBarHeight, width- 300, height-StatusBarHeight);
+}
+
+
+void UI::ClearEditMenu() const
+{
+	pWind->SetPen(BkGrndColor);
+	pWind->SetBrush(BkGrndColor);
+	pWind->DrawRectangle(width - 302, ToolBarHeight + 2, width, height - StatusBarHeight - 1);
+}
