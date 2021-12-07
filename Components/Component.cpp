@@ -36,3 +36,8 @@ string Component::getLabel() const {
 void Component::setLabel(string label) {
 	this->m_Label = label;
 }
+
+
+Items Component::GetItemType() const {
+	return this->itemType;
+}

@@ -1,7 +1,9 @@
 #include "Switch.h"
 
 Switch::Switch(GraphicsInfo *r_GfxInfo):Component(r_GfxInfo)
-{}
+{
+	this->itemType = SWITCH;
+}
 
 void Switch::Draw(UI* pUI)
 {

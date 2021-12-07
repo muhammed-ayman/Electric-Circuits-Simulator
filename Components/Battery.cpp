@@ -1,7 +1,9 @@
 #include "Battery.h"
 
 Battery::Battery(GraphicsInfo *r_GfxInfo):Component(r_GfxInfo)
-{}
+{
+	this->itemType = BATTERY;
+}
 
 void Battery::Draw(UI* pUI)
 {

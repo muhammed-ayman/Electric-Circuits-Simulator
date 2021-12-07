@@ -47,6 +47,18 @@ enum  MODE	//Modes of operation
 	SIMULATION
 };
 
+
+enum Items
+{
+	RES,
+	BULB,
+	BATTERY,
+	SWITCH,
+	GROUND,
+	BUZZER,
+	FUSE
+};
+
 //Maximum number of connections that can be connected to any output components
 #define MAX_CONNS 20
 

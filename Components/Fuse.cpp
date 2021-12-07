@@ -1,7 +1,9 @@
 #include "Fuse.h"
 
 Fuse::Fuse(GraphicsInfo *r_GfxInfo):Component(r_GfxInfo)
-{}
+{
+	this->itemType = FUSE;
+}
 
 void Fuse::Draw(UI* pUI)
 {

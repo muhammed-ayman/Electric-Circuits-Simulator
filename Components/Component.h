@@ -11,7 +11,11 @@ class Component
 {
 private:
 	string m_Label = "Component";
+
 protected:
+
+	Items itemType;
+
 	//Each component has two ending terminals (term1, term2)
 	double term1_volt, term2_volt;	//voltage at terminals 1&2
 
@@ -56,6 +60,8 @@ public:
 	// Label Getter & Setter
 	string getLabel() const;
 	void setLabel(string label);
+
+	Items GetItemType() const;
 };
 
 #endif
