@@ -75,6 +75,8 @@ class UI
 						StatusBarHeight = 50,	//Status Bar Height
 						ToolBarHeight = 80,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
 						ToolItemWidth = 80,		//Width of each item in toolbar menu
+						
+						EditMenuWidth = 300,
 
 						//Arbitrary values, you can change as you wish
 						COMP_WIDTH = 100,		//Component Image width

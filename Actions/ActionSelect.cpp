@@ -24,7 +24,7 @@ void ActionSelect::Execute()
 	pUI->GetLastPointClicked(x, y);
 
 	// Initializing the pointer to the ActionAddMenu
-	ActionAddMenu* Menu = new ActionAddMenu(pManager);;
+	ActionAddMenu* Menu = new ActionAddMenu(pManager);
 
 	Component* CompList[200];
 
@@ -41,8 +41,8 @@ void ActionSelect::Execute()
 			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
-				Menu->DrawComponentMenu(CompList[i]);
 				pManager->setSelectedComponentId(i);
+				Menu->DrawComponentMenu(CompList[i]);
 			}
 		}
 	}

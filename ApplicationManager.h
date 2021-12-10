@@ -50,7 +50,7 @@ public:
 	void GetComponentList(Component* CompListNew[]);
 
 	void setSelectedComponentId(int selectedCompId);
-	int getSelectedComponentId(int selectedCompId);
+	int getSelectedComponentId();
 };
 
 #endif

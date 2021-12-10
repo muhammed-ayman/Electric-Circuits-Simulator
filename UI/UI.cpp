@@ -119,9 +119,17 @@ ActionType UI::GetUserAction() const
 		}
 	
 		//[2] User clicks on the drawing area
-		if ( y >= ToolBarHeight && y < height - StatusBarHeight)
+		if ( y >= ToolBarHeight && y < height - StatusBarHeight && x < width - EditMenuWidth)
 		{
 			return SELECT;	//user want to select/unselect a statement in the flowchart
+		}
+
+		// [3] User clicks on the edit menu area
+		if (y >= ToolBarHeight && y < height - StatusBarHeight && x >= width - EditMenuWidth)
+		{
+			if (y >= height - StatusBarHeight - 100 && y <= height - StatusBarHeight - 50) {
+				return EDIT_Label;	//user want to select/unselect a statement in the flowchart
+			}
 		}
 		
 		//[3] User clicks on the status bar
@@ -354,14 +362,14 @@ void UI::DrawEditMenu(string ComponentLabel="Component", string ComponentValue =
 	// Draw the left border
 	this->ClearEditMenu();
 	pWind->SetPen(RED, 3);
-	pWind->DrawLine(width - 300, ToolBarHeight, width - 300, height - StatusBarHeight);
+	pWind->DrawLine(width - EditMenuWidth, ToolBarHeight, width - EditMenuWidth, height - StatusBarHeight);
 
 	// Draw the title and its borders
 	pWind->SetFont(23, BOLD, BY_NAME, "Arial");
 	pWind->SetPen(BLACK);
 	pWind->DrawString(width - 205, ToolBarHeight + 40, "Edit Menu");
 	pWind->SetPen(RED, 3);
-	pWind->DrawLine(width - 300, ToolBarHeight + 90, width, ToolBarHeight + 90);
+	pWind->DrawLine(width - EditMenuWidth, ToolBarHeight + 90, width, ToolBarHeight + 90);
 	
 	// Draw the component's info
 	pWind->SetFont(21, BOLD, BY_NAME, "Arial");
@@ -379,8 +387,8 @@ void UI::DrawEditMenu(string ComponentLabel="Component", string ComponentValue =
 	pWind->DrawString(width - 200, height - StatusBarHeight - 35, "Edit Value");
 
 	pWind->SetPen(RED,3);
-	pWind->DrawLine(width - 300, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);
-	pWind->DrawLine(width - 300, height - StatusBarHeight - 50, width, height - StatusBarHeight - 50);
+	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);
+	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 50, width, height - StatusBarHeight - 50);
 	
 }
 

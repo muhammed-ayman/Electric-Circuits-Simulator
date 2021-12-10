@@ -8,6 +8,7 @@
 #include "Actions\ActionAddFuse.h"
 #include "Actions\ActionSimWindow.h"
 #include "Actions\ActionSelect.h"
+#include "Actions\ActionEditLabel.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -75,6 +76,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			//TODO: Create AddConection Action here
 			break;
 
+		case EDIT_Label:
+			if (this->SelectedComponentId >= 0) {
+				pAct = new ActionEditLabel(this);
+			}
+			break;
+
 		case SIM_MODE:
 			pAct = new ActionSimWindow(this);
 			break;
@@ -130,6 +137,6 @@ void ApplicationManager::setSelectedComponentId(int selectedCompId) {
 	this->SelectedComponentId = selectedCompId;
 }
 
-int ApplicationManager::getSelectedComponentId(int selectedCompId) {
+int ApplicationManager::getSelectedComponentId() {
 	return this->SelectedComponentId;
 }
