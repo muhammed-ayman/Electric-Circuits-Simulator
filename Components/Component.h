@@ -63,6 +63,10 @@ public:
 	string getLabel() const;
 	void setLabel(string label);
 
+	// Value Getter & Setter
+	double getValue() const;
+	void setValue(double value);
+
 	Items GetItemType() const;
 };
 

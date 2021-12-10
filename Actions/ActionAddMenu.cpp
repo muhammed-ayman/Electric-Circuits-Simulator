@@ -2,10 +2,9 @@
 
 void ActionAddMenu::DrawComponentMenu(Component* Comp) {
 
-	UI* pUI = pManager->GetUI();
+	UI* pUI = pManager->GetUI();	
 
-	pUI->PrintMsg(Comp->getLabel());
-	pUI->DrawEditMenu();
+	pUI->DrawEditMenu(Comp->getLabel(), to_string(Comp->getValue()));
 
 }
 

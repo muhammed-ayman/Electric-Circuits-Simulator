@@ -37,6 +37,16 @@ void Component::setLabel(string label) {
 	this->m_Label = label;
 }
 
+double Component::getValue() const {
+	return this->value;
+}
+
+void Component::setValue(double value) {
+	this->value = value;
+}
+
+
+
 
 Items Component::GetItemType() const {
 	return this->itemType;

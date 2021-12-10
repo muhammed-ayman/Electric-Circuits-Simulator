@@ -135,7 +135,7 @@ public:
 	void GetLastPointClicked(int& x, int& y);
 
 	// Drawing the Edit Menu
-	void DrawEditMenu();
+	void DrawEditMenu(string ComponentLabel, string ComponentValue);
 	void ClearEditMenu() const;
 	
 };

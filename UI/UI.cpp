@@ -349,11 +349,37 @@ UI::~UI()
 }
 
 
-void UI::DrawEditMenu() {
+void UI::DrawEditMenu(string ComponentLabel="Component", string ComponentValue = "1") {
 	// Draw a line under the toolbar
 	this->ClearEditMenu();
 	pWind->SetPen(RED, 3);
-	pWind->DrawLine(width-300, ToolBarHeight, width- 300, height-StatusBarHeight);
+	pWind->DrawLine(width-300, ToolBarHeight, width - 300, height-StatusBarHeight);
+
+	// Print the Message
+	pWind->SetFont(23, BOLD, BY_NAME, "Arial");
+	pWind->SetPen(BLACK);
+	pWind->DrawString(width - 205, ToolBarHeight + 40, "Edit Menu");
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(width - 300, ToolBarHeight + 90, width, ToolBarHeight + 90);
+	
+	pWind->SetFont(21, BOLD, BY_NAME, "Arial");
+	pWind->SetPen(MsgColor);
+
+	pWind->DrawString(width - 260, height - 400, "Label");
+	pWind->DrawString(width - 260, height - 350, "Value");
+
+	pWind->DrawString(width - 160, height - 400, ComponentLabel);
+	pWind->DrawString(width - 160, height - 350, ComponentValue);
+
+	pWind->SetPen(BLACK);
+	pWind->DrawString(width - 200, height - StatusBarHeight - 85, "Edit Label");
+	pWind->DrawString(width - 200, height - StatusBarHeight - 35, "Edit Value");
+
+	pWind->SetPen(RED,3);
+	pWind->DrawLine(width - 300, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);
+	pWind->DrawLine(width - 300, height - StatusBarHeight - 50, width, height - StatusBarHeight - 50);
+	//pWind->DrawLine(width - 300, height - StatusBarHeight, width, height - 117);
+
 }
 
 
