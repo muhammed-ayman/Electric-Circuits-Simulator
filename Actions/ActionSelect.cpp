@@ -42,6 +42,7 @@ void ActionSelect::Execute()
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
 				Menu->DrawComponentMenu(CompList[i]);
+				pManager->setSelectedComponentId(i);
 			}
 		}
 	}
@@ -56,6 +57,8 @@ void ActionSelect::Execute()
 			}
 		}
 		pUI->ClearEditMenu();
+
+		pManager->setSelectedComponentId(-1);
 	}
 
 	delete Menu;

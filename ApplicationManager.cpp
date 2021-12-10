@@ -122,3 +122,14 @@ void ApplicationManager::GetComponentList(Component* CompListNew[]) {
 		CompListNew[i] = CompList[i];
 	}
 }
+
+
+///////////////////////////////////////////////////////////////////
+
+void ApplicationManager::setSelectedComponentId(int selectedCompId) {
+	this->SelectedComponentId = selectedCompId;
+}
+
+int ApplicationManager::getSelectedComponentId(int selectedCompId) {
+	return this->SelectedComponentId;
+}
