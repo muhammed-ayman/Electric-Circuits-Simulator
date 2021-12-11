@@ -11,4 +11,10 @@ void Connection::Draw(UI* pUI)
 	pUI->DrawConnection(*pGfxInfo);
 }
 
+string Connection::getConnectionLabel() const {
+	return this->c_Label;
+}
 
+void Connection::setConnectionLabel(string label) {
+	this->c_Label = label;
+}
