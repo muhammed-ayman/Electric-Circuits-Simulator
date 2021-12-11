@@ -19,7 +19,7 @@ private:
 	UI* pUI; //pointer to the UI
 
 
-	int SelectedComponentId = -1;
+	int SelectedComponentId = -1; //initial value for selected component ID
 
 
 public:
@@ -49,8 +49,8 @@ public:
 	//Retrieves the current list of added components. 	
 	void GetComponentList(Component* CompListNew[]);
 
-	void setSelectedComponentId(int selectedCompId);
-	int getSelectedComponentId();
+	void setSelectedComponentId(int selectedCompId); // setter for selected component ID
+	int getSelectedComponentId(); // getter for selected component ID
 };
 
 #endif

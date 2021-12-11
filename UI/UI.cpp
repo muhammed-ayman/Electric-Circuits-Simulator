@@ -93,7 +93,7 @@ ActionType UI::GetUserAction() const
 
 	if(AppMode == DESIGN )	//application is in design mode
 	{
-		//[1] If user clicks on the Toolbar
+		// [1] If user clicks on the Toolbar
 		if ( y >= 0 && y < ToolBarHeight)
 		{	
 			//Check whick Menu item was clicked
@@ -119,24 +119,24 @@ ActionType UI::GetUserAction() const
 			}
 		}
 	
-		//[2] User clicks on the drawing area
+		// [2] User clicks on the drawing area
 		if ( y >= ToolBarHeight && y < height - StatusBarHeight && x < width - EditMenuWidth)
 		{
-			return SELECT;	//user want to select/unselect a statement in the flowchart
+			return SELECT;	//user wants to select/unselect a statement in the flowchart
 		}
 
 		// [3] User clicks on the edit menu area
 		if (y >= ToolBarHeight && y < height - StatusBarHeight && x >= width - EditMenuWidth)
 		{
 			if (y >= height - StatusBarHeight - 100 && y < height - StatusBarHeight - 50) {
-				return EDIT_Label;	//user want to select/unselect a statement in the flowchart
+				return EDIT_Label;	// user wants to edit the component's label
 			}
 			if (y >= height - StatusBarHeight - 50 && y <= height - StatusBarHeight) {
-				return EDIT_Value;	//user want to select/unselect a statement in the flowchart
+				return EDIT_Value;	// user wants to edit the component's value
 			}
 		}
 		
-		//[3] User clicks on the status bar
+		// [3] User clicks on the status bar
 		return STATUS_BAR;
 	}
 	else if (AppMode == SIMULATION)	//Application is in Simulation mode

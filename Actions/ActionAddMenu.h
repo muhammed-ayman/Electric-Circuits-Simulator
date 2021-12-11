@@ -13,7 +13,7 @@ public:
 
 	ActionAddMenu(ApplicationManager* pApp) { pManager = pApp; }
 
-	void DrawComponentMenu(Component* Comp);
+	void DrawComponentMenu(Component* Comp); // Drawing the component menu. Takes pointer of type Component as a parameter.
 	
 	~ActionAddMenu();
 

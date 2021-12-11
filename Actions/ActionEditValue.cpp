@@ -19,11 +19,13 @@ void ActionEditValue::Execute()
 
 	pUI->PrintMsg("Type in the new Value & Press Enter when you finish");
 
-	string newValue = pUI->GetSrting();
+	string newValue = pUI->GetSrting(); // Get the value input from the user
 
-	bool canBeConverted = true;
+	// Validate the newValue
+	
+	bool canBeConverted = true; // Can be converted to double
 
-	int points = 0;
+	int points = 0; // number of decimal points (shouldn't exceed one)
 
 	for (int i = 0; i < newValue.length(); i++) {
 		if (newValue[i] == '.') {
@@ -38,23 +40,24 @@ void ActionEditValue::Execute()
 		}
 	}
 
+	// Proceed and change the value if it's a vaild double value
 	if (canBeConverted) {
 
 		Component* CompList[200];
 
 		pManager->GetComponentList(CompList);
 
-		CompList[pManager->getSelectedComponentId()]->setValue(stod(newValue));
+		CompList[pManager->getSelectedComponentId()]->setValue(stod(newValue)); // Set the input value to the current selected component
 
 		pUI->ClearStatusBar();
 		pUI->PrintMsg("New Value Recorded!");
 
 		// Initializing the pointer to the ActionAddMenu
 		ActionAddMenu* Menu = new ActionAddMenu(pManager);
-		Menu->DrawComponentMenu(CompList[pManager->getSelectedComponentId()]);
+		Menu->DrawComponentMenu(CompList[pManager->getSelectedComponentId()]); // Redraw the edit menu for the current selected component
 
 		delete Menu;
-
+		Menu = nullptr;
 	}
 	else {
 		pUI->ClearStatusBar();

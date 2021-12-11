@@ -10,13 +10,13 @@
 class Component
 {
 private:
-	string m_Label = "Component";
+	string m_Label = "Component"; // Initial label for all components
 
 protected:
 
-	Items itemType;
+	Items itemType; //Creating an instance of the Items enumerator.
 
-	double value;
+	double value; // Variable that holds the value of each component
 
 	//Each component has two ending terminals (term1, term2)
 	double term1_volt, term2_volt;	//voltage at terminals 1&2
@@ -66,6 +66,7 @@ public:
 	double getValue() const;
 	void setValue(double value);
 
+
 	Items GetItemType() const;
 
 	//getter and setter for the component term1 connection
@@ -75,6 +76,7 @@ public:
 	//getter and setter for the component term1 connection
 	Connection* getTerm2Conn() const;
 	void setTerm2Conn(Connection *conn);
+
 
 };
 

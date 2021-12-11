@@ -11,6 +11,7 @@ ActionSelect::ActionSelect(ApplicationManager* pApp) :Action(pApp)
 
 ActionSelect::~ActionSelect(void)
 {
+
 }
 
 void ActionSelect::Execute()
@@ -41,8 +42,8 @@ void ActionSelect::Execute()
 			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
-				pManager->setSelectedComponentId(i);
-				Menu->DrawComponentMenu(CompList[i]);
+				pManager->setSelectedComponentId(i); // Setting the selected component ID as the one currently clicked from the component list
+				Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
 			}
 		}
 	}
@@ -56,12 +57,13 @@ void ActionSelect::Execute()
 				CompList[i]->setClick(false); // Unselects all the components (unhighlighting the images)
 			}
 		}
-		pUI->ClearEditMenu();
+		pUI->ClearEditMenu(); // Clearning the edit menu once the user clicks outside the components
 
-		pManager->setSelectedComponentId(-1);
+		pManager->setSelectedComponentId(-1); // Re-setting the selected component ID to -1 indicating that there is currently no selected component
 	}
 
-	delete Menu;
+	delete Menu; // Freeing the memory after unselecting all components
+	Menu = nullptr;
 }
 
 void ActionSelect::Undo()

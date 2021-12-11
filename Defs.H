@@ -51,7 +51,7 @@ enum  MODE	//Modes of operation
 };
 
 
-enum Items
+enum Items // All possible items
 {
 	RES,
 	BULB,
@@ -59,7 +59,8 @@ enum Items
 	SWITCH,
 	GROUND,
 	BUZZER,
-	FUSE
+	FUSE,
+	CONNECTION
 };
 
 //Maximum number of connections that can be connected to any output components

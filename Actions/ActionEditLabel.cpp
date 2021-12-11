@@ -20,22 +20,23 @@ void ActionEditLabel::Execute()
 
 	pUI->PrintMsg("Type in the new Label & Press Enter when you finish");
 	
-	string newLabel = pUI->GetSrting();
+	string newLabel = pUI->GetSrting(); // Get the new label input from the user
 
 	Component* CompList[200];
 
 	pManager->GetComponentList(CompList);
 
-	CompList[pManager->getSelectedComponentId()]->setLabel(newLabel);
+	CompList[pManager->getSelectedComponentId()]->setLabel(newLabel); // Set the input label value to the current selected component
 
 	pUI->ClearStatusBar();
 	pUI->PrintMsg("New Label Recorded!");
 
 	// Initializing the pointer to the ActionAddMenu
 	ActionAddMenu* Menu = new ActionAddMenu(pManager);
-	Menu->DrawComponentMenu(CompList[pManager->getSelectedComponentId()]);
+	Menu->DrawComponentMenu(CompList[pManager->getSelectedComponentId()]); // Redraw the edit menu for the current selected component
 
 	delete Menu;
+	Menu = nullptr;
 }
 
 void ActionEditLabel::Undo()
