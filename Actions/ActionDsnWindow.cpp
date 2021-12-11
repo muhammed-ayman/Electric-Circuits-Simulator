@@ -13,7 +13,7 @@ void ActionDsnWindow::Execute()
 {
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
-	//creating simulation toolbar
+	//creating design mode toolbar
 	pUI->CreateDesignToolBar();
 	//Print Action Message
 	pUI->PrintMsg("Back to design mode");
