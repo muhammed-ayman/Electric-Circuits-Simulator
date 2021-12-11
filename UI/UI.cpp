@@ -113,6 +113,8 @@ ActionType UI::GetUserAction() const
 			case ITM_FUSE:	return ADD_FUSE;
 			case ITM_CONNECTION: return ADD_CONNECTION;
 			case ITM_SIM: return SIM_MODE;
+			case ITM_SAVE: return SAVE;
+			case ITM_LOAD: return LOAD;
 			case ITM_EXIT:	return EXIT;	
 			
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
@@ -230,6 +232,8 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_BUZZER] = "images\\Menu\\Menu_Buzzer.jpg";
 	MenuItemImages[ITM_FUSE] = "images\\Menu\\Menu_Fuse.jpg";
 	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_Connection.jpg";
+	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
+	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 

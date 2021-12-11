@@ -46,7 +46,9 @@ class UI
 		ITM_BUZZER,		//Buzzer item in menu
 		ITM_FUSE,		//Fuse item in menu
 		ITM_CONNECTION,
-		ITM_SIM,  // Simulation item in menu
+		ITM_SAVE,
+		ITM_LOAD,
+		ITM_SIM, // Simulation item in menu
 		ITM_EXIT,		//Exit item
 		//TODO: Add more items names here
 	
