@@ -111,7 +111,10 @@ ActionType UI::GetUserAction() const
 			case ITM_GROUND:	return ADD_GROUND;
 			case ITM_BUZZER:	return ADD_BUZZER;
 			case ITM_FUSE:	return ADD_FUSE;
+			case ITM_CONNECTION: return ADD_CONNECTION;
 			case ITM_SIM: return SIM_MODE;
+			case ITM_SAVE: return SAVE;
+			case ITM_LOAD: return LOAD;
 			case ITM_EXIT:	return EXIT;	
 			
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
@@ -228,6 +231,9 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_GROUND] = "images\\Menu\\Menu_Ground.jpg";
 	MenuItemImages[ITM_BUZZER] = "images\\Menu\\Menu_Buzzer.jpg";
 	MenuItemImages[ITM_FUSE] = "images\\Menu\\Menu_Fuse.jpg";
+	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_Connection.jpg";
+	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
+	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
@@ -257,7 +263,9 @@ void UI::CreateSimulationToolBar()
 	MenuItemImages[ITM_SIM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	for (int i = 0; i < ITM_SIM_CNT; i++)
-		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth, ToolBarHeight);
+		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth, ToolBarHeight-5);
+
+	ClearEditMenu();
 
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, ToolBarHeight, width, ToolBarHeight);
@@ -351,7 +359,8 @@ void UI::DrawFuse(const GraphicsInfo &r_GfxInfo, bool selected) const
 
 void UI::DrawConnection(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
-	//TODO: Add code to draw connection
+	pWind->SetPen(BLACK, 2);
+	pWind->DrawLine(r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, r_GfxInfo.PointsList[1].x, r_GfxInfo.PointsList[1].y);
 }
 
 
