@@ -9,12 +9,9 @@
 #include "Actions\ActionSimWindow.h"
 #include "Actions\ActionSelect.h"
 #include "Actions\ActionEditLabel.h"
-<<<<<<< HEAD
 #include "Actions\ActionDsnWindow.h"
-=======
 #include "Actions\ActionEditValue.h"
 
->>>>>>> 749714753cb62fd83673d2d81752d5652d4ae148
 
 ApplicationManager::ApplicationManager()
 {
@@ -86,19 +83,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 				pAct = new ActionEditLabel(this);
 			}
 			break;
-<<<<<<< HEAD
 		case DSN_MODE:
 			pAct = new ActionDsnWindow(this);
 			break;
-=======
-
 		case EDIT_Value:
 			if (this->SelectedComponentId >= 0) {
 				pAct = new ActionEditValue(this);
 			}
 			break;
 
->>>>>>> 749714753cb62fd83673d2d81752d5652d4ae148
 		case SIM_MODE:
 			pAct = new ActionSimWindow(this);
 			break;
