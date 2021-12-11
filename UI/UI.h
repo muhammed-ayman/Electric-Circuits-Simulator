@@ -57,7 +57,7 @@ class UI
 	enum SimMenuItem //The items of the simulation menu (you should add more items)
 	{
 		//Note: Items are ordered here as they appear in menu
-		ITM_CIRC_SIM,	//Circuit Simulate menu item
+		ITM_DSN,
 
 		//TODO:Add more items names here
 		ITM_SIM_EXIT,
