@@ -37,7 +37,7 @@ void ActionSelect::Execute()
 		// If there is a component inside the drawing area, proceed
 		if (CompList[i] != nullptr) {
 			// Gets the graphical info of component [i]
-			GraphicsInfo *CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
+			GraphicsInfo* CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
 			// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
 			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
 				clicked = 1; // Change the clicked status to true every time a component is clicked
@@ -46,6 +46,7 @@ void ActionSelect::Execute()
 				Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
 			}
 		}
+		else break;
 	}
 
 	// If the user clicks outside any of the components
