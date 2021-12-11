@@ -147,7 +147,7 @@ ActionType UI::GetUserAction() const
 
 			switch (ClickedItemOrder)
 			{
-
+			case ITM_DSN: return DSN_MODE;
 			case ITM_SIM_EXIT:	return EXIT;
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
@@ -225,7 +225,7 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_GROUND] = "images\\Menu\\Menu_Ground.jpg";
 	MenuItemImages[ITM_BUZZER] = "images\\Menu\\Menu_Buzzer.jpg";
 	MenuItemImages[ITM_FUSE] = "images\\Menu\\Menu_Fuse.jpg";
-	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Exit.jpg";
+	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	//TODO: Prepare image for each menu item and add it to the list
@@ -250,7 +250,7 @@ void UI::CreateSimulationToolBar()
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(0, 0, pWind->GetWidth(), ToolBarHeight);
 	string MenuItemImages[ITM_SIM_CNT];
-	MenuItemImages[ITM_CIRC_SIM] = "images\\Menu\\Menu_Exit.jpg";
+	MenuItemImages[ITM_DSN] = "images\\Menu\\Menu_Stop.jpg";
 	MenuItemImages[ITM_SIM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	for (int i = 0; i < ITM_SIM_CNT; i++)
@@ -258,6 +258,8 @@ void UI::CreateSimulationToolBar()
 
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, ToolBarHeight, width, ToolBarHeight);
+	pWind->DrawLine(0, 0, width, 0);
+
 
 }
 

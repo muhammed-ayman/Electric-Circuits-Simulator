@@ -9,7 +9,7 @@
 #include "Actions\ActionSimWindow.h"
 #include "Actions\ActionSelect.h"
 #include "Actions\ActionEditLabel.h"
-
+#include "Actions\ActionDsnWindow.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -81,7 +81,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 				pAct = new ActionEditLabel(this);
 			}
 			break;
-
+		case DSN_MODE:
+			pAct = new ActionDsnWindow(this);
+			break;
 		case SIM_MODE:
 			pAct = new ActionSimWindow(this);
 			break;
