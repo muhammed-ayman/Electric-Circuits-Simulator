@@ -36,6 +36,7 @@ void ActionEditLabel::Execute()
 	Menu->DrawComponentMenu(CompList[pManager->getSelectedComponentId()]); // Redraw the edit menu for the current selected component
 
 	delete Menu;
+	Menu = nullptr;
 }
 
 void ActionEditLabel::Undo()

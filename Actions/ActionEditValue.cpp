@@ -57,7 +57,7 @@ void ActionEditValue::Execute()
 		Menu->DrawComponentMenu(CompList[pManager->getSelectedComponentId()]); // Redraw the edit menu for the current selected component
 
 		delete Menu;
-
+		Menu = nullptr;
 	}
 	else {
 		pUI->ClearStatusBar();
