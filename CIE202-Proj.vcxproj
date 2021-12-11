@@ -121,6 +121,7 @@
     <ClCompile Include="Actions\ActionSimWindow.cpp" />
     <ClCompile Include="Actions\ActionAddMenu.cpp" />
     <ClCompile Include="Actions\ActionEditLabel.cpp" />
+    <ClCompile Include="Actions\ActionEditValue.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
     <ClCompile Include="CMUgraphicsLib\colors.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Actions\ActionSimWindow.h" />
     <ClInclude Include="Actions\ActionAddMenu.h" />
     <ClInclude Include="Actions\ActionEditLabel.h" />
+    <ClInclude Include="Actions\ActionEditValue.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
     <ClInclude Include="CMUgraphicsLib\colors.h" />

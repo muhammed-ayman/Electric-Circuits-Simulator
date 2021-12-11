@@ -127,8 +127,11 @@ ActionType UI::GetUserAction() const
 		// [3] User clicks on the edit menu area
 		if (y >= ToolBarHeight && y < height - StatusBarHeight && x >= width - EditMenuWidth)
 		{
-			if (y >= height - StatusBarHeight - 100 && y <= height - StatusBarHeight - 50) {
+			if (y >= height - StatusBarHeight - 100 && y < height - StatusBarHeight - 50) {
 				return EDIT_Label;	//user want to select/unselect a statement in the flowchart
+			}
+			if (y >= height - StatusBarHeight - 50 && y <= height - StatusBarHeight) {
+				return EDIT_Value;	//user want to select/unselect a statement in the flowchart
 			}
 		}
 		

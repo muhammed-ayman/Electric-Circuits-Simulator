@@ -9,6 +9,7 @@
 #include "Actions\ActionSimWindow.h"
 #include "Actions\ActionSelect.h"
 #include "Actions\ActionEditLabel.h"
+#include "Actions\ActionEditValue.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -79,6 +80,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case EDIT_Label:
 			if (this->SelectedComponentId >= 0) {
 				pAct = new ActionEditLabel(this);
+			}
+			break;
+
+		case EDIT_Value:
+			if (this->SelectedComponentId >= 0) {
+				pAct = new ActionEditValue(this);
 			}
 			break;
 

@@ -35,6 +35,7 @@ void ActionEditLabel::Execute()
 	ActionAddMenu* Menu = new ActionAddMenu(pManager);
 	Menu->DrawComponentMenu(CompList[pManager->getSelectedComponentId()]);
 
+	delete Menu;
 }
 
 void ActionEditLabel::Undo()
