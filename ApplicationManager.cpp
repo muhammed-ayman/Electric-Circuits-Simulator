@@ -11,7 +11,7 @@
 #include "Actions\ActionEditLabel.h"
 #include "Actions\ActionDsnWindow.h"
 #include "Actions\ActionEditValue.h"
-
+#include "Actions\ActionAddConn.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -69,13 +69,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_FUSE:
 			pAct = new ActionAddFuse(this);
 			break;
-		
 		case SELECT:
 			pAct = new ActionSelect(this);
 			break;
 
 		case ADD_CONNECTION:
-			//TODO: Create AddConection Action here
+			pAct = new ActionAddConn(this);
 			break;
 
 		case EDIT_Label:
@@ -111,8 +110,16 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 void ApplicationManager::UpdateInterface()
 {
-		for(int i=0; i<CompCount; i++)
-			CompList[i]->Draw(pUI);
+	for (int i = 0; i < CompCount; i++) {
+		CompList[i]->Draw(pUI);
+		if (CompList[i]->getTerm1Conn() != nullptr) {
+			CompList[i]->getTerm1Conn()->Draw(pUI);
+		}
+		if (CompList[i]->getTerm2Conn() != nullptr) {
+			CompList[i]->getTerm2Conn()->Draw(pUI);
+		}
+
+	}
 
 }
 

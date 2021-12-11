@@ -22,8 +22,7 @@ protected:
 	double term1_volt, term2_volt;	//voltage at terminals 1&2
 
 	//Each terminal is connected to set of connections
-	Connection *term1_connections[MAX_CONNS]; //list of pointers to connections
-	Connection *term2_connections[MAX_CONNS];
+	Connection* term_connections[2]; //list of pointers to connections
 
 	int term1_conn_count;	//actual no. of connections to each terminal
 	int term2_conn_count;
@@ -68,6 +67,15 @@ public:
 	void setValue(double value);
 
 	Items GetItemType() const;
+
+	//getter and setter for the component term1 connection
+	Connection* getTerm1Conn() const;
+	void setTerm1Conn(Connection *conn);
+
+	//getter and setter for the component term1 connection
+	Connection* getTerm2Conn() const;
+	void setTerm2Conn(Connection *conn);
+
 };
 
 #endif

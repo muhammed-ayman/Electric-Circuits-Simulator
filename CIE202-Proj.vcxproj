@@ -113,6 +113,7 @@
     <ClCompile Include="Actions\ActionAddBattery.cpp" />
     <ClCompile Include="Actions\ActionAddBulb.cpp" />
     <ClCompile Include="Actions\ActionAddBuzzer.cpp" />
+    <ClCompile Include="Actions\ActionAddConn.cpp" />
     <ClCompile Include="Actions\ActionAddFuse.cpp" />
     <ClCompile Include="Actions\ActionAddGround.cpp" />
     <ClCompile Include="Actions\ActionAddRes.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Actions\ActionAddBattery.h" />
     <ClInclude Include="Actions\ActionAddBulb.h" />
     <ClInclude Include="Actions\ActionAddBuzzer.h" />
+    <ClInclude Include="Actions\ActionAddConn.h" />
     <ClInclude Include="Actions\ActionAddFuse.h" />
     <ClInclude Include="Actions\ActionAddGround.h" />
     <ClInclude Include="Actions\ActionAddRes.h" />
