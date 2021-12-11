@@ -133,10 +133,12 @@ UI* ApplicationManager::GetUI()
 
 ApplicationManager::~ApplicationManager()
 {
-	for(int i=0; i<CompCount; i++)
+	for (int i = 0; i < CompCount; i++) {
 		delete CompList[i];
+		CompList[i] = nullptr;
+	}
 	delete pUI;
-	
+	pUI = nullptr;
 }
 
 ///////////////////////////////////////////////////////////////////
