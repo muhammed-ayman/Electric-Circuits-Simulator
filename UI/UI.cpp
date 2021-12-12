@@ -315,9 +315,9 @@ void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
 	string ResImage;
 	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
+		ResImage ="Images\\Comp\\Switch_Closed.jpg";	//use image of highlighted switch
 	else  
-		ResImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
+		ResImage = "Images\\Comp\\Switch_Open.jpg";	//use image of the normal switch
 
 	//Draw Switch at Gfx_Info (1st corner)
 	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
