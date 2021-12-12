@@ -1,8 +1,9 @@
 #include "Component.h"
 
+
 Component::Component(GraphicsInfo *r_GfxInfo)
 {
-	m_pGfxInfo = r_GfxInfo;	
+	m_pGfxInfo = r_GfxInfo;
 }
 
 Component::Component()
@@ -26,4 +27,48 @@ GraphicsInfo* Component::getGraphicsInfo() {
 
 void Component::setClick(bool clickStatus) {
 	m_pGfxInfo->isClicked = clickStatus;
+}
+
+ 
+string Component::getLabel() const {
+	return this->m_Label;
+}
+
+void Component::setLabel(string label) {
+	this->m_Label = label;
+}
+
+double Component::getValue() const {
+	return this->value;
+}
+
+void Component::setValue(double value) {
+	this->value = value;
+}
+
+
+
+
+Items Component::GetItemType() const {
+	return this->itemType;
+}
+
+Connection* Component::getTerm1Conn() const
+{
+	return term_connections[0];
+}
+
+void Component::setTerm1Conn(Connection *conn)
+{
+	term_connections[0] = conn;
+}
+
+Connection* Component::getTerm2Conn() const
+{
+	return term_connections[1];
+}
+
+void Component::setTerm2Conn(Connection *conn)
+{
+	term_connections[1] = conn;
 }

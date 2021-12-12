@@ -1,7 +1,9 @@
 #include "Bulb.h"
 
 Bulb::Bulb(GraphicsInfo *r_GfxInfo):Component(r_GfxInfo)
-{}
+{
+	this->itemType = BULB;
+}
 
 void Bulb::Draw(UI* pUI)
 {

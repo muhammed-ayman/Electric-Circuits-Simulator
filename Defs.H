@@ -4,7 +4,7 @@
 //This header file contains some defenitions to be used all over the application
 
 //All possible actions
-enum ActionType 
+enum ActionType
 {
 	ADD_RESISTOR,		//Add a resistor
 	ADD_BULB,			//Add Bulb
@@ -18,6 +18,9 @@ enum ActionType
 
 	ADD_Label,			//Add Label to a Component, a Connection
 	EDIT_Label,			//Edit Label of a Component, a Connection
+
+	ADD_Value,			// Add Value to a Component, a Connection
+	EDIT_Value,			// Edit Value to a Component, a Connection
 
 	Change_Switch,		//Change Switch Status in Simulation Mode
 
@@ -45,6 +48,19 @@ enum  MODE	//Modes of operation
 {
 	DESIGN,
 	SIMULATION
+};
+
+
+enum Items // All possible items
+{
+	RES,
+	BULB,
+	BATTERY,
+	SWITCH,
+	GROUND,
+	BUZZER,
+	FUSE,
+	CONNECTION
 };
 
 //Maximum number of connections that can be connected to any output components

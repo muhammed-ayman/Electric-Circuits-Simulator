@@ -1,7 +1,9 @@
 #include "Buzzer.h"
 
 Buzzer::Buzzer(GraphicsInfo *r_GfxInfo):Component(r_GfxInfo)
-{}
+{
+	this->itemType = BUZZER;
+}
 
 void Buzzer::Draw(UI* pUI)
 {

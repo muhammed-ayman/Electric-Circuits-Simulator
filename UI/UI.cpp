@@ -93,7 +93,7 @@ ActionType UI::GetUserAction() const
 
 	if(AppMode == DESIGN )	//application is in design mode
 	{
-		//[1] If user clicks on the Toolbar
+		// [1] If user clicks on the Toolbar
 		if ( y >= 0 && y < ToolBarHeight)
 		{	
 			//Check whick Menu item was clicked
@@ -111,20 +111,34 @@ ActionType UI::GetUserAction() const
 			case ITM_GROUND:	return ADD_GROUND;
 			case ITM_BUZZER:	return ADD_BUZZER;
 			case ITM_FUSE:	return ADD_FUSE;
+			case ITM_CONNECTION: return ADD_CONNECTION;
 			case ITM_SIM: return SIM_MODE;
+			case ITM_SAVE: return SAVE;
+			case ITM_LOAD: return LOAD;
 			case ITM_EXIT:	return EXIT;	
 			
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
 		}
 	
-		//[2] User clicks on the drawing area
-		if ( y >= ToolBarHeight && y < height - StatusBarHeight)
+		// [2] User clicks on the drawing area
+		if ( y >= ToolBarHeight && y < height - StatusBarHeight && x < width - EditMenuWidth)
 		{
-			return SELECT;	//user want to select/unselect a statement in the flowchart
+			return SELECT;	//user wants to select/unselect a statement in the flowchart
+		}
+
+		// [3] User clicks on the edit menu area
+		if (y >= ToolBarHeight && y < height - StatusBarHeight && x >= width - EditMenuWidth)
+		{
+			if (y >= height - StatusBarHeight - 100 && y < height - StatusBarHeight - 50) {
+				return EDIT_Label;	// user wants to edit the component's label
+			}
+			if (y >= height - StatusBarHeight - 50 && y <= height - StatusBarHeight) {
+				return EDIT_Value;	// user wants to edit the component's value
+			}
 		}
 		
-		//[3] User clicks on the status bar
+		// [3] User clicks on the status bar
 		return STATUS_BAR;
 	}
 	else if (AppMode == SIMULATION)	//Application is in Simulation mode
@@ -139,7 +153,7 @@ ActionType UI::GetUserAction() const
 
 			switch (ClickedItemOrder)
 			{
-
+			case ITM_DSN: return DSN_MODE;
 			case ITM_SIM_EXIT:	return EXIT;
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
@@ -217,7 +231,10 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_GROUND] = "images\\Menu\\Menu_Ground.jpg";
 	MenuItemImages[ITM_BUZZER] = "images\\Menu\\Menu_Buzzer.jpg";
 	MenuItemImages[ITM_FUSE] = "images\\Menu\\Menu_Fuse.jpg";
-	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Exit.jpg";
+	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_Connection.jpg";
+	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
+	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
+	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	//TODO: Prepare image for each menu item and add it to the list
@@ -242,14 +259,18 @@ void UI::CreateSimulationToolBar()
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(0, 0, pWind->GetWidth(), ToolBarHeight);
 	string MenuItemImages[ITM_SIM_CNT];
-	MenuItemImages[ITM_CIRC_SIM] = "images\\Menu\\Menu_Exit.jpg";
+	MenuItemImages[ITM_DSN] = "images\\Menu\\Menu_Stop.jpg";
 	MenuItemImages[ITM_SIM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	for (int i = 0; i < ITM_SIM_CNT; i++)
-		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth, ToolBarHeight);
+		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth, ToolBarHeight-5);
+
+	ClearEditMenu();
 
 	pWind->SetPen(RED, 3);
 	pWind->DrawLine(0, ToolBarHeight, width, ToolBarHeight);
+	pWind->DrawLine(0, 0, width, 0);
+
 
 }
 
@@ -294,9 +315,9 @@ void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
 	string ResImage;
 	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
+		ResImage ="Images\\Comp\\Switch_Closed.jpg";	//use image of highlighted switch
 	else  
-		ResImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
+		ResImage = "Images\\Comp\\Switch_Open.jpg";	//use image of the normal switch
 
 	//Draw Switch at Gfx_Info (1st corner)
 	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
@@ -338,7 +359,8 @@ void UI::DrawFuse(const GraphicsInfo &r_GfxInfo, bool selected) const
 
 void UI::DrawConnection(const GraphicsInfo &r_GfxInfo, bool selected) const
 {
-	//TODO: Add code to draw connection
+	pWind->SetPen(BLACK, 2);
+	pWind->DrawLine(r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, r_GfxInfo.PointsList[1].x, r_GfxInfo.PointsList[1].y);
 }
 
 
@@ -346,4 +368,82 @@ UI::~UI()
 {
 	delete pWind;
 	pWind = nullptr;
+}
+
+
+void UI::DrawEditMenu(string ComponentLabel="Component", string ComponentValue = "1") {
+	
+	// Draw the left border
+	this->ClearEditMenu();
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(width - EditMenuWidth, ToolBarHeight, width - EditMenuWidth, height - StatusBarHeight);
+
+	// Draw the title and its borders
+	pWind->SetFont(23, BOLD, BY_NAME, "Arial");
+	pWind->SetPen(BLACK);
+	pWind->DrawString(width - 205, ToolBarHeight + 40, "Edit Menu");
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(width - EditMenuWidth, ToolBarHeight + 90, width, ToolBarHeight + 90);
+	
+	// Draw the component's info
+	pWind->SetFont(21, BOLD, BY_NAME, "Arial");
+	pWind->SetPen(MsgColor);
+	pWind->DrawString(width - 260, height - 400, "Label");
+	pWind->DrawString(width - 260, height - 350, "Value");
+
+	pWind->DrawString(width - 160, height - 400, ComponentLabel);
+	pWind->DrawString(width - 160, height - 350, ComponentValue);
+
+
+	// Draw the edit buttons & their borders
+	pWind->SetPen(BLACK);
+	pWind->DrawString(width - 200, height - StatusBarHeight - 85, "Edit Label");
+	pWind->DrawString(width - 200, height - StatusBarHeight - 35, "Edit Value");
+
+	pWind->SetPen(RED,3);
+	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);
+	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 50, width, height - StatusBarHeight - 50);
+	
+}
+
+
+void UI::ClearEditMenu() const
+{
+	pWind->SetPen(BkGrndColor);
+	pWind->SetBrush(BkGrndColor);
+	pWind->DrawRectangle(width - 302, ToolBarHeight + 2, width, height - StatusBarHeight - 1);
+}
+
+
+
+void UI::DrawConnectionEditMenu(string ConnectionLabel = "Connection") {
+
+	// Draw the left border
+	this->ClearEditMenu();
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(width - EditMenuWidth, ToolBarHeight, width - EditMenuWidth, height - StatusBarHeight);
+
+	// Draw the title and its borders
+	pWind->SetFont(23, BOLD, BY_NAME, "Arial");
+	pWind->SetPen(BLACK);
+	pWind->DrawString(width - 260, ToolBarHeight + 40, "Connection Edit Menu");
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(width - EditMenuWidth, ToolBarHeight + 90, width, ToolBarHeight + 90);
+
+	// Draw the component's info
+	pWind->SetFont(21, BOLD, BY_NAME, "Arial");
+	pWind->SetPen(MsgColor);
+	pWind->DrawString(width - 260, height - 350, "Label");
+
+	pWind->DrawString(width - 160, height - 350, ConnectionLabel);
+
+
+	// Draw the edit buttons & their borders
+	pWind->SetPen(BLACK);
+	pWind->DrawString(width - 200, height - StatusBarHeight - 35, "Edit Label");
+
+	pWind->SetPen(RED, 3);
+	//pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);
+	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 50, width, height - StatusBarHeight - 50);
+
 }

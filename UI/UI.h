@@ -45,7 +45,10 @@ class UI
 		ITM_GROUND,		//Ground item in menu
 		ITM_BUZZER,		//Buzzer item in menu
 		ITM_FUSE,		//Fuse item in menu
-		ITM_SIM,  // Simulation item in menu
+		ITM_CONNECTION,
+		ITM_SAVE,
+		ITM_LOAD,
+		ITM_SIM, // Simulation item in menu
 		ITM_EXIT,		//Exit item
 		//TODO: Add more items names here
 	
@@ -57,7 +60,7 @@ class UI
 	enum SimMenuItem //The items of the simulation menu (you should add more items)
 	{
 		//Note: Items are ordered here as they appear in menu
-		ITM_CIRC_SIM,	//Circuit Simulate menu item
+		ITM_DSN,
 
 		//TODO:Add more items names here
 		ITM_SIM_EXIT,
@@ -75,6 +78,8 @@ class UI
 						StatusBarHeight = 50,	//Status Bar Height
 						ToolBarHeight = 80,		//Tool Bar Height (distance from top of window to bottom line of toolbar)
 						ToolItemWidth = 80,		//Width of each item in toolbar menu
+						
+						EditMenuWidth = 300,
 
 						//Arbitrary values, you can change as you wish
 						COMP_WIDTH = 100,		//Component Image width
@@ -133,6 +138,13 @@ public:
 
 	// Gets the last point the user clicked by triggering the position of the x and y as they change.
 	void GetLastPointClicked(int& x, int& y);
+
+	// Drawing the Edit Menu
+	void DrawEditMenu(string ComponentLabel, string ComponentValue);
+	void ClearEditMenu() const;
+
+	void DrawConnectionEditMenu(string ConnectionLabel);
+	
 };
 
 #endif
