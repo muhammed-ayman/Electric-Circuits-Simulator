@@ -20,6 +20,9 @@ ApplicationManager::ApplicationManager()
 	for(int i=0; i<MaxCompCount; i++)
 		CompList[i] = nullptr;
 
+	for (int i = 0; i < MaxConnCount; i++)
+		ConnList[i] = nullptr;
+
 	//Creates the UI Object & Initialize the UI
 	pUI = new UI;
 }
@@ -158,4 +161,21 @@ void ApplicationManager::setSelectedComponentId(int selectedCompId) {
 
 int ApplicationManager::getSelectedComponentId() {
 	return this->SelectedComponentId;
+}
+
+
+////////////////////////////////////////////////////////////////////
+
+// List of Connections
+
+void ApplicationManager::AddConnection(Connection* pConn)
+{
+	ConnList[ConnCount++] = pConn;
+}
+
+
+void ApplicationManager::GetConnectionList(Connection* ConnListNew[]) {
+	for (int i = 0; i < MaxConnCount; i++) {
+		ConnListNew[i] = ConnList[i];
+	}
 }

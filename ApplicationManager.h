@@ -5,12 +5,13 @@
 #include "UI\UI.h"
 #include "Actions\Action.h"
 #include "Components\Component.h"
+#include "Components\Connection.h"
 
 //Main class that manages everything in the application.
 class ApplicationManager
 {
 
-	enum { MaxCompCount = 200 };	//Max no of Components	
+	enum { MaxCompCount = 200, MaxConnCount = 400 };	//Max no of Components	
 
 private:
 	int CompCount;		//Actual number of Components
@@ -20,6 +21,9 @@ private:
 
 
 	int SelectedComponentId = -1; //initial value for selected component ID
+
+	int ConnCount;		//Actual number of Connections
+	Connection* ConnList[MaxConnCount]; // List of all Connections (Array of pointers)
 
 
 public:
@@ -51,6 +55,12 @@ public:
 
 	void setSelectedComponentId(int selectedCompId); // setter for selected component ID
 	int getSelectedComponentId(); // getter for selected component ID
+
+	// Adds a new connection to the list of connections
+	void AddConnection(Connection* pConn);
+
+	// Retrieves the current list of added connections. 	
+	void GetConnectionList(Connection* ConnListNew[]);
 };
 
 #endif

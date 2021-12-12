@@ -18,3 +18,8 @@ string Connection::getConnectionLabel() const {
 void Connection::setConnectionLabel(string label) {
 	this->c_Label = label;
 }
+
+
+GraphicsInfo* Connection::getGraphicsInfo() const {
+	return this->pGfxInfo;
+}

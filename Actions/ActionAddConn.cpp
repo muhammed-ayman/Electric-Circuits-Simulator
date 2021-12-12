@@ -135,6 +135,7 @@ void ActionAddConn::Execute()
 
 			}
 
+			pManager->AddConnection(conn);
 
 		}
 

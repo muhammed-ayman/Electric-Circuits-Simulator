@@ -142,6 +142,8 @@ public:
 	// Drawing the Edit Menu
 	void DrawEditMenu(string ComponentLabel, string ComponentValue);
 	void ClearEditMenu() const;
+
+	void DrawConnectionEditMenu(string ConnectionLabel);
 	
 };
 

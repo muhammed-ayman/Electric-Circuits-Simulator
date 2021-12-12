@@ -14,6 +14,8 @@ public:
 	ActionAddMenu(ApplicationManager* pApp) { pManager = pApp; }
 
 	void DrawComponentMenu(Component* Comp); // Drawing the component menu. Takes pointer of type Component as a parameter.
+
+	void DrawConnectionMenu(Connection* Conn); // Drawing the connection menu. Takes pointer of type Connection as a parameter.
 	
 	~ActionAddMenu();
 

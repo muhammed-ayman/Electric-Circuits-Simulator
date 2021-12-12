@@ -10,6 +10,15 @@ void ActionAddMenu::DrawComponentMenu(Component* Comp) {
 
 }
 
+
+void ActionAddMenu::DrawConnectionMenu(Connection* Conn) {
+
+	UI* pUI = pManager->GetUI();
+
+	pUI->DrawConnectionEditMenu(Conn->getConnectionLabel());
+
+}
+
 ActionAddMenu::~ActionAddMenu() {
 
 }

@@ -19,4 +19,6 @@ public:
 	string getConnectionLabel() const;
 	void setConnectionLabel(string label);
 
+	GraphicsInfo* getGraphicsInfo() const;
+
 };

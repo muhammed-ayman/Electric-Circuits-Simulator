@@ -49,6 +49,30 @@ void ActionSelect::Execute()
 		else break;
 	}
 
+
+	Connection* ConnList[400];
+
+	pManager->GetConnectionList(ConnList);
+
+	if (clicked == 0) {
+		for (int i = 0; i < 400; i++) {
+			if (ConnList[i] != nullptr) {
+				GraphicsInfo* ConnListGraphicsInfo = ConnList[i]->getGraphicsInfo();
+				double lineSlope = double(ConnListGraphicsInfo->PointsList[0].y
+					- ConnListGraphicsInfo->PointsList[1].y) / (ConnListGraphicsInfo->PointsList[0].x
+						- ConnListGraphicsInfo->PointsList[1].x);
+				double lineIntercept = ConnListGraphicsInfo->PointsList[0].y - lineSlope * ConnListGraphicsInfo->PointsList[0].x;
+				if (y <= lineSlope * x + lineIntercept + 5 && y >= lineSlope * x + lineIntercept - 5) {
+					pUI->PrintMsg("Connection Clicked");
+					Menu->DrawConnectionMenu(ConnList[i]);
+					clicked = 1;
+					break;
+				}
+			}
+			else break;
+		}
+	}
+
 	// If the user clicks outside any of the components
 	if (clicked == 0) {
 		pUI->ClearStatusBar();
