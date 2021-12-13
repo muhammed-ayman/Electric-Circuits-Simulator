@@ -39,6 +39,7 @@ public:
 
 	virtual void Operate() = 0;	//Calculates the output voltage according to the inputs
 	virtual void Draw(UI* ) = 0;	//for each component to Draw itself
+	virtual string* Save() = 0; //return save data of the component
 	
 	
 	//virtual int GetOutPinStatus()=0;	//returns status of outputpin if LED, return -1
@@ -54,7 +55,7 @@ public:
 
 	// Gets graphical info of the component drawn
 	GraphicsInfo* getGraphicsInfo();
-
+	void setGraphicsInfo(GraphicsInfo* m_pGfxInfo);
 	// changes the click of the mouse to true or false. Takes a boolean as a parameter and changes the mouse status as per the boolean
 	void setClick(bool clickStatus);
 
@@ -67,7 +68,7 @@ public:
 	void setValue(double value);
 
 
-	Items GetItemType() const;
+	string GetItemType() const;
 
 	//getter and setter for the component term1 connection
 	Connection* getTerm1Conn() const;

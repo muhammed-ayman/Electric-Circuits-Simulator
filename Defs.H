@@ -50,23 +50,35 @@ enum  MODE	//Modes of operation
 	SIMULATION
 };
 
-
 enum Items // All possible items
 {
 	RES,
-	BULB,
-	BATTERY,
-	SWITCH,
-	GROUND,
-	BUZZER,
-	FUSE,
-	CONNECTION
+	BLB,
+	BAT,
+	SWT,
+	GND,
+	BUZ,
+	FUS,
+	CON
 };
+
+struct ConnectionInfo
+{
+	int component1 = -1;
+	int component2 = -1;
+
+	//to indicate which side to be connected up = 0 ,down = 1
+	int item1_terminal = 0;
+	int item2_terminal = 0;
+};
+
+
 
 //Maximum number of connections that can be connected to any output components
 #define MAX_CONNS 20
 
-
+#define MaxCompCount 200
+#define MaxConnCount 400
 
 
 #endif

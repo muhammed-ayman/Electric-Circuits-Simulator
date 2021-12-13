@@ -62,6 +62,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="UI\UI.cpp" />
     <ClCompile Include="Actions\ActionAddConn.cpp" />
+    <ClCompile Include="Actions\ActionSave.cpp" />
+    <ClCompile Include="Actions\ActionLoad.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -110,6 +112,8 @@
     <ClInclude Include="Defs.H" />
     <ClInclude Include="UI\UI.h" />
     <ClInclude Include="Actions\ActionAddConn.h" />
+    <ClInclude Include="Actions\ActionSave.h" />
+    <ClInclude Include="Actions\ActionLoad.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt" />

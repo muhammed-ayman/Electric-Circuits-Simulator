@@ -1,5 +1,5 @@
 #include "Component.h"
-
+#include <iostream>
 
 Component::Component(GraphicsInfo *r_GfxInfo)
 {
@@ -24,6 +24,9 @@ GraphicsInfo* Component::getGraphicsInfo() {
 	return m_pGfxInfo;
 }
 
+void Component::setGraphicsInfo(GraphicsInfo* m_pGfxInfo) {
+	this->m_pGfxInfo = m_pGfxInfo;
+}
 
 void Component::setClick(bool clickStatus) {
 	m_pGfxInfo->isClicked = clickStatus;
@@ -47,10 +50,17 @@ void Component::setValue(double value) {
 }
 
 
-
-
-Items Component::GetItemType() const {
-	return this->itemType;
+string Component::GetItemType() const {
+	switch (this->itemType) {
+		case RES: return "RES";
+		case BLB: return "BLB";
+		case BAT: return "BAT";
+		case SWT: return "SWT";
+		case GND: return "GND";
+		case BUZ: return "BUZ";
+		case FUS: return "FUS";
+		default: return "NAN";
+	}
 }
 
 Connection* Component::getTerm1Conn() const

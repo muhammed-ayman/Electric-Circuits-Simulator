@@ -2,7 +2,6 @@
 #include <iostream>
 #include <sstream>
 #include <cmath>
-
 #include "ApplicationManager.h"
 
 int main()
@@ -11,9 +10,10 @@ int main()
 	ActionType ActType;
 	//Create an object of ApplicationManager
 	ApplicationManager AppManager;
-	
+
 	do
-	{		
+	{
+
 		//Read user action
 		ActType = AppManager.GetUserAction();
 

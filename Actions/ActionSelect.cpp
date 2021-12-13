@@ -1,7 +1,6 @@
 #include "ActionSelect.h"
 #include "../ApplicationManager.h"
 #include "ActionAddMenu.h"
-#include "../Defs.H"
 #include <sstream>
 
 ActionSelect::ActionSelect(ApplicationManager* pApp) :Action(pApp)
