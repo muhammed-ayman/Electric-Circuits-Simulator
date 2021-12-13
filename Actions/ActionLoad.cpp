@@ -7,7 +7,7 @@ ActionLoad::ActionLoad(ApplicationManager* pApp) :Action(pApp)
 
 ActionLoad::~ActionLoad(void)
 {
-	// destruct parsedData here
+
 }
 
 void ActionLoad::Execute()
@@ -111,6 +111,9 @@ void ActionLoad::Execute()
 
 	//Print Action Message
 	pUI->PrintMsg("Circuit Loaded");
+
+	delete[] parsedData;
+
 }
 
 void ActionLoad::Undo()
