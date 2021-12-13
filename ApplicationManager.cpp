@@ -83,7 +83,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case SELECT:
 			pAct = new ActionSelect(this);
-			std::cout << ConnCount << "\n";
 			break;
 
 		case ADD_CONNECTION:
