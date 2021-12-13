@@ -14,6 +14,7 @@
 #include "Actions\ActionAddConn.h"
 #include "Actions\ActionSave.h"
 #include "Actions\ActionLoad.h"
+#include "Actions/ActionExit.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -116,7 +117,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case EXIT:
-			///TODO: create ExitAction here
+			pAct = new ActionExit(this);
 			break;
 	}
 	if(pAct)
