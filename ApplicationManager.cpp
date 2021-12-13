@@ -12,20 +12,28 @@
 #include "Actions\ActionDsnWindow.h"
 #include "Actions\ActionEditValue.h"
 #include "Actions\ActionAddConn.h"
+#include "Actions\ActionSave.h"
+#include "Actions\ActionLoad.h"
 
 ApplicationManager::ApplicationManager()
 {
-	CompCount = 0;
+	ResetData();
+	//Creates the UI Object & Initialize the UI
+	pUI = new UI;
+}
 
-	for(int i=0; i<MaxCompCount; i++)
+
+void ApplicationManager::ResetData() {
+	CompCount = 0;
+	ConnCount = 0;
+
+	for (int i = 0; i < MaxCompCount; i++)
 		CompList[i] = nullptr;
 
 	for (int i = 0; i < MaxConnCount; i++)
 		ConnList[i] = nullptr;
-
-	//Creates the UI Object & Initialize the UI
-	pUI = new UI;
 }
+
 ////////////////////////////////////////////////////////////////////
 void ApplicationManager::AddComponent(Component* pComp)
 {
@@ -74,6 +82,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case SELECT:
 			pAct = new ActionSelect(this);
+			std::cout << ConnCount << "\n";
 			break;
 
 		case ADD_CONNECTION:
@@ -96,6 +105,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case SIM_MODE:
 			pAct = new ActionSimWindow(this);
+			break;
+
+		case SAVE:
+			pAct = new ActionSave(this);
+			break;
+
+		case LOAD:
+			pAct = new ActionLoad(this);
 			break;
 
 		case EXIT:
@@ -152,7 +169,6 @@ void ApplicationManager::GetComponentList(Component* CompListNew[]) {
 	}
 }
 
-
 ///////////////////////////////////////////////////////////////////
 
 void ApplicationManager::setSelectedComponentId(int selectedCompId) {
@@ -178,4 +194,84 @@ void ApplicationManager::GetConnectionList(Connection* ConnListNew[]) {
 	for (int i = 0; i < MaxConnCount; i++) {
 		ConnListNew[i] = ConnList[i];
 	}
+}
+
+/////////////////////////////////////////////////////////
+
+void ApplicationManager::SaveCircuit(ofstream& saveFile) {
+	saveFile << CompCount << "\n";
+
+	for (int i = 0; i < CompCount; i++) {
+		string* data = CompList[i]->Save();
+		data[1] = to_string(i + 1);
+
+		saveFile << data[0] << ", ";
+		saveFile << data[1] << ", ";
+		saveFile << data[2] << ", ";
+		saveFile << data[3] << ", ";
+		saveFile << data[4] << ", ";
+		saveFile << data[5] << "\n";
+	}
+
+	saveFile << "Connections" << "\n";
+	saveFile << ConnCount << "\n";
+
+	for (int i = 0; i < ConnCount; i++) {
+		string* data = ConnList[i]->Save();
+
+		saveFile << data[0] << ", ";
+		saveFile << data[1] << ", ";
+		saveFile << data[2] << ", ";
+		saveFile << data[3] << "\n";
+	}
+	saveFile.close();
+}
+
+void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int conCount) {
+
+	//reset application manager
+	ResetData();
+
+	// load components part
+	for (int comIndex = 0; comIndex < comCount; comIndex++) {
+		GraphicsInfo* pGInfo = new GraphicsInfo(2);
+
+		int compWidth = pUI->getCompWidth();
+		int compHeight = pUI->getCompHeight();
+
+		pGInfo->PointsList[0].x = stoi(parsedData[0][comIndex][4]);
+		pGInfo->PointsList[0].y = stoi(parsedData[0][comIndex][5]);
+		pGInfo->PointsList[1].x = stoi(parsedData[0][comIndex][4]) + compWidth;
+		pGInfo->PointsList[1].y = stoi(parsedData[0][comIndex][5]) + compHeight;
+
+		string compType = parsedData[0][comIndex][0];
+
+		Component* pR;
+		if (compType == "RES") pR = new Resistor(pGInfo);
+		else if (compType == "BLB")  pR = new Bulb(pGInfo);
+		else if (compType == "BAT") pR = new Battery(pGInfo);
+		else if (compType == "SWT") pR = new Switch(pGInfo);
+		else if (compType == "GND") pR = new Ground(pGInfo);
+		else if (compType == "BUZ") pR = new Buzzer(pGInfo);
+		else if (compType == "FUS") pR = new Fuse(pGInfo);
+		else pR = nullptr;
+
+		if (pR) {
+			pR->setLabel(parsedData[0][comIndex][2]);
+			pR->setValue(stod(parsedData[0][comIndex][3]));
+			AddComponent(pR);
+		}
+	}
+	
+	for (int conIndex = 0; conIndex < conCount; conIndex++) {
+		ActionAddConn* AddConnection = new ActionAddConn(this);
+		cInfo->component1 = stoi(parsedData[1][conIndex][0])-1;
+		cInfo->component2 = stoi(parsedData[1][conIndex][1])-1;
+		cInfo->item1_terminal = stoi(parsedData[1][conIndex][2]);
+		cInfo->item2_terminal = stoi(parsedData[1][conIndex][3]);
+		AddConnection->ProcessConnection(cInfo);
+		UpdateInterface();
+	}
+	
+	
 }

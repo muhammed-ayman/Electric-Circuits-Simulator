@@ -7,30 +7,43 @@
 #include "Components\Component.h"
 #include "Components\Connection.h"
 
+// fix this later
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+using std::cerr;
+using std::endl;
+using std::ofstream;
+using std::ifstream;
+using std::basic_ofstream;
+
+
+
 //Main class that manages everything in the application.
 class ApplicationManager
 {
 
-	enum { MaxCompCount = 200, MaxConnCount = 400 };	//Max no of Components	
-
 private:
 	int CompCount;		//Actual number of Components
+	int ConnCount;		//Actual number of Connections
+
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
+	Connection* ConnList[MaxConnCount]; // List of all Connections (Array of pointers)
+
+	ConnectionInfo* cInfo = new ConnectionInfo;
 
 	UI* pUI; //pointer to the UI
 
-
 	int SelectedComponentId = -1; //initial value for selected component ID
-
-	int ConnCount;		//Actual number of Connections
-	Connection* ConnList[MaxConnCount]; // List of all Connections (Array of pointers)
-
+	
 
 public:
 
 
 public:	
 	ApplicationManager(); //constructor
+
+	void ResetData();
 
 	//Reads the required action from the user and returns the corresponding action type
 	ActionType GetUserAction();
@@ -61,6 +74,12 @@ public:
 
 	// Retrieves the current list of added connections. 	
 	void GetConnectionList(Connection* ConnListNew[]);
+
+	// Save Circuit
+	void SaveCircuit(ofstream& saveFile);
+
+	// Load Circuit
+	void LoadCircuit(string*** parsedData, int comCount, int conCount);
 };
 
 #endif
