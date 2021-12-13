@@ -131,10 +131,10 @@ ActionType UI::GetUserAction() const
 		if (y >= ToolBarHeight && y < height - StatusBarHeight && x >= width - EditMenuWidth)
 		{
 			if (y >= height - StatusBarHeight - 100 && y < height - StatusBarHeight - 50) {
-				return EDIT_Label;	// user wants to edit the component's label
+				return EDIT_Value;	// user wants to edit the component's value
 			}
 			if (y >= height - StatusBarHeight - 50 && y <= height - StatusBarHeight) {
-				return EDIT_Value;	// user wants to edit the component's value
+				return EDIT_Label;	// user wants to edit the component's label
 			}
 		}
 		
@@ -397,8 +397,8 @@ void UI::DrawEditMenu(string ComponentLabel="Component", string ComponentValue =
 
 	// Draw the edit buttons & their borders
 	pWind->SetPen(BLACK);
-	pWind->DrawString(width - 200, height - StatusBarHeight - 85, "Edit Label");
-	pWind->DrawString(width - 200, height - StatusBarHeight - 35, "Edit Value");
+	pWind->DrawString(width - 200, height - StatusBarHeight - 85, "Edit Value");
+	pWind->DrawString(width - 200, height - StatusBarHeight - 35, "Edit Label");
 
 	pWind->SetPen(RED,3);
 	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);

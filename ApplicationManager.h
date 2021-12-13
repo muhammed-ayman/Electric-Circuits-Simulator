@@ -33,6 +33,7 @@ private:
 	UI* pUI; //pointer to the UI
 
 	int SelectedComponentId = -1; //initial value for selected component ID
+	int SelectedConnectionId = -1; //initial value for selected connection ID
 	
 
 public:
@@ -66,6 +67,9 @@ public:
 
 	void setSelectedComponentId(int selectedCompId); // setter for selected component ID
 	int getSelectedComponentId(); // getter for selected component ID
+
+	void setSelectedConnectionId(int selectedConnId); // setter for selected connection ID
+	int getSelectedConnectionId(); // getter for selected connection ID
 
 	// Adds a new connection to the list of connections
 	void AddConnection(Connection* pConn);

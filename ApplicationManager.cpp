@@ -90,7 +90,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case EDIT_Label:
-			if (this->SelectedComponentId >= 0) {
+			if (this->SelectedComponentId >= 0 || this->SelectedConnectionId >= 0) {
 				pAct = new ActionEditLabel(this);
 			}
 			break;
@@ -181,6 +181,16 @@ int ApplicationManager::getSelectedComponentId() {
 
 
 ////////////////////////////////////////////////////////////////////
+
+void ApplicationManager::setSelectedConnectionId(int selectedConnId) {
+	this->SelectedConnectionId = selectedConnId;
+}
+
+int ApplicationManager::getSelectedConnectionId() {
+	return this->SelectedConnectionId;
+}
+
+
 
 // List of Connections
 

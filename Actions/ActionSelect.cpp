@@ -64,6 +64,7 @@ void ActionSelect::Execute()
 				if (y <= lineSlope * x + lineIntercept + 5 && y >= lineSlope * x + lineIntercept - 5) {
 					pUI->PrintMsg("Connection Clicked");
 					Menu->DrawConnectionMenu(ConnList[i]);
+					pManager->setSelectedConnectionId(i);
 					clicked = 1;
 					break;
 				}
@@ -84,6 +85,7 @@ void ActionSelect::Execute()
 		pUI->ClearEditMenu(); // Clearning the edit menu once the user clicks outside the components
 
 		pManager->setSelectedComponentId(-1); // Re-setting the selected component ID to -1 indicating that there is currently no selected component
+		pManager->setSelectedConnectionId(-1); // Re-setting the selected connection ID to -1 indicating that there is currently no selected connection
 	}
 
 	delete Menu; // Freeing the memory after unselecting all components
