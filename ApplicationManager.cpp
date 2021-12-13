@@ -198,31 +198,35 @@ void ApplicationManager::GetConnectionList(Connection* ConnListNew[]) {
 
 /////////////////////////////////////////////////////////
 
-void ApplicationManager::SaveCircuit(ofstream& saveFile) {
+void ApplicationManager::SaveCircuit() {
+
+	ofstream saveFile;
+	saveFile.open("Saves\\circuit.txt");
+
 	saveFile << CompCount << "\n";
 
 	for (int i = 0; i < CompCount; i++) {
-		string* data = CompList[i]->Save();
-		data[1] = to_string(i + 1);
+		string* comData = CompList[i]->Save();
+		comData[1] = to_string(i + 1);
 
-		saveFile << data[0] << ", ";
-		saveFile << data[1] << ", ";
-		saveFile << data[2] << ", ";
-		saveFile << data[3] << ", ";
-		saveFile << data[4] << ", ";
-		saveFile << data[5] << "\n";
+		saveFile << comData[0] << ", ";
+		saveFile << comData[1] << ", ";
+		saveFile << comData[2] << ", ";
+		saveFile << comData[3] << ", ";
+		saveFile << comData[4] << ", ";
+		saveFile << comData[5] << "\n";
 	}
 
 	saveFile << "Connections" << "\n";
 	saveFile << ConnCount << "\n";
 
 	for (int i = 0; i < ConnCount; i++) {
-		string* data = ConnList[i]->Save();
+		string* conData = ConnList[i]->Save();
 
-		saveFile << data[0] << ", ";
-		saveFile << data[1] << ", ";
-		saveFile << data[2] << ", ";
-		saveFile << data[3] << "\n";
+		saveFile << conData[0] << ", ";
+		saveFile << conData[1] << ", ";
+		saveFile << conData[2] << ", ";
+		saveFile << conData[3] << "\n";
 	}
 	saveFile.close();
 }
@@ -262,7 +266,9 @@ void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int con
 			AddComponent(pR);
 		}
 	}
-	
+
+	ConnectionInfo* cInfo = new ConnectionInfo;
+
 	for (int conIndex = 0; conIndex < conCount; conIndex++) {
 		ActionAddConn* AddConnection = new ActionAddConn(this);
 		cInfo->component1 = stoi(parsedData[1][conIndex][0])-1;
@@ -270,8 +276,7 @@ void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int con
 		cInfo->item1_terminal = stoi(parsedData[1][conIndex][2]);
 		cInfo->item2_terminal = stoi(parsedData[1][conIndex][3]);
 		AddConnection->ProcessConnection(cInfo);
-		UpdateInterface();
 	}
-	
-	
+
+	pUI->ClearDrawingArea();
 }

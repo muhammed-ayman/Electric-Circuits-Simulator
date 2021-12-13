@@ -11,14 +11,11 @@ ActionSave::~ActionSave(void)
 
 void ActionSave::Execute()
 {
-	ofstream saveFile;
-	saveFile.open("Saves\\circuit.txt");
-
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 
 	//save circut
-	pManager->SaveCircuit(saveFile);
+	pManager->SaveCircuit();
 
 	//Print Action Message
 	pUI->PrintMsg("Circuit Saved");

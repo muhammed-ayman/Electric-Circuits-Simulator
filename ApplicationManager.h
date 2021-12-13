@@ -30,8 +30,6 @@ private:
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
 	Connection* ConnList[MaxConnCount]; // List of all Connections (Array of pointers)
 
-	ConnectionInfo* cInfo = new ConnectionInfo;
-
 	UI* pUI; //pointer to the UI
 
 	int SelectedComponentId = -1; //initial value for selected component ID
@@ -76,7 +74,7 @@ public:
 	void GetConnectionList(Connection* ConnListNew[]);
 
 	// Save Circuit
-	void SaveCircuit(ofstream& saveFile);
+	void SaveCircuit();
 
 	// Load Circuit
 	void LoadCircuit(string*** parsedData, int comCount, int conCount);
