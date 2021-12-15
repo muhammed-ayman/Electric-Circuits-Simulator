@@ -4,6 +4,15 @@
 
 ActionExit::ActionExit(ApplicationManager* pApp) : Action(pApp)
 {
+	UI* pUI = pManager->GetUI();
+	pUI->ClearDrawingArea();
+	Sleep(1000);
+	pUI->ClearEditMenu();
+	Sleep(1000);
+	pUI->ClearStatusBar();
+	Sleep(1000);
+	pUI->PrintMsg("Cleaning...");
+	Sleep(1000);
 }
 
 
