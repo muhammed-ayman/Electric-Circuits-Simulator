@@ -121,13 +121,13 @@ public:
 
 		
 	// Draws components
-	void DrawResistor(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
-	void DrawBulb(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
-	void DrawBattery(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
-	void DrawSwitch(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
-	void DrawGround(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
-	void DrawBuzzer(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
-	void DrawFuse(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
+	void DrawResistor(const GraphicsInfo &r_GfxInfo) const;
+	void DrawBulb(const GraphicsInfo &r_GfxInfo) const;
+	void DrawBattery(const GraphicsInfo &r_GfxInfo) const;
+	void DrawSwitch(const GraphicsInfo &r_GfxInfo) const;
+	void DrawGround(const GraphicsInfo &r_GfxInfo) const;
+	void DrawBuzzer(const GraphicsInfo &r_GfxInfo) const;
+	void DrawFuse(const GraphicsInfo &r_GfxInfo) const;
 
 	// Draws Connection
 	void DrawConnection(const GraphicsInfo &r_GfxInfo, bool selected = false) const;

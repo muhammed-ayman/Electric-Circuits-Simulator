@@ -278,7 +278,7 @@ void UI::CreateSimulationToolBar()
 //								Components Drawing Functions							//
 //======================================================================================//
 
-void UI::DrawResistor(const GraphicsInfo &r_GfxInfo, bool selected) const
+void UI::DrawResistor(const GraphicsInfo &r_GfxInfo) const
 {
 	string ResImage;
 	if(r_GfxInfo.isClicked)
@@ -289,71 +289,71 @@ void UI::DrawResistor(const GraphicsInfo &r_GfxInfo, bool selected) const
 	//Draw Resistor at Gfx_Info (1st corner)
 	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
-void UI::DrawBulb(const GraphicsInfo &r_GfxInfo, bool selected) const
+void UI::DrawBulb(const GraphicsInfo &r_GfxInfo) const
 {
-	string ResImage;
+	string BulbImage;
 	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
+		BulbImage ="Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
 	else  
-		ResImage = "Images\\Comp\\Bulb.jpg";	//use image of the normal bulb
+		BulbImage = "Images\\Comp\\Bulb.jpg";	//use image of the normal bulb
 
 	//Draw Bulb at Gfx_Info (1st corner)
-	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+	pWind->DrawImage(BulbImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
-void UI::DrawBattery(const GraphicsInfo &r_GfxInfo, bool selected) const
+void UI::DrawBattery(const GraphicsInfo &r_GfxInfo) const
 {
-	string ResImage;
+	string BatImage;
 	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
+		BatImage ="Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
 	else  
-		ResImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
+		BatImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
 
 	//Draw Battery at Gfx_Info (1st corner)
-	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+	pWind->DrawImage(BatImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
-void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo, bool selected) const
+void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 {
-	string ResImage;
+	string SwImage;
 	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Switch_Closed.jpg";	//use image of highlighted switch
+		SwImage ="Images\\Comp\\Switch_Closed.jpg";	//use image of highlighted switch
 	else  
-		ResImage = "Images\\Comp\\Switch_Open.jpg";	//use image of the normal switch
+		SwImage = "Images\\Comp\\Switch_Open.jpg";	//use image of the normal switch
 
 	//Draw Switch at Gfx_Info (1st corner)
-	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+	pWind->DrawImage(SwImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
-void UI::DrawGround(const GraphicsInfo &r_GfxInfo, bool selected) const
+void UI::DrawGround(const GraphicsInfo &r_GfxInfo) const
 {
-	string ResImage;
+	string GrImage;
 	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
+		GrImage ="Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
 	else  
-		ResImage = "Images\\Comp\\Ground.jpg";	//use image of the normal ground
+		GrImage = "Images\\Comp\\Ground.jpg";	//use image of the normal ground
 
 	//Draw Ground at Gfx_Info (1st corner)
-	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+	pWind->DrawImage(GrImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
-void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo, bool selected) const
+void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo) const
 {
-	string ResImage;
+	string BuzImage;
 	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
+		BuzImage ="Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
 	else  
-		ResImage = "Images\\Comp\\Buzzer.jpg";	//use image of the normal buzzer
+		BuzImage = "Images\\Comp\\Buzzer.jpg";	//use image of the normal buzzer
 
 	//Draw Buzzer at Gfx_Info (1st corner)
-	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+	pWind->DrawImage(BuzImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
-void UI::DrawFuse(const GraphicsInfo &r_GfxInfo, bool selected) const
+void UI::DrawFuse(const GraphicsInfo &r_GfxInfo) const
 {
-	string ResImage;
+	string FusImage;
 	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
+		FusImage ="Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
 	else  
-		ResImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fuse
+		FusImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fuse
 
 	//Draw Fuse at Gfx_Info (1st corner)
-	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+	pWind->DrawImage(FusImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 
 
