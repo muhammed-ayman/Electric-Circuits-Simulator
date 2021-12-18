@@ -31,7 +31,7 @@ void ActionAddConn::Execute()
 		// If there is a component inside the drawing area, proceed
 		if (CompList[i] != nullptr) {
 			// Gets the graphical info of component [i]
-			GraphicsInfo* CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
+			CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
 			// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
 			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
@@ -44,7 +44,7 @@ void ActionAddConn::Execute()
 	if (cInfo->component1 == -1) { pUI->PrintMsg("Nothing selected"); }
 	else {
 		pUI->PrintMsg("Component 1 selected");
-		GraphicsInfo* comp1_graph_info = CompList[cInfo->component1]->getGraphicsInfo();
+		comp1_graph_info = CompList[cInfo->component1]->getGraphicsInfo();
 		if (y >= comp1_graph_info->PointsList[0].y && y <= comp1_graph_info->PointsList[0].y + 50) {
 			cInfo->item1_terminal = 0;
 		}
@@ -59,7 +59,7 @@ void ActionAddConn::Execute()
 			// If there is a component inside the drawing area, proceed
 			if (CompList[i] != nullptr) {
 				// Gets the graphical info of component [i]
-				GraphicsInfo* CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
+				CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
 				// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
 				if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
 					CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
@@ -78,7 +78,7 @@ void ActionAddConn::Execute()
 		else {
 			pUI->PrintMsg("Component two selected");
 
-			GraphicsInfo* comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
+			comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
 
 			if (y >= comp2_graph_info->PointsList[0].y && y <= comp2_graph_info->PointsList[0].y + 50) {
 				cInfo->item2_terminal = 0;
@@ -93,8 +93,8 @@ void ActionAddConn::Execute()
 }
 
 void ActionAddConn::ProcessConnection(ConnectionInfo* cInfo) {
-	GraphicsInfo* comp1_graph_info = CompList[cInfo->component1]->getGraphicsInfo();
-	GraphicsInfo* comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
+	comp1_graph_info = CompList[cInfo->component1]->getGraphicsInfo();
+	comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
 
 	if (cInfo->item1_terminal == 0) {
 		conn_graph_info->PointsList[0].x = comp1_graph_info->PointsList[0].x + 50;

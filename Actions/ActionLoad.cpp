@@ -58,7 +58,7 @@ void ActionLoad::Execute()
 	}
 
 	// array of parsed data
-	string*** parsedData = new string **[4];
+	string*** parsedData = new string **[2];
 	parsedData[0] = new string * [comCount];
 	parsedData[1] = new string * [conCount];
 
@@ -112,8 +112,16 @@ void ActionLoad::Execute()
 	//Print Action Message
 	pUI->PrintMsg("Circuit Loaded");
 
-	delete[] parsedData;
+	for (int i = 0; i < comCount; i++) {
+		delete[] parsedData[0][i];
+	}
+	delete[] parsedData[0];
 
+	for (int i = 0; i < conCount; i++) {
+		delete[] parsedData[1][i];
+	}
+	delete[] parsedData[1];
+	delete[] parsedData;
 }
 
 void ActionLoad::Undo()

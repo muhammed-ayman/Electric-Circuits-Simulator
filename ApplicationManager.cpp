@@ -14,7 +14,7 @@
 #include "Actions\ActionAddConn.h"
 #include "Actions\ActionSave.h"
 #include "Actions\ActionLoad.h"
-#include "Actions/ActionExit.h"
+#include "Actions\ActionExit.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -94,9 +94,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 				pAct = new ActionEditLabel(this);
 			}
 			break;
+
 		case DSN_MODE:
 			pAct = new ActionDsnWindow(this);
 			break;
+
 		case EDIT_Value:
 			if (this->SelectedComponentId >= 0) {
 				pAct = new ActionEditValue(this);
@@ -238,6 +240,7 @@ void ApplicationManager::SaveCircuit() {
 		saveFile << conData[2] << ", ";
 		saveFile << conData[3] << "\n";
 	}
+
 	saveFile.close();
 }
 
@@ -275,18 +278,24 @@ void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int con
 			pR->setValue(stod(parsedData[0][comIndex][3]));
 			AddComponent(pR);
 		}
+		delete pGInfo;
 	}
 
-	ConnectionInfo* cInfo = new ConnectionInfo;
+	
 
 	for (int conIndex = 0; conIndex < conCount; conIndex++) {
+		ConnectionInfo* cInfo = new ConnectionInfo;
 		ActionAddConn* AddConnection = new ActionAddConn(this);
 		cInfo->component1 = stoi(parsedData[1][conIndex][0])-1;
 		cInfo->component2 = stoi(parsedData[1][conIndex][1])-1;
 		cInfo->item1_terminal = stoi(parsedData[1][conIndex][2]);
 		cInfo->item2_terminal = stoi(parsedData[1][conIndex][3]);
 		AddConnection->ProcessConnection(cInfo);
+		delete cInfo;
+		delete AddConnection;
 	}
 
-	pUI->ClearDrawingArea();
+	
+
+	UpdateInterface();
 }
