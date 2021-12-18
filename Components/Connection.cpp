@@ -2,10 +2,15 @@
 #include <iostream>
 Connection::Connection(ConnectionInfo *CInfo, GraphicsInfo *r_GfxInfo, Component *cmp1, Component *cmp2)
 {
-	cInfo = CInfo;
+	*cInfo = *CInfo;
 	pGfxInfo = r_GfxInfo;
 	Cmpnt1 = cmp1;
 	Cmpnt2 = cmp2;
+}
+
+Connection::~Connection()
+{
+	delete[] conDataIn;
 }
 
 void Connection::Draw(UI* pUI)
@@ -27,9 +32,7 @@ GraphicsInfo* Connection::getGraphicsInfo() const {
 }
 
 string* Connection::Save()
-{
-	string* conDataIn = new string[4];
-	
+{	
 	conDataIn[0] = to_string(cInfo->component1+1);
 	conDataIn[1] = to_string(cInfo->component2+1);
 	conDataIn[2] = to_string(cInfo->item1_terminal);
