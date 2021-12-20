@@ -171,6 +171,20 @@ void ApplicationManager::GetComponentList(Component* CompListNew[]) {
 	}
 }
 
+void ApplicationManager::GetConnectionList(Connection* ConnListNew[]) {
+	for (int i = 0; i < MaxConnCount; i++) {
+		ConnListNew[i] = ConnList[i];
+	}
+}
+
+int ApplicationManager::GetComponentCount() {
+	return CompCount;
+}
+
+int ApplicationManager::GetConnectionCount() {
+	return ConnCount;
+}
+
 ///////////////////////////////////////////////////////////////////
 
 void ApplicationManager::setSelectedComponentId(int selectedCompId) {
@@ -202,56 +216,19 @@ void ApplicationManager::AddConnection(Connection* pConn)
 }
 
 
-void ApplicationManager::GetConnectionList(Connection* ConnListNew[]) {
-	for (int i = 0; i < MaxConnCount; i++) {
-		ConnListNew[i] = ConnList[i];
-	}
-}
-
 /////////////////////////////////////////////////////////
-
-void ApplicationManager::SaveCircuit() {
-
-	ofstream saveFile;
-	saveFile.open("Saves\\circuit.txt");
-
-	saveFile << CompCount << "\n";
-
-	for (int i = 0; i < CompCount; i++) {
-		string* comData = CompList[i]->Save();
-		comData[1] = to_string(i + 1);
-
-		saveFile << comData[0] << ", ";
-		saveFile << comData[1] << ", ";
-		saveFile << comData[2] << ", ";
-		saveFile << comData[3] << ", ";
-		saveFile << comData[4] << ", ";
-		saveFile << comData[5] << "\n";
-	}
-
-	saveFile << "Connections" << "\n";
-	saveFile << ConnCount << "\n";
-
-	for (int i = 0; i < ConnCount; i++) {
-		string* conData = ConnList[i]->Save();
-
-		saveFile << conData[0] << ", ";
-		saveFile << conData[1] << ", ";
-		saveFile << conData[2] << ", ";
-		saveFile << conData[3] << "\n";
-	}
-
-	saveFile.close();
-}
 
 void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int conCount) {
 
 	//reset application manager
 	ResetData();
 
+
+	GraphicsInfo* pGInfo;
+	Component* pR;
 	// load components part
 	for (int comIndex = 0; comIndex < comCount; comIndex++) {
-		GraphicsInfo* pGInfo = new GraphicsInfo(2);
+		pGInfo = new GraphicsInfo(2);
 
 		int compWidth = pUI->getCompWidth();
 		int compHeight = pUI->getCompHeight();
@@ -263,7 +240,6 @@ void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int con
 
 		string compType = parsedData[0][comIndex][0];
 
-		Component* pR;
 		if (compType == "RES") pR = new Resistor(pGInfo);
 		else if (compType == "BLB")  pR = new Bulb(pGInfo);
 		else if (compType == "BAT") pR = new Battery(pGInfo);
@@ -278,23 +254,19 @@ void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int con
 			pR->setValue(stod(parsedData[0][comIndex][3]));
 			AddComponent(pR);
 		}
-		delete pGInfo;
+		
 	}
-
-	
 
 	for (int conIndex = 0; conIndex < conCount; conIndex++) {
 		ConnectionInfo* cInfo = new ConnectionInfo;
 		ActionAddConn* AddConnection = new ActionAddConn(this);
+
 		cInfo->component1 = stoi(parsedData[1][conIndex][0])-1;
 		cInfo->component2 = stoi(parsedData[1][conIndex][1])-1;
 		cInfo->item1_terminal = stoi(parsedData[1][conIndex][2]);
 		cInfo->item2_terminal = stoi(parsedData[1][conIndex][3]);
 		AddConnection->ProcessConnection(cInfo);
-		delete cInfo;
-		delete AddConnection;
 	}
-
 	
 
 	UpdateInterface();

@@ -27,7 +27,7 @@ void ActionAddConn::Execute()
 
 
 	// Looping over the list of components (max = 200)
-	for (int i = 0; i < 200; i++) {
+	for (int i = 0; i < MaxCompCount; i++) {
 		// If there is a component inside the drawing area, proceed
 		if (CompList[i] != nullptr) {
 			// Gets the graphical info of component [i]
@@ -54,8 +54,8 @@ void ActionAddConn::Execute()
 
 		pUI->GetPointClicked(x, y);
 
-
-		for (int i = 0; i < 200; i++) {
+		
+		for (int i = 0; i < MaxCompCount; i++) {
 			// If there is a component inside the drawing area, proceed
 			if (CompList[i] != nullptr) {
 				// Gets the graphical info of component [i]
@@ -116,7 +116,7 @@ void ActionAddConn::ProcessConnection(ConnectionInfo* cInfo) {
 		conn_graph_info->PointsList[1].y = comp2_graph_info->PointsList[1].y - 5;
 	}
 	
-	Connection* conn = new Connection(cInfo, conn_graph_info, CompList[cInfo->component1], CompList[cInfo->component2]);
+	conn = new Connection(cInfo, conn_graph_info, CompList[cInfo->component1], CompList[cInfo->component2]);
 
 	if (cInfo->item1_terminal == 0) {
 		CompList[cInfo->component1]->setTerm1Conn(conn);
@@ -126,10 +126,10 @@ void ActionAddConn::ProcessConnection(ConnectionInfo* cInfo) {
 	}
 
 	if (cInfo->item2_terminal == 0) {
-		CompList[cInfo->component1]->setTerm1Conn(conn);
+		CompList[cInfo->component2]->setTerm1Conn(conn);
 	}
 	else {
-		CompList[cInfo->component1]->setTerm2Conn(conn);
+		CompList[cInfo->component2]->setTerm2Conn(conn);
 	}
 
 	pManager->AddConnection(conn);

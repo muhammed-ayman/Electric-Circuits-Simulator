@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <sstream>
 #include <cmath>
@@ -25,7 +24,7 @@ int main()
 	
 
 	}while(ActType != EXIT);
-		
+
 	return 0;
 }
 

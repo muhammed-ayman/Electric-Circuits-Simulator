@@ -8,6 +8,10 @@ Connection::Connection(ConnectionInfo *CInfo, GraphicsInfo *r_GfxInfo, Component
 	Cmpnt2 = cmp2;
 }
 
+Connection::Connection() {
+
+}
+
 Connection::~Connection()
 {
 	delete[] conDataIn;

@@ -16,6 +16,7 @@ private:
 
 public:
 	Connection(ConnectionInfo *cInfo, GraphicsInfo *r_GfxInfo, Component *cmp1=nullptr, Component *cmp2=nullptr);
+	Connection();
 	~Connection();
 	virtual void Draw(UI* );	//for connection to Draw itself
 	virtual string* Save(); //returns components data to save

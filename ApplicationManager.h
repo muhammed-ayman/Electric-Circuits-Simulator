@@ -7,6 +7,8 @@
 #include "Components\Component.h"
 #include "Components\Connection.h"
 
+
+
 // fix this later
 #include <iostream>
 #include <fstream>
@@ -26,7 +28,7 @@ class ApplicationManager
 private:
 	int CompCount;		//Actual number of Components
 	int ConnCount;		//Actual number of Connections
-
+	
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
 	Connection* ConnList[MaxConnCount]; // List of all Connections (Array of pointers)
 
@@ -64,6 +66,10 @@ public:
 
 	//Retrieves the current list of added components. 	
 	void GetComponentList(Component* CompListNew[]);
+	void GetConnectionList(Connection* ConnListNew[]);
+
+	int GetComponentCount();
+	int GetConnectionCount();
 
 	void setSelectedComponentId(int selectedCompId); // setter for selected component ID
 	int getSelectedComponentId(); // getter for selected component ID
@@ -75,10 +81,7 @@ public:
 	void AddConnection(Connection* pConn);
 
 	// Retrieves the current list of added connections. 	
-	void GetConnectionList(Connection* ConnListNew[]);
-
-	// Save Circuit
-	void SaveCircuit();
+	
 
 	// Load Circuit
 	void LoadCircuit(string*** parsedData, int comCount, int conCount);
