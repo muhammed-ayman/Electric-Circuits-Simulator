@@ -19,6 +19,7 @@ UI::UI()
 
 	CreateDesignToolBar();	//Create the desgin toolbar
 	CreateStatusBar();		//Create Status bar
+	CreateDrawingArea();
 }
 
 
@@ -213,6 +214,14 @@ void UI::ClearDrawingArea() const
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(0, ToolBarHeight, width, height - StatusBarHeight);
 	
+}
+
+void UI::CreateDrawingArea() const {
+	pWind->SetPen(BLUE, 3);
+	pWind->DrawLine(0,90,920,90);
+	pWind->DrawLine(0, 590, 920, 590);
+	pWind->DrawLine(0, 90, 0, 590);
+	pWind->DrawLine(920, 90, 920, 590);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
