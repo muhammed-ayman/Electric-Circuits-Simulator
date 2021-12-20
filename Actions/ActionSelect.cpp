@@ -83,7 +83,7 @@ void ActionSelect::Execute()
 			}
 		}
 		pUI->ClearEditMenu(); // Clearning the edit menu once the user clicks outside the components
-
+		pUI->CreateDrawingArea();
 		pManager->setSelectedComponentId(-1); // Re-setting the selected component ID to -1 indicating that there is currently no selected component
 		pManager->setSelectedConnectionId(-1); // Re-setting the selected connection ID to -1 indicating that there is currently no selected connection
 	}
