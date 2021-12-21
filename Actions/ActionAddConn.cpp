@@ -1,7 +1,6 @@
 #include "ActionAddConn.h"
 #include "../ApplicationManager.h"
-#include <iostream>
-using namespace std;
+
 
 ActionAddConn::ActionAddConn(ApplicationManager* pApp) :Action(pApp)
 {
@@ -45,7 +44,7 @@ void ActionAddConn::Execute()
 	else {
 		pUI->PrintMsg("Component 1 selected");
 		comp1_graph_info = CompList[cInfo->component1]->getGraphicsInfo();
-		if (y >= comp1_graph_info->PointsList[0].y && y <= comp1_graph_info->PointsList[0].y + 50) {
+		if (x >= comp1_graph_info->PointsList[0].x && x <= comp1_graph_info->PointsList[0].x + 50) {
 			cInfo->item1_terminal = 0;
 		}
 		else {
@@ -80,7 +79,7 @@ void ActionAddConn::Execute()
 
 			comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
 
-			if (y >= comp2_graph_info->PointsList[0].y && y <= comp2_graph_info->PointsList[0].y + 50) {
+			if (x >= comp2_graph_info->PointsList[0].x && x <= comp2_graph_info->PointsList[0].x + 50) {
 				cInfo->item2_terminal = 0;
 			}
 			else {
@@ -97,26 +96,29 @@ void ActionAddConn::ProcessConnection(ConnectionInfo* cInfo) {
 	comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
 
 	if (cInfo->item1_terminal == 0) {
-		conn_graph_info->PointsList[0].x = comp1_graph_info->PointsList[0].x + 50;
-		conn_graph_info->PointsList[0].y = comp1_graph_info->PointsList[0].y;
+		conn_graph_info->PointsList[0].x = comp1_graph_info->PointsList[0].x+5;
+		conn_graph_info->PointsList[0].y = comp1_graph_info->PointsList[0].y+50;
 
 	}
 	else {
-		conn_graph_info->PointsList[0].x = comp1_graph_info->PointsList[1].x - 50;
-		conn_graph_info->PointsList[0].y = comp1_graph_info->PointsList[1].y;
+		conn_graph_info->PointsList[0].x = comp1_graph_info->PointsList[0].x+95;
+		conn_graph_info->PointsList[0].y = comp1_graph_info->PointsList[0].y+50;
 	}
 
 	if (cInfo->item2_terminal == 0) {
-		conn_graph_info->PointsList[1].x = comp2_graph_info->PointsList[0].x + 50;
-		conn_graph_info->PointsList[1].y = comp2_graph_info->PointsList[0].y + 5;
+		conn_graph_info->PointsList[1].x = comp2_graph_info->PointsList[0].x+5;
+		conn_graph_info->PointsList[1].y = comp2_graph_info->PointsList[0].y + 50;
 
 	}
 	else {
-		conn_graph_info->PointsList[1].x = comp2_graph_info->PointsList[1].x - 50;
-		conn_graph_info->PointsList[1].y = comp2_graph_info->PointsList[1].y - 5;
+		conn_graph_info->PointsList[1].x = comp2_graph_info->PointsList[0].x+95;
+		conn_graph_info->PointsList[1].y = comp2_graph_info->PointsList[0].y+50;
 	}
 	
 	conn = new Connection(cInfo, conn_graph_info, CompList[cInfo->component1], CompList[cInfo->component2]);
+
+	
+
 
 	if (cInfo->item1_terminal == 0) {
 		CompList[cInfo->component1]->setTerm1Conn(conn);
