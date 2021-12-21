@@ -86,7 +86,17 @@ void ActionAddConn::Execute()
 				cInfo->item2_terminal = 1;
 			}
 
-			ProcessConnection(cInfo);
+			if (((cInfo->item1_terminal==0) && (CompList[cInfo->component1]->getTerm1Conn() != nullptr)) || ((cInfo->item1_terminal == 1) && (CompList[cInfo->component1]->getTerm2Conn() != nullptr))) {
+				pUI->PrintMsg("First component is already coonnected at that terminal");
+			}
+			else if (((cInfo->item2_terminal == 0) && (CompList[cInfo->component2]->getTerm1Conn() != nullptr)) || ((cInfo->item2_terminal == 1) && (CompList[cInfo->component2]->getTerm2Conn() != nullptr))) {
+				pUI->PrintMsg("Second component is already coonnected at that terminal");
+
+			}
+			else {
+				ProcessConnection(cInfo);
+			}
+			
 		}
 	}
 }
