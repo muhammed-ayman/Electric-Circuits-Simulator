@@ -28,6 +28,7 @@ class ApplicationManager
 private:
 	int CompCount;		//Actual number of Components
 	int ConnCount;		//Actual number of Connections
+	int GroundCount = 0;
 	
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
 	Connection* ConnList[MaxConnCount]; // List of all Connections (Array of pointers)
@@ -45,6 +46,8 @@ public:
 	ApplicationManager(); //constructor
 
 	void ResetData();
+
+	int GetGroundCount();
 
 	//Reads the required action from the user and returns the corresponding action type
 	ActionType GetUserAction();

@@ -23,6 +23,10 @@ ApplicationManager::ApplicationManager()
 	pUI = new UI;
 }
 
+int ApplicationManager::GetGroundCount() {
+	return GroundCount;
+}
+
 
 void ApplicationManager::ResetData() {
 	CompCount = 0;
@@ -72,6 +76,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case ADD_GROUND:
 			pAct = new ActionAddGround(this);
+			GroundCount++;
 			break;
 
 		case ADD_BUZZER:
