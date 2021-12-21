@@ -105,6 +105,9 @@ void ActionAddConn::ProcessConnection(ConnectionInfo* cInfo) {
 	comp1_graph_info = CompList[cInfo->component1]->getGraphicsInfo();
 	comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
 
+	
+
+
 	if (cInfo->item1_terminal == 0) {
 		conn_graph_info->PointsList[0].x = comp1_graph_info->PointsList[0].x+5;
 		conn_graph_info->PointsList[0].y = comp1_graph_info->PointsList[0].y+50;

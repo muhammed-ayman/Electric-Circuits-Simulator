@@ -269,10 +269,13 @@ void UI::CreateSimulationToolBar()
 	pWind->DrawRectangle(0, 0, pWind->GetWidth(), ToolBarHeight);
 	string MenuItemImages[ITM_SIM_CNT];
 	MenuItemImages[ITM_DSN] = "images\\Menu\\Menu_Stop.jpg";
+	MenuItemImages[ITM_VOLT] = "images\\Menu\\Menu_Voltmeter.jpg";
+	MenuItemImages[ITM_AMP] = "images\\Menu\\Menu_Ammeter.jpg";
+
 	MenuItemImages[ITM_SIM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	for (int i = 0; i < ITM_SIM_CNT; i++)
-		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth, ToolBarHeight-5);
+		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth-5, ToolBarHeight-5);
 
 	ClearEditMenu();
 
