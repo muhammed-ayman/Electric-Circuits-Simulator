@@ -61,7 +61,7 @@ void ActionSelect::Execute()
 					- ConnListGraphicsInfo->PointsList[1].y) / (ConnListGraphicsInfo->PointsList[0].x
 						- ConnListGraphicsInfo->PointsList[1].x);
 				double lineIntercept = ConnListGraphicsInfo->PointsList[0].y - lineSlope * ConnListGraphicsInfo->PointsList[0].x;
-				if (y <= lineSlope * x + lineIntercept + 5 && y >= lineSlope * x + lineIntercept - 5) {
+				if (y <= lineSlope * x + lineIntercept + 5 && y >= lineSlope * x + lineIntercept - 5 && x >= ConnListGraphicsInfo->PointsList[0].x && x <= ConnListGraphicsInfo->PointsList[1].x) {
 					pUI->PrintMsg("Connection Clicked");
 					Menu->DrawConnectionMenu(ConnList[i]);
 					pManager->setSelectedConnectionId(i);
