@@ -54,9 +54,11 @@ void ActionAddConn::Execute()
 
 
 	if (cInfo->component1 == -1) { pUI->PrintMsg("Nothing selected"); }
+	
 	else {
 		pUI->PrintMsg("Component 1 selected");
 		comp1_graph_info = CompList[cInfo->component1]->getGraphicsInfo();
+
 		if (x >= comp1_graph_info->PointsList[0].x && x <= comp1_graph_info->PointsList[0].x + 50) {
 			cInfo->item1_terminal = 0;
 		}
@@ -64,43 +66,55 @@ void ActionAddConn::Execute()
 			cInfo->item1_terminal = 1;
 		}
 
-		pUI->GetPointClicked(x, y);
-
-		
-		
-		cInfo->component2 = getComponent(x,y);
-
-		if (cInfo->component2 == -1) {
-			pUI->PrintMsg("Nothing selected to connect to!");
-			CompList[cInfo->component1]->setClick(false);
+		//checking if the first selected component is connected at the selected terminal
+		if (((cInfo->item1_terminal == 0) && (CompList[cInfo->component1]->getTerm1Conn() != nullptr))) {
+			pUI->PrintMsg("First component is already connected at left terminal");
 		}
-		else if (cInfo->component2 == cInfo->component1) {
-			pUI->PrintMsg("Cannot connect a component to itself!");
+		else if (((cInfo->item1_terminal == 1) && (CompList[cInfo->component1]->getTerm2Conn() != nullptr))) {
+			pUI->PrintMsg("First component is already connected at right terminal");
 
 		}
 		else {
-			pUI->PrintMsg("Component two selected");
 
-			comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
+			pUI->GetPointClicked(x, y);
 
-			if (x >= comp2_graph_info->PointsList[0].x && x <= comp2_graph_info->PointsList[0].x + 50) {
-				cInfo->item2_terminal = 0;
-			}
-			else {
-				cInfo->item2_terminal = 1;
-			}
 
-			if (((cInfo->item1_terminal==0) && (CompList[cInfo->component1]->getTerm1Conn() != nullptr)) || ((cInfo->item1_terminal == 1) && (CompList[cInfo->component1]->getTerm2Conn() != nullptr))) {
-				pUI->PrintMsg("First component is already coonnected at that terminal");
+
+			cInfo->component2 = getComponent(x, y);
+
+			if (cInfo->component2 == -1) {
+				pUI->PrintMsg("Nothing selected to connect to!");
+				CompList[cInfo->component1]->setClick(false);
 			}
-			else if (((cInfo->item2_terminal == 0) && (CompList[cInfo->component2]->getTerm1Conn() != nullptr)) || ((cInfo->item2_terminal == 1) && (CompList[cInfo->component2]->getTerm2Conn() != nullptr))) {
-				pUI->PrintMsg("Second component is already coonnected at that terminal");
+			else if (cInfo->component2 == cInfo->component1) {
+				pUI->PrintMsg("Cannot connect a component to itself!");
 
 			}
 			else {
-				ProcessConnection(cInfo);
+				pUI->PrintMsg("Second component selected");
+
+				comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
+
+				if (x >= comp2_graph_info->PointsList[0].x && x <= comp2_graph_info->PointsList[0].x + 50) {
+					cInfo->item2_terminal = 0;
+				}
+				else {
+					cInfo->item2_terminal = 1;
+				}
+
+				//checking if the second component is connected at the selected terminal 
+				if (((cInfo->item2_terminal == 0) && (CompList[cInfo->component2]->getTerm1Conn() != nullptr))) {
+					pUI->PrintMsg("Second component is already connected at left terminal");
+
+				}
+				else if (((cInfo->item2_terminal == 1) && (CompList[cInfo->component2]->getTerm2Conn() != nullptr))) {
+					pUI->PrintMsg("Second component is already connected at right terminal");
+				}
+				else {
+					ProcessConnection(cInfo);
+				}
+
 			}
-			
 		}
 	}
 }
