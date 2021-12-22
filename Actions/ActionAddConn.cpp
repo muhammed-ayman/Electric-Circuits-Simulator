@@ -2,6 +2,8 @@
 #include "../ApplicationManager.h"
 
 
+
+
 ActionAddConn::ActionAddConn(ApplicationManager* pApp) :Action(pApp)
 {
 	pManager->GetComponentList(CompList);
@@ -9,6 +11,29 @@ ActionAddConn::ActionAddConn(ApplicationManager* pApp) :Action(pApp)
 
 ActionAddConn::~ActionAddConn(void)
 {
+}
+
+/// <summary>
+/// returns the index of the component whose coordinates clicked on if found and returns -1 otherwise
+/// </summary>
+/// <param name="x"> x coordinate last clicked</param>
+/// <param name="y"> y coordinate last clicked</param>
+/// <returns></returns>
+int ActionAddConn::getComponent(int x, int y)
+{
+	for (int i = 0; i < MaxCompCount; i++) {
+		// If there is a component inside the drawing area, proceed
+		if (CompList[i] != nullptr) {
+			// Gets the graphical info of component [i]
+			CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
+			// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
+			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
+				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
+				return i;
+			}
+		}
+	}
+	return -1;
 }
 
 void ActionAddConn::Execute()
@@ -25,19 +50,7 @@ void ActionAddConn::Execute()
 	pUI->GetPointClicked(x,y);
 
 
-	// Looping over the list of components (max = 200)
-	for (int i = 0; i < MaxCompCount; i++) {
-		// If there is a component inside the drawing area, proceed
-		if (CompList[i] != nullptr) {
-			// Gets the graphical info of component [i]
-			CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
-			// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
-			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
-				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
-				cInfo->component1 = i;
-			}
-		}
-	}
+	cInfo->component1 = getComponent(x,y);
 
 
 	if (cInfo->component1 == -1) { pUI->PrintMsg("Nothing selected"); }
@@ -54,18 +67,9 @@ void ActionAddConn::Execute()
 		pUI->GetPointClicked(x, y);
 
 		
-		for (int i = 0; i < MaxCompCount; i++) {
-			// If there is a component inside the drawing area, proceed
-			if (CompList[i] != nullptr) {
-				// Gets the graphical info of component [i]
-				CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
-				// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
-				if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
-					CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
-					cInfo->component2 = i;
-				}
-			}
-		}
+		
+		cInfo->component2 = getComponent(x,y);
+
 		if (cInfo->component2 == -1) {
 			pUI->PrintMsg("Nothing selected to connect to!");
 			CompList[cInfo->component1]->setClick(false);

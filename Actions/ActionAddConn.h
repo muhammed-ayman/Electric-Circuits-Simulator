@@ -13,6 +13,8 @@ private:
 	GraphicsInfo* comp1_graph_info = new GraphicsInfo(2);
 	GraphicsInfo* comp2_graph_info = new GraphicsInfo(2);
 	Connection* conn = new Connection;
+
+	int getComponent(int x,int y);
 public:
 	ActionAddConn(ApplicationManager* pApp);
 	void ProcessConnection(ConnectionInfo* cInfo);
