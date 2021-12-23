@@ -176,6 +176,11 @@ void ApplicationManager::GetComponentList(Component* CompListNew[]) {
 	}
 }
 
+double ApplicationManager::getCompValue(Component* component) {
+
+		return component->getValue();
+}
+
 void ApplicationManager::GetConnectionList(Connection* ConnListNew[]) {
 	for (int i = 0; i < MaxConnCount; i++) {
 		ConnListNew[i] = ConnList[i];

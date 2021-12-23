@@ -10,8 +10,19 @@ ActionSimWindow::~ActionSimWindow(void)
 }
 
 bool ActionSimWindow::Validate() {
-	if (pManager->GetGroundCount() == 1 && (pManager->GetComponentCount() == pManager->GetConnectionCount())) return true;
-	else return false;
+	int counter = 0;
+	Component* CompList[200];
+	pManager->GetComponentList(CompList);
+	if (pManager->GetGroundCount() == 1 && (pManager->GetComponentCount() == pManager->GetConnectionCount())) {
+		for (int i = 0; i < pManager->GetComponentCount(); i++) {
+			if (CompList[i] != nullptr) {
+				if (pManager->getCompValue(CompList[i]) != 0.0) counter++;
+			}
+		}
+		if (counter == pManager->GetComponentCount()) return true;
+		else return false;
+	}
+	return false;
 }
 
 void ActionSimWindow::Execute()
@@ -33,7 +44,7 @@ void ActionSimWindow::Execute()
 		//Print Action Message
 		pUI->PrintMsg("Simulation Mode Initialized");
 	}
-	else pUI->PrintMsg("Circuit is not valid!");
+	else pUI->PrintMsg("Circuit is not valid! Make sure there is only one circuit, one ground, and full connections & values for each component!");
 }
 
 void ActionSimWindow::Undo()

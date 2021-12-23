@@ -83,6 +83,8 @@ public:
 	// Adds a new connection to the list of connections
 	void AddConnection(Connection* pConn);
 
+	double getCompValue(Component* component);
+
 	// Retrieves the current list of added connections. 	
 	
 
