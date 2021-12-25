@@ -176,9 +176,24 @@ void ApplicationManager::GetComponentList(Component* CompListNew[]) {
 	}
 }
 
+bool ApplicationManager::isGround(Component* c) const {
+	if (c->GetItemType() == "GND") return true;
+	else return false;
+}
+
+bool ApplicationManager::isSwitch(Component* c) const {
+	if (c->GetItemType() == "SWT") return true;
+	else return false;
+}
+
 double ApplicationManager::getCompValue(Component* component) {
 
 		return component->getValue();
+}
+
+string ApplicationManager::getCompLabel(Component* component) {
+
+	return component->getLabel();
 }
 
 void ApplicationManager::GetConnectionList(Connection* ConnListNew[]) {

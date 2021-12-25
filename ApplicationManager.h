@@ -49,6 +49,9 @@ public:
 
 	int GetGroundCount();
 
+	bool isGround(Component* c) const;
+
+	bool isSwitch(Component* c) const;
 	//Reads the required action from the user and returns the corresponding action type
 	ActionType GetUserAction();
 	
@@ -84,6 +87,8 @@ public:
 	void AddConnection(Connection* pConn);
 
 	double getCompValue(Component* component);
+
+	string getCompLabel(Component* component);
 
 	// Retrieves the current list of added connections. 	
 	
