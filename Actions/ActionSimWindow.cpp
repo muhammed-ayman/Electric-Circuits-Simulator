@@ -20,7 +20,7 @@ bool ActionSimWindow::Validate() {
 					if (pManager->getCompValue(CompList[i]) > double(0) && pManager->getCompLabel(CompList[i]) != "Component") counter++;
 				}
 				if (pManager->isSwitch(CompList[i])) {
-					if ((pManager->getCompValue(CompList[i]) == double(0) || pManager->getCompValue(CompList[i]) == double(1)) && pManager->getCompLabel(CompList[i]) != "Component")counter++;
+					if ((pManager->getCompValue(CompList[i]) == double(0) && pManager->getCompLabel(CompList[i]) != "Component")counter++;
 				}
 				if(pManager->isGround(CompList[i])) {
 					if (pManager->getCompValue(CompList[i]) == double(0) && pManager->getCompLabel(CompList[i]) != "Component") counter++;
