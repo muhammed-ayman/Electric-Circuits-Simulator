@@ -28,7 +28,7 @@ bool ActionSimWindow::Validate() {
 			}
 		}
 	}
-	if (counter == pManager->GetComponentCount()) return true;
+	if (counter == pManager->GetComponentCount() && pManager->GetComponentCount() != 0) return true;
 	return false;
 }
 
