@@ -3,9 +3,9 @@
 Switch::Switch(GraphicsInfo *r_GfxInfo):Component(r_GfxInfo)
 {
 	this->itemType = SWT;
-	//r_GfxInfo->closed = false;
-	
+	r_GfxInfo->closed = false;	
 }
+
 
 void Switch::Draw(UI* pUI)
 {

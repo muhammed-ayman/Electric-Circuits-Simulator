@@ -160,6 +160,11 @@ ActionType UI::GetUserAction() const
 			}
 		}
 
+		if (y >= ToolBarHeight && y < height - StatusBarHeight && x < width - EditMenuWidth)
+		{
+			return SELECT;	//user wants to select/unselect a statement in the flowchart
+		}
+
 	}
 
 }
@@ -467,4 +472,9 @@ void UI::DrawConnectionEditMenu(string ConnectionLabel = "Connection") {
 	//pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);
 	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 50, width, height - StatusBarHeight - 50);
 
+}
+
+MODE UI::getAppMode() const
+{
+	return AppMode;
 }

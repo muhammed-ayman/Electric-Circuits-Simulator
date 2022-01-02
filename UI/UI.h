@@ -147,6 +147,9 @@ public:
 
 	void DrawConnectionEditMenu(string ConnectionLabel);
 	
+
+	//getter for the AppMode
+	MODE getAppMode() const;
 };
 
 #endif
