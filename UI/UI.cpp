@@ -326,11 +326,20 @@ void UI::DrawBattery(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 {
 	string SwImage;
-	if(r_GfxInfo.isClicked)
-		SwImage ="Images\\Comp\\Switch_Closed.jpg";	//use image of highlighted switch
-	else  
-		SwImage = "Images\\Comp\\Switch_Open.jpg";	//use image of the normal switch
-
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			SwImage = "Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
+		else
+			SwImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
+	}
+	else {
+		if (r_GfxInfo.closed) {
+			SwImage = "Images\\Comp\\Switch_Closed.jpg";
+		}
+		else {
+			SwImage = "Images\\Comp\\Switch.jpg";
+		}
+	}
 	//Draw Switch at Gfx_Info (1st corner)
 	pWind->DrawImage(SwImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
