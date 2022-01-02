@@ -13,7 +13,7 @@ enum ActionType
 	ADD_GROUND,			//Add Ground
 	ADD_BUZZER,			//Add Buzzer
 	ADD_FUSE,			//Add Fuse
-	ADD_LAMP,			//Add LAMP
+	ADD_MODULE,			//Add Module
 	ADD_CONNECTION,		//Add Wire Connection
 
 	ADD_Label,			//Add Label to a Component, a Connection
@@ -36,6 +36,7 @@ enum ActionType
 
 	DSN_MODE,	//Switch to Design mode
 	SIM_MODE,	//Switch to Simulatiom mode
+	MOD_MODE,
 
 	EXIT,		//Exit the application
 
@@ -47,7 +48,8 @@ enum ActionType
 enum  MODE	//Modes of operation
 {
 	DESIGN,
-	SIMULATION
+	SIMULATION,
+	MODULE
 };
 
 enum Items // All possible items
@@ -59,6 +61,7 @@ enum Items // All possible items
 	GND,
 	BUZ,
 	FUS,
+	MOD,
 	CON
 };
 

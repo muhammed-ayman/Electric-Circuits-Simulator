@@ -1,0 +1,3 @@
+TYPE: MOD
+LABEL: module
+VALUE: 10

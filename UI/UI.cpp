@@ -112,8 +112,10 @@ ActionType UI::GetUserAction() const
 			case ITM_GROUND:	return ADD_GROUND;
 			case ITM_BUZZER:	return ADD_BUZZER;
 			case ITM_FUSE:	return ADD_FUSE;
+			case ITM_MODULE: return ADD_MODULE;
 			case ITM_CONNECTION: return ADD_CONNECTION;
 			case ITM_SIM: return SIM_MODE;
+			case ITM_MOD: return MOD_MODE;
 			case ITM_SAVE: return SAVE;
 			case ITM_LOAD: return LOAD;
 			case ITM_EXIT:	return EXIT;	
@@ -154,7 +156,7 @@ ActionType UI::GetUserAction() const
 
 			switch (ClickedItemOrder)
 			{
-			case ITM_DSN: return DSN_MODE;
+			case ITM_SIM_DSN: return DSN_MODE;
 			case ITM_SIM_EXIT:	return EXIT;
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
@@ -166,6 +168,26 @@ ActionType UI::GetUserAction() const
 		}
 
 	}
+	else if (AppMode == MODULE)	//Application is in Simulation mode
+	{
+		if (y >= 0 && y < ToolBarHeight)
+		{
+			//Check whick Menu item was clicked
+			//==> This assumes that menu items are lined up horizontally <==
+			int ClickedItemOrder = (x / ToolItemWidth);
+			//Divide x coord of the point clicked by the menu item width (int division)
+			//if division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
+
+			switch (ClickedItemOrder)
+			{
+			case ITM_MOD_DSN: return DSN_MODE;
+			case ITM_MOD_EXIT:	return EXIT;
+			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
+			}
+		}
+
+	}
+
 
 }
 
@@ -245,10 +267,12 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_GROUND] = "images\\Menu\\Menu_Ground.jpg";
 	MenuItemImages[ITM_BUZZER] = "images\\Menu\\Menu_Buzzer.jpg";
 	MenuItemImages[ITM_FUSE] = "images\\Menu\\Menu_Fuse.jpg";
+	MenuItemImages[ITM_MODULE] = "images\\Menu\\Menu_Module.jpg";
 	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_Connection.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
+	MenuItemImages[ITM_MOD] = "images\\Menu\\Menu_Mod.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	//TODO: Prepare image for each menu item and add it to the list
@@ -273,7 +297,7 @@ void UI::CreateSimulationToolBar()
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(0, 0, pWind->GetWidth(), ToolBarHeight);
 	string MenuItemImages[ITM_SIM_CNT];
-	MenuItemImages[ITM_DSN] = "images\\Menu\\Menu_Stop.jpg";
+	MenuItemImages[ITM_SIM_DSN] = "images\\Menu\\Menu_Stop.jpg";
 	MenuItemImages[ITM_VOLT] = "images\\Menu\\Menu_Voltmeter.jpg";
 	MenuItemImages[ITM_AMP] = "images\\Menu\\Menu_Ammeter.jpg";
 
@@ -281,6 +305,30 @@ void UI::CreateSimulationToolBar()
 
 	for (int i = 0; i < ITM_SIM_CNT; i++)
 		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth-5, ToolBarHeight-5);
+
+	ClearEditMenu();
+
+	pWind->SetPen(RED, 3);
+	pWind->DrawLine(0, ToolBarHeight, width, ToolBarHeight);
+	pWind->DrawLine(0, 0, width, 0);
+
+
+}
+//////////////////////////////////////////////////////////////////////////////////////////
+//Draws the menu (toolbar) in the module mode
+void UI::CreateModuleToolBar()
+{
+	AppMode = MODULE;	//Module Mode
+
+	//TODO: Write code to draw the module toolbar (similar to that of design toolbar drawing)
+	pWind->SetBrush(WHITE);
+	pWind->DrawRectangle(0, 0, pWind->GetWidth(), ToolBarHeight);
+	string MenuItemImages[ITM_MOD_CNT];
+	MenuItemImages[ITM_MOD_DSN] = "images\\Menu\\Menu_Stop.jpg";
+	MenuItemImages[ITM_MOD_EXIT] = "images\\Menu\\Menu_Exit.jpg";
+
+	for (int i = 0; i < ITM_MOD_CNT; i++)
+		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth - 5, ToolBarHeight - 5);
 
 	ClearEditMenu();
 
@@ -382,10 +430,26 @@ void UI::DrawFuse(const GraphicsInfo &r_GfxInfo) const
 	pWind->DrawImage(FusImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 
-
-void UI::DrawConnection(const GraphicsInfo &r_GfxInfo, bool selected) const
+void UI::DrawModule(const GraphicsInfo& r_GfxInfo) const
 {
-	pWind->SetPen(BLACK, 2);
+	string ModImage;
+	if (r_GfxInfo.isClicked)
+		ModImage = "Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
+	else
+		ModImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
+
+	//Draw Battery at Gfx_Info (1st corner)
+	pWind->DrawImage(ModImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
+}
+
+
+void UI::DrawConnection(const GraphicsInfo &r_GfxInfo) const
+{
+	if (r_GfxInfo.isClicked)
+		pWind->SetPen(RED, 2);
+	else
+		pWind->SetPen(BLACK, 2);
+	
 	pWind->DrawLine(r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, r_GfxInfo.PointsList[1].x, r_GfxInfo.PointsList[1].y);
 }
 

@@ -30,6 +30,9 @@ void Connection::setConnectionLabel(string label) {
 	this->c_Label = label;
 }
 
+void Connection::setClick(bool clickStatus) {
+	pGfxInfo->isClicked = clickStatus;
+}
 
 GraphicsInfo* Connection::getGraphicsInfo() const {
 	return this->pGfxInfo;

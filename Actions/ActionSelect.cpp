@@ -27,19 +27,20 @@ void ActionSelect::Execute()
 	// Initializing the pointer to the ActionAddMenu
 	ActionAddMenu* Menu = new ActionAddMenu(pManager);
 
-	Component* CompList[200];
+	Component* CompList[MaxCompCount];
 
 	pManager->GetComponentList(CompList);
 
 	int clicked = 0; // Initializing the click status as false (no-click)
 	// Looping over the list of components (max = 200)
-	for (int i = 0; i < 200; i++) {
+	for (int i = 0; i < MaxCompCount; i++) {
 		// If there is a component inside the drawing area, proceed
 		if (CompList[i] != nullptr) {
 			// Gets the graphical info of component [i]
 			GraphicsInfo* CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
 			// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
 			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
+				pUI->PrintMsg("Component Clicked");
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
 				pManager->setSelectedComponentId(i); // Setting the selected component ID as the one currently clicked from the component list
@@ -61,12 +62,12 @@ void ActionSelect::Execute()
 	}
 
 
-	Connection* ConnList[400];
+	Connection* ConnList[MaxConnCount];
 
 	pManager->GetConnectionList(ConnList);
 
 	if (clicked == 0) {
-		for (int i = 0; i < 400; i++) {
+		for (int i = 0; i < MaxConnCount; i++) {
 			if (ConnList[i] != nullptr) {
 				GraphicsInfo* ConnListGraphicsInfo = ConnList[i]->getGraphicsInfo();
 				double lineSlope = double(ConnListGraphicsInfo->PointsList[0].y
@@ -75,9 +76,12 @@ void ActionSelect::Execute()
 				double lineIntercept = ConnListGraphicsInfo->PointsList[0].y - lineSlope * ConnListGraphicsInfo->PointsList[0].x;
 				if (y <= lineSlope * x + lineIntercept + 5 && y >= lineSlope * x + lineIntercept - 5 && x >= ConnListGraphicsInfo->PointsList[0].x && x <= ConnListGraphicsInfo->PointsList[1].x) {
 					pUI->PrintMsg("Connection Clicked");
-					Menu->DrawConnectionMenu(ConnList[i]);
-					pManager->setSelectedConnectionId(i);
 					clicked = 1;
+					ConnList[i]->setClick(true);
+					pManager->setSelectedConnectionId(i);
+					Menu->DrawConnectionMenu(ConnList[i]);
+					
+					
 					break;
 				}
 			}
@@ -88,10 +92,16 @@ void ActionSelect::Execute()
 	// If the user clicks outside any of the components
 	if (clicked == 0) {
 		pUI->ClearStatusBar();
-		for (int i = 0; i < 200; i++) {
+		for (int i = 0; i < MaxCompCount; i++) {
 			// If there is component, proceed
 			if (CompList[i] != nullptr) {
 				CompList[i]->setClick(false); // Unselects all the components (unhighlighting the images)
+			}
+		}
+		for (int i = 0; i < MaxConnCount; i++) {
+			// If there is connection, proceed
+			if (ConnList[i] != nullptr) {
+				ConnList[i]->setClick(false); // Unselects all the connections (unhighlighting the lines)
 			}
 		}
 		pUI->ClearEditMenu(); // Clearning the edit menu once the user clicks outside the components
