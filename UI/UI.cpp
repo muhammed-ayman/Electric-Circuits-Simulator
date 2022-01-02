@@ -114,10 +114,11 @@ ActionType UI::GetUserAction() const
 			case ITM_FUSE:	return ADD_FUSE;
 			case ITM_MODULE: return ADD_MODULE;
 			case ITM_CONNECTION: return ADD_CONNECTION;
-			case ITM_SIM: return SIM_MODE;
-			case ITM_MOD: return MOD_MODE;
+			case ITM_PASTE: return Paste;
 			case ITM_SAVE: return SAVE;
 			case ITM_LOAD: return LOAD;
+			case ITM_SIM: return SIM_MODE;
+			case ITM_MOD: return MOD_MODE;
 			case ITM_EXIT:	return EXIT;	
 			
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
@@ -133,6 +134,12 @@ ActionType UI::GetUserAction() const
 		// [3] User clicks on the edit menu area
 		if (y >= ToolBarHeight && y < height - StatusBarHeight && x >= width - EditMenuWidth)
 		{
+			if (y >= height - StatusBarHeight - 200 && y < height - StatusBarHeight - 150) {
+				return EDIT_Copy;	// user wants to copy the component
+			}
+			if (y >= height - StatusBarHeight - 150 && y <= height - StatusBarHeight - 100) {
+				return EDIT_Cut;	// user user wants to cut the component
+			}
 			if (y >= height - StatusBarHeight - 100 && y < height - StatusBarHeight - 50) {
 				return EDIT_Value;	// user wants to edit the component's value
 			}
@@ -160,11 +167,6 @@ ActionType UI::GetUserAction() const
 			case ITM_SIM_EXIT:	return EXIT;
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
-		}
-
-		if (y >= ToolBarHeight && y < height - StatusBarHeight && x < width - EditMenuWidth)
-		{
-			return SELECT;	//user wants to select/unselect a statement in the flowchart
 		}
 
 	}
@@ -269,6 +271,7 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_FUSE] = "images\\Menu\\Menu_Fuse.jpg";
 	MenuItemImages[ITM_MODULE] = "images\\Menu\\Menu_Module.jpg";
 	MenuItemImages[ITM_CONNECTION] = "images\\Menu\\Menu_Connection.jpg";
+	MenuItemImages[ITM_PASTE] = "images\\Menu\\Menu_Paste.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
@@ -379,20 +382,11 @@ void UI::DrawBattery(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 {
 	string SwImage;
-	if (AppMode == DESIGN) {
-		if (r_GfxInfo.isClicked)
-			SwImage = "Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
-		else
-			SwImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
-	}
-	else {
-		if (r_GfxInfo.closed) {
-			SwImage = "Images\\Comp\\Switch_Closed.jpg";
-		}
-		else {
-			SwImage = "Images\\Comp\\Switch.jpg";
-		}
-	}
+	if(r_GfxInfo.isClicked)
+		SwImage ="Images\\Comp\\Switch_Closed.jpg";	//use image of highlighted switch
+	else  
+		SwImage = "Images\\Comp\\Switch_Open.jpg";	//use image of the normal switch
+
 	//Draw Switch at Gfx_Info (1st corner)
 	pWind->DrawImage(SwImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
@@ -487,10 +481,15 @@ void UI::DrawEditMenu(string ComponentLabel="Component", string ComponentValue =
 
 	// Draw the edit buttons & their borders
 	pWind->SetPen(BLACK);
+	pWind->DrawString(width - 200, height - StatusBarHeight - 185, "Copy");
+	pWind->DrawString(width - 200, height - StatusBarHeight - 135, "Cut");
 	pWind->DrawString(width - 200, height - StatusBarHeight - 85, "Edit Value");
 	pWind->DrawString(width - 200, height - StatusBarHeight - 35, "Edit Label");
 
+
 	pWind->SetPen(RED,3);
+	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 200, width, height - StatusBarHeight - 200);
+	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 150, width, height - StatusBarHeight - 150);
 	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);
 	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 50, width, height - StatusBarHeight - 50);
 	
@@ -536,9 +535,4 @@ void UI::DrawConnectionEditMenu(string ConnectionLabel = "Connection") {
 	//pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);
 	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 50, width, height - StatusBarHeight - 50);
 
-}
-
-MODE UI::getAppMode() const
-{
-	return AppMode;
 }

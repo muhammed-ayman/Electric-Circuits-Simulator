@@ -28,7 +28,6 @@ struct GraphicsInfo
 		PointsList = new Point[PointsCount];	//allocate required points
 	}
 	int isClicked = false;
-	bool closed = true;
 };
 
 
@@ -48,6 +47,7 @@ class UI
 		ITM_FUSE,		//Fuse item in menu
 		ITM_MODULE,		//Module item in menu
 		ITM_CONNECTION,	//Connection item in menu
+		ITM_PASTE,		//Paste item in menu
 		ITM_SAVE,		//Save item in menu
 		ITM_LOAD,		//Load item in menu
 		ITM_SIM,		// Simulation module item in menu
@@ -159,9 +159,6 @@ public:
 
 	void DrawConnectionEditMenu(string ConnectionLabel);
 	
-
-	//getter for the AppMode
-	MODE getAppMode() const;
 };
 
 #endif

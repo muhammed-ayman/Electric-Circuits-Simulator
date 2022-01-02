@@ -59,10 +59,6 @@ public:
 	// changes the click of the mouse to true or false. Takes a boolean as a parameter and changes the mouse status as per the boolean
 	void setClick(bool clickStatus);
 
-	//getter and setter for the closed value in the graphics info of the component
-	bool getClosed() const;
-	void setClosed(bool new_value);
-
 	// Label Getter & Setter
 	string getLabel() const;
 	void setLabel(string label);
@@ -81,9 +77,6 @@ public:
 	//getter and setter for the component term1 connection
 	Connection* getTerm2Conn() const;
 	void setTerm2Conn(Connection *conn);
-
-
-
 
 };
 

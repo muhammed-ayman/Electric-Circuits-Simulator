@@ -1,7 +1,6 @@
 #include "ActionSelect.h"
 #include "../ApplicationManager.h"
 #include "ActionAddMenu.h"
-#include "../Components/Switch.h"
 #include <sstream>
 
 ActionSelect::ActionSelect(ApplicationManager* pApp) :Action(pApp)
@@ -44,18 +43,7 @@ void ActionSelect::Execute()
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
 				pManager->setSelectedComponentId(i); // Setting the selected component ID as the one currently clicked from the component list
-				if (pUI->getAppMode() == DESIGN) {
-					Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
-				}
-				else{
-					//checking if the component clicked is a switch and based on that we close/open it in simulation mode
-					Switch* s = dynamic_cast<Switch*>(CompList[i]);
-					if (s != nullptr) {
-						CompList[i]->setClosed(!CompList[i]->getClosed());
-					}
-				
-				}
-				
+				Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
 			}
 		}
 		else break;

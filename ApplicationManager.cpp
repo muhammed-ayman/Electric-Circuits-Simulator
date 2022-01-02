@@ -17,6 +17,9 @@
 #include "Actions\ActionSave.h"
 #include "Actions\ActionLoad.h"
 #include "Actions\ActionExit.h"
+#include "Actions\ActionCopy.h"
+#include "Actions\ActionCut.h"
+#include "Actions\ActionPaste.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -107,18 +110,34 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			}
 			break;
 
+		case EDIT_Value:
+			if (this->SelectedComponentId >= 0) {
+				pAct = new ActionEditValue(this);
+			}
+			break;
+
+		case EDIT_Copy:
+			if (this->SelectedComponentId >= 0) {
+				pAct = new ActionCopy(this);
+			}
+			break;
+
+		case EDIT_Cut:
+			if (this->SelectedComponentId >= 0) {
+				pAct = new ActionCut(this);
+			}
+			break;
+
+		case Paste:
+			pAct = new ActionPaste(this);
+			break;
+
 		case DSN_MODE:
 			pAct = new ActionDsnWindow(this);
 			break;
 
 		case MOD_MODE:
 			pAct = new ActionModWindow(this);
-			break;
-
-		case EDIT_Value:
-			if (this->SelectedComponentId >= 0) {
-				pAct = new ActionEditValue(this);
-			}
 			break;
 
 		case SIM_MODE:
@@ -188,13 +207,15 @@ void ApplicationManager::GetComponentList(Component* CompListNew[]) {
 }
 
 bool ApplicationManager::isGround(Component* c) const {
-	if (c->GetItemType() == "GND") return true;
-	else return false;
+	return (c->GetItemType() == "GND");
+	//if (c->GetItemType() == "GND") return true;
+	//else return false;
 }
 
 bool ApplicationManager::isSwitch(Component* c) const {
-	if (c->GetItemType() == "SWT") return true;
-	else return false;
+	return (c->GetItemType() == "SWT");
+	//if (c->GetItemType() == "SWT") return true;
+	//else return false;
 }
 
 double ApplicationManager::getCompValue(Component* component) {
@@ -305,5 +326,55 @@ void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int con
 	}
 	
 
+	UpdateInterface();
+}
+
+void ApplicationManager::CloneComponent() {
+
+	Component* SelectedComponent = CompList[getSelectedComponentId()];
+	string compType = SelectedComponent->GetItemType();
+	GraphicsInfo* pGInfo = new GraphicsInfo(2);
+	
+	if (compType == "RES") ComponentClone = new Resistor(pGInfo);
+	else if (compType == "BLB") ComponentClone = new Bulb(pGInfo);
+	else if (compType == "BAT") ComponentClone = new Battery(pGInfo);
+	else if (compType == "SWT") ComponentClone = new Switch(pGInfo);
+	else if (compType == "GND") ComponentClone = new Ground(pGInfo);
+	else if (compType == "BUZ") ComponentClone = new Buzzer(pGInfo);
+	else if (compType == "FUS") ComponentClone = new Fuse(pGInfo);
+	else ComponentClone = nullptr;
+
+	if (ComponentClone) {
+		ComponentClone->setLabel(SelectedComponent->getLabel());
+		ComponentClone->setValue(SelectedComponent->getValue());
+	}
+}
+
+Component* ApplicationManager::getClone() {
+	return ComponentClone;
+}
+
+
+void ApplicationManager::ResetClone() {
+	this->ComponentClone = nullptr;
+}
+
+
+void ApplicationManager::deleteSelected() {
+	for (int i = 0, k = 0; i < MaxCompCount; i++) {
+		if (i != getSelectedComponentId()) {
+			CompList[k] = CompList[i];
+			k++;
+		}
+		else {
+			delete CompList[i];
+			CompList[i] = nullptr;
+			CompCount--;
+		}
+	}
+
+	/// TODO: remove connections
+	pUI->ClearDrawingArea();
+	pUI->CreateDrawingArea();
 	UpdateInterface();
 }

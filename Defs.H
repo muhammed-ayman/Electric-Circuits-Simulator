@@ -17,10 +17,14 @@ enum ActionType
 	ADD_CONNECTION,		//Add Wire Connection
 
 	ADD_Label,			//Add Label to a Component, a Connection
-	EDIT_Label,			//Edit Label of a Component, a Connection
-
 	ADD_Value,			// Add Value to a Component, a Connection
+
+	EDIT_Label,			//Edit Label of a Component, a Connection
 	EDIT_Value,			// Edit Value to a Component, a Connection
+	EDIT_Copy,			// Copy a Component, a Connection
+	EDIT_Cut,			// Cut a Component, a Connection
+	Paste,
+
 
 	Change_Switch,		//Change Switch Status in Simulation Mode
 

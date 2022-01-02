@@ -37,6 +37,8 @@ private:
 
 	int SelectedComponentId = -1; //initial value for selected component ID
 	int SelectedConnectionId = -1; //initial value for selected connection ID
+
+	Component* ComponentClone = nullptr;
 	
 
 public:
@@ -95,6 +97,14 @@ public:
 
 	// Load Circuit
 	void LoadCircuit(string*** parsedData, int comCount, int conCount);
+
+	void CloneComponent();
+	Component* getClone();
+
+	void ResetClone();
+
+
+	void deleteSelected();
 };
 
 #endif
