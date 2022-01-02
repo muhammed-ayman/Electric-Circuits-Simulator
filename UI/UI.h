@@ -28,6 +28,7 @@ struct GraphicsInfo
 		PointsList = new Point[PointsCount];	//allocate required points
 	}
 	int isClicked = false;
+	bool closed = true;
 };
 
 
