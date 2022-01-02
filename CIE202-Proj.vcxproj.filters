@@ -65,6 +65,9 @@
     <ClCompile Include="Actions\ActionSave.cpp" />
     <ClCompile Include="Actions\ActionLoad.cpp" />
     <ClCompile Include="Actions\ActionExit.cpp" />
+    <ClCompile Include="Components\Module.cpp" />
+    <ClCompile Include="Actions\ActionAddModule.cpp" />
+    <ClCompile Include="Actions\ActionModWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -116,6 +119,9 @@
     <ClInclude Include="Actions\ActionSave.h" />
     <ClInclude Include="Actions\ActionLoad.h" />
     <ClInclude Include="Actions\ActionExit.h" />
+    <ClInclude Include="Components\Module.h" />
+    <ClInclude Include="Actions\ActionAddModule.h" />
+    <ClInclude Include="Actions\ActionModWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt" />

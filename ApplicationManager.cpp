@@ -6,15 +6,18 @@
 #include "Actions\ActionAddGround.h"
 #include "Actions\ActionAddBuzzer.h"
 #include "Actions\ActionAddFuse.h"
+#include "Actions\ActionAddModule.h"
 #include "Actions\ActionSimWindow.h"
 #include "Actions\ActionSelect.h"
 #include "Actions\ActionEditLabel.h"
 #include "Actions\ActionDsnWindow.h"
+#include "Actions\ActionModWindow.h"
 #include "Actions\ActionEditValue.h"
 #include "Actions\ActionAddConn.h"
 #include "Actions\ActionSave.h"
 #include "Actions\ActionLoad.h"
 #include "Actions\ActionExit.h"
+
 
 ApplicationManager::ApplicationManager()
 {
@@ -26,7 +29,6 @@ ApplicationManager::ApplicationManager()
 int ApplicationManager::GetGroundCount() {
 	return GroundCount;
 }
-
 
 void ApplicationManager::ResetData() {
 	CompCount = 0;
@@ -86,6 +88,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case ADD_FUSE:
 			pAct = new ActionAddFuse(this);
 			break;
+		
+		case ADD_MODULE:
+			pAct = new ActionAddModule(this);
+			break;
+
 		case SELECT:
 			pAct = new ActionSelect(this);
 			break;
@@ -102,6 +109,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case DSN_MODE:
 			pAct = new ActionDsnWindow(this);
+			break;
+
+		case MOD_MODE:
+			pAct = new ActionModWindow(this);
 			break;
 
 		case EDIT_Value:

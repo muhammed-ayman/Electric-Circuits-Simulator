@@ -1,15 +1,15 @@
-#include "ActionSimWindow.h"
+#include "ActionModWindow.h"
 #include "..\ApplicationManager.h"
 
-ActionSimWindow::ActionSimWindow(ApplicationManager* pApp) :Action(pApp)
+ActionModWindow::ActionModWindow(ApplicationManager* pApp) :Action(pApp)
 {
 }
 
-ActionSimWindow::~ActionSimWindow(void)
+ActionModWindow::~ActionModWindow(void)
 {
 }
 
-bool ActionSimWindow::Validate() {
+bool ActionModWindow::Validate() {
 	int counter = 0;
 	Component* CompList[MaxCompCount];
 	pManager->GetComponentList(CompList);
@@ -20,19 +20,19 @@ bool ActionSimWindow::Validate() {
 					if (pManager->getCompValue(CompList[i]) > double(0) && pManager->getCompLabel(CompList[i]) != "Component") counter++;
 				}
 				if (pManager->isSwitch(CompList[i])) {
-					if ((pManager->getCompValue(CompList[i]) == double(0) && pManager->getCompLabel(CompList[i]) != "Component"))counter++;
+					if ((pManager->getCompValue(CompList[i]) == double(0) || pManager->getCompValue(CompList[i]) == double(1)) && pManager->getCompLabel(CompList[i]) != "Component")counter++;
 				}
-				if(pManager->isGround(CompList[i])) {
+				if (pManager->isGround(CompList[i])) {
 					if (pManager->getCompValue(CompList[i]) == double(0) && pManager->getCompLabel(CompList[i]) != "Component") counter++;
 				}
 			}
 		}
 	}
-	if (counter == pManager->GetComponentCount() && pManager->GetComponentCount() != 0) return true;
+	if (counter == pManager->GetComponentCount()) return true;
 	return false;
 }
 
-void ActionSimWindow::Execute()
+void ActionModWindow::Execute()
 {
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
@@ -53,19 +53,20 @@ void ActionSimWindow::Execute()
 				Connlist[i]->setClick(false);
 			}
 		}
+
 		//creating simulation toolbar
-		pUI->CreateSimulationToolBar();
+		pUI->CreateModuleToolBar();
 		pUI->CreateDrawingArea();
 		//Print Action Message
-		pUI->PrintMsg("Simulation Mode Initialized");
+		pUI->PrintMsg("Module Mode Initialized");
 	}
 	else pUI->PrintMsg("Circuit is not valid! One circuit, one ground (val=0), and full connections, labels, & values! Switch = 0 or 1!");
 }
 
-void ActionSimWindow::Undo()
+void ActionModWindow::Undo()
 {
 }
 
-void ActionSimWindow::Redo()
+void ActionModWindow::Redo()
 {
 }
