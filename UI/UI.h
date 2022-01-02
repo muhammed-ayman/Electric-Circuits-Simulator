@@ -40,15 +40,17 @@ class UI
 		//If you want to change the menu items order, just change the order here
 		ITM_RES,		//Resistor item in menu
 		ITM_BULB,		//Bulb item in menu
-		ITM_BATTERY,		//Battery item in menu
+		ITM_BATTERY,	//Battery item in menu
 		ITM_SWITCH,		//Switch item in menu
 		ITM_GROUND,		//Ground item in menu
 		ITM_BUZZER,		//Buzzer item in menu
 		ITM_FUSE,		//Fuse item in menu
-		ITM_CONNECTION,
-		ITM_SAVE,
-		ITM_LOAD,
-		ITM_SIM, // Simulation item in menu
+		ITM_MODULE,		//Module item in menu
+		ITM_CONNECTION,	//Connection item in menu
+		ITM_SAVE,		//Save item in menu
+		ITM_LOAD,		//Load item in menu
+		ITM_SIM,		// Simulation module item in menu
+		ITM_MOD,		// Module mode item in menu
 		ITM_EXIT,		//Exit item
 		//TODO: Add more items names here
 	
@@ -60,11 +62,19 @@ class UI
 	enum SimMenuItem //The items of the simulation menu (you should add more items)
 	{
 		//Note: Items are ordered here as they appear in menu
-		ITM_DSN,
+		ITM_SIM_DSN,
 		ITM_VOLT,
 		ITM_AMP,
 		ITM_SIM_EXIT,
 		ITM_SIM_CNT		//no. of simulation menu items ==> This should be the last line in this enum
+	};
+
+	enum ModMenuItem //The items of the simulation menu (you should add more items)
+	{
+		//Note: Items are ordered here as they appear in menu
+		ITM_MOD_DSN,
+		ITM_MOD_EXIT,
+		ITM_MOD_CNT		//no. of simulation menu items ==> This should be the last line in this enum
 
 	};
 
@@ -114,6 +124,7 @@ public:
 
 	void CreateDesignToolBar();	//Tool bar of the design mode
 	void CreateSimulationToolBar();//Tool bar of the simulation mode
+	void CreateModuleToolBar();//Tool bar of the module mode
 	void CreateStatusBar() const;	//Create Status bar
 	void CreateDrawingArea() const; //Create boundaries for drawing area
 
@@ -129,9 +140,10 @@ public:
 	void DrawGround(const GraphicsInfo &r_GfxInfo) const;
 	void DrawBuzzer(const GraphicsInfo &r_GfxInfo) const;
 	void DrawFuse(const GraphicsInfo &r_GfxInfo) const;
+	void DrawModule(const GraphicsInfo& r_GfxInfo) const;
 
 	// Draws Connection
-	void DrawConnection(const GraphicsInfo &r_GfxInfo, bool selected = false) const;
+	void DrawConnection(const GraphicsInfo &r_GfxInfo) const;
 	
 	void PrintMsg(string msg) const;	//Print a message on Status bar
 

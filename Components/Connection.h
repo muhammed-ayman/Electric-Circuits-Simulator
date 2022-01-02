@@ -22,6 +22,7 @@ public:
 	virtual string* Save(); //returns components data to save
 	string getConnectionLabel() const;
 	void setConnectionLabel(string label);
+	void setClick(bool clickStatus);
 
 	GraphicsInfo* getGraphicsInfo() const;
 
