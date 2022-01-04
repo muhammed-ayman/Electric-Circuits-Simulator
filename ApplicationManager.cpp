@@ -329,7 +329,7 @@ void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int con
 	UpdateInterface();
 }
 
-void ApplicationManager::CloneComponent() {
+void ApplicationManager::CloneSelectedComponent() {
 
 	Component* SelectedComponent = CompList[getSelectedComponentId()];
 	string compType = SelectedComponent->GetItemType();
@@ -350,17 +350,17 @@ void ApplicationManager::CloneComponent() {
 	}
 }
 
-Component* ApplicationManager::getClone() {
+Component* ApplicationManager::getClonedComponent() {
 	return ComponentClone;
 }
 
 
-void ApplicationManager::ResetClone() {
+void ApplicationManager::ResetClonedComponent() {
 	this->ComponentClone = nullptr;
 }
 
 
-void ApplicationManager::deleteSelected() {
+void ApplicationManager::deleteSelectedComponent() {
 	for (int i = 0, k = 0; i < MaxCompCount; i++) {
 		if (i != getSelectedComponentId()) {
 			CompList[k] = CompList[i];

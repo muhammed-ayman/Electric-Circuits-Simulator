@@ -14,7 +14,7 @@ void ActionCopy::Execute()
 
 	// Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
-	pManager->CloneComponent();
+	pManager->CloneSelectedComponent(); // Clone the current selected component to the temporary component variable
 
 	pUI->PrintMsg("Component Copied");
 }

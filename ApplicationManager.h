@@ -69,9 +69,6 @@ public:
 	//Adds a new component to the list of components
 	void AddComponent(Component* pComp);
 
-	//destructor
-	~ApplicationManager();
-
 	//Retrieves the current list of added components. 	
 	void GetComponentList(Component* CompListNew[]);
 	void GetConnectionList(Connection* ConnListNew[]);
@@ -98,13 +95,16 @@ public:
 	// Load Circuit
 	void LoadCircuit(string*** parsedData, int comCount, int conCount);
 
-	void CloneComponent();
-	Component* getClone();
+	// Copy, Cut, and Paste
+	void CloneSelectedComponent();
+	Component* getClonedComponent();
+	void ResetClonedComponent();
 
-	void ResetClone();
 
+	void deleteSelectedComponent();
 
-	void deleteSelected();
+	//destructor
+	~ApplicationManager();
 };
 
 #endif

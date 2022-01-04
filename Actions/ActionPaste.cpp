@@ -15,7 +15,7 @@ void ActionPaste::Execute()
 	// Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 
-	Component* Clone = pManager->getClone(); // get cloned componenet
+	Component* Clone = pManager->getClonedComponent(); // Retrieve the cloned componenet if exists
 
 	if (!Clone) {
 		pUI->PrintMsg("There are no saved components");
@@ -46,7 +46,7 @@ void ActionPaste::Execute()
 
 		Clone->setGraphicsInfo(pGInfo);
 		pManager->AddComponent(Clone);
-		pManager->ResetClone();
+		pManager->ResetClonedComponent();
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }

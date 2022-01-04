@@ -14,10 +14,10 @@ void ActionCut::Execute()
 
 	// Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
-	pManager->CloneComponent(); // clone selected componenet
-	pManager->deleteSelected(); // delete selected component
+	pManager->CloneSelectedComponent(); // Clone the selected componenet
+	pManager->deleteSelectedComponent(); // Delete the selected component
 
-	pUI->PrintMsg("Component Cutted");
+	pUI->PrintMsg("Component Cut");
 }
 
 void ActionCut::Undo()
