@@ -25,8 +25,7 @@ void ActionDelete::Execute()
 			else { ctrDeleted++; }
 		}
 		if ((ctr == pManager->GetComponentCount()) && (ctrDeleted == 0) && (pManager->GetComponentCount()) != 0) { pUI->PrintMsg("No Selected Components!"); }
-		else if (ctrDeleted == 1)  pManager->deleteSelectedComponent();
-		else pManager->deleteSelectedComponents(ctrDeleted);
+		else pManager->deleteSelectedComponent(ctrDeleted);
 		}
 
 	}

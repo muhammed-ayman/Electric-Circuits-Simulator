@@ -365,7 +365,7 @@ void ApplicationManager::ResetClonedComponent() {
 }
 
 
-void ApplicationManager::deleteSelectedComponent() {
+void ApplicationManager::deleteSelectedComponent(int reductionValue) {
 	for (int i = 0, k = 0; i < MaxCompCount; i++) {
 		if (i != getSelectedComponentId()) {
 			CompList[k] = CompList[i];
@@ -374,32 +374,13 @@ void ApplicationManager::deleteSelectedComponent() {
 		else {
 			delete CompList[i];
 			CompList[i] = nullptr;
-			CompCount--;
-			pUI->ClearStatusBar();
-		}
-	}
-
-	/// TODO: remove connections+
-	pUI->ClearDrawingArea();
-	pUI->CreateDrawingArea();
-	UpdateInterface();
-}
-
-void ApplicationManager::deleteSelectedComponents(int reductionValue) {
-	
-	for (int i = 0; i < MaxCompCount; i++) {
-		
-		if (i == getSelectedComponentId()) {
-
-			delete CompList[i];
-			CompList[i] = nullptr;
 			pUI->ClearStatusBar();
 		}
 	}
 	CompCount -= reductionValue;
 
+	/// TODO: remove connections+
 	pUI->ClearDrawingArea();
 	pUI->CreateDrawingArea();
 	UpdateInterface();
-
 }

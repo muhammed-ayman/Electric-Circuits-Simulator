@@ -15,7 +15,7 @@ void ActionCut::Execute()
 	// Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 	pManager->CloneSelectedComponent(); // Clone the selected componenet
-	pManager->deleteSelectedComponent(); // Delete the selected component
+	pManager->deleteSelectedComponent(1); // Delete the selected component
 
 	pUI->PrintMsg("Component Cut");
 }

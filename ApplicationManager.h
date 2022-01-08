@@ -103,8 +103,7 @@ public:
 	void ReduceCompCountByOne();
 
 
-	void deleteSelectedComponent();
-	void deleteSelectedComponents(int reductionValue);
+	void deleteSelectedComponent(int reductionValue);
 
 	//destructor
 	~ApplicationManager();
