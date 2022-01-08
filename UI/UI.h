@@ -50,6 +50,7 @@ class UI
 		ITM_PASTE,		//Paste item in menu
 		ITM_SAVE,		//Save item in menu
 		ITM_LOAD,		//Load item in menu
+		ITM_DELETE,
 		ITM_SIM,		// Simulation module item in menu
 		ITM_MOD,		// Module mode item in menu
 		ITM_EXIT,		//Exit item
@@ -84,7 +85,7 @@ class UI
 
 	MODE AppMode;		//Application Mode (design or simulation)
 	
-	static const int	width = 1200, height = 650,	//Window width and height
+	static const int	width = 1300, height = 650,	//Window width and height
 						wx = 15 , wy = 15,			//Window starting coordinates
 						StatusBarHeight = 50,	//Status Bar Height
 						ToolBarHeight = 80,		//Tool Bar Height (distance from top of window to bottom line of toolbar)

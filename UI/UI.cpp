@@ -117,6 +117,7 @@ ActionType UI::GetUserAction() const
 			case ITM_PASTE: return Paste;
 			case ITM_SAVE: return SAVE;
 			case ITM_LOAD: return LOAD;
+			case ITM_DELETE: return DEL;
 			case ITM_SIM: return SIM_MODE;
 			case ITM_MOD: return MOD_MODE;
 			case ITM_EXIT:	return EXIT;	
@@ -247,10 +248,10 @@ void UI::ClearDrawingArea() const
 
 void UI::CreateDrawingArea() const {
 	pWind->SetPen(BLUE, 3);
-	pWind->DrawLine(0,90,920,90);
-	pWind->DrawLine(0, 590, 920, 590);
+	pWind->DrawLine(0,90,1020,90);
+	pWind->DrawLine(0, 590, 1020, 590);
 	pWind->DrawLine(0, 90, 0, 590);
-	pWind->DrawLine(920, 90, 920, 590);
+	pWind->DrawLine(1020, 90, 1020, 590);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
@@ -274,6 +275,7 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_PASTE] = "images\\Menu\\Menu_Paste.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
+	MenuItemImages[ITM_DELETE] = "images\\Menu\\Menu_Delete.jpg";
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
 	MenuItemImages[ITM_MOD] = "images\\Menu\\Menu_Mod.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
