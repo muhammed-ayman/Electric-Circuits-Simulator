@@ -71,6 +71,7 @@
     <ClCompile Include="Actions\ActionCopy.cpp" />
     <ClCompile Include="Actions\ActionCut.cpp" />
     <ClCompile Include="Actions\ActionPaste.cpp" />
+    <ClCompile Include="Actions\ActionDelete.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -128,6 +129,7 @@
     <ClInclude Include="Actions\ActionCopy.h" />
     <ClInclude Include="Actions\ActionCut.h" />
     <ClInclude Include="Actions\ActionPaste.h" />
+    <ClInclude Include="Actions\ActionDelete.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt" />

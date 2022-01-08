@@ -20,6 +20,7 @@
 #include "Actions\ActionCopy.h"
 #include "Actions\ActionCut.h"
 #include "Actions\ActionPaste.h"
+#include "Actions\ActionDelete.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -130,6 +131,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case Paste:
 			pAct = new ActionPaste(this);
+			break;
+
+		case DEL:
+			pAct = new ActionDelete(this);
 			break;
 
 		case DSN_MODE:
@@ -370,11 +375,31 @@ void ApplicationManager::deleteSelectedComponent() {
 			delete CompList[i];
 			CompList[i] = nullptr;
 			CompCount--;
+			pUI->ClearStatusBar();
 		}
 	}
 
-	/// TODO: remove connections
+	/// TODO: remove connections+
 	pUI->ClearDrawingArea();
 	pUI->CreateDrawingArea();
 	UpdateInterface();
+}
+
+void ApplicationManager::deleteSelectedComponents(int reductionValue) {
+	
+	for (int i = 0; i < MaxCompCount; i++) {
+		
+		if (i == getSelectedComponentId()) {
+
+			delete CompList[i];
+			CompList[i] = nullptr;
+			pUI->ClearStatusBar();
+		}
+	}
+	CompCount -= reductionValue;
+
+	pUI->ClearDrawingArea();
+	pUI->CreateDrawingArea();
+	UpdateInterface();
+
 }

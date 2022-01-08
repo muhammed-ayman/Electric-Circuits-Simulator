@@ -84,6 +84,7 @@ void ActionSelect::Execute()
 			// If there is component, proceed
 			if (CompList[i] != nullptr) {
 				CompList[i]->setClick(false); // Unselects all the components (unhighlighting the images)
+				pManager->setSelectedComponentId(-1);
 			}
 		}
 		for (int i = 0; i < MaxConnCount; i++) {

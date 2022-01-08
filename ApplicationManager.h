@@ -100,8 +100,11 @@ public:
 	Component* getClonedComponent();
 	void ResetClonedComponent();
 
+	void ReduceCompCountByOne();
+
 
 	void deleteSelectedComponent();
+	void deleteSelectedComponents(int reductionValue);
 
 	//destructor
 	~ApplicationManager();

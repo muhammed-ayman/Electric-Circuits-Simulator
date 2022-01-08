@@ -11,7 +11,7 @@ class Component
 {
 private:
 	string m_Label = "Component"; // Initial label for all components
-
+	bool clicked;
 protected:
 
 	Items itemType; //Creating an instance of the Items enumerator.
@@ -62,6 +62,7 @@ public:
 	// Label Getter & Setter
 	string getLabel() const;
 	void setLabel(string label);
+	virtual bool isCompClicked();
 
 	// Value Getter & Setter
 	double getValue() const;
