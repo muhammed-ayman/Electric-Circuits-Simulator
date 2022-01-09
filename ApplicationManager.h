@@ -6,6 +6,7 @@
 #include "Actions\Action.h"
 #include "Components\Component.h"
 #include "Components\Connection.h"
+#include <stack>
 
 
 
@@ -39,10 +40,11 @@ private:
 	int SelectedConnectionId = -1; //initial value for selected connection ID
 
 	Component* ComponentClone = nullptr;
+
+	// Undo & Redo Stacks
+	stack<Action*> ActionsRedoStack;
+	stack<Action*> ActionsUndoStack;
 	
-
-public:
-
 
 public:	
 	ApplicationManager(); //constructor
