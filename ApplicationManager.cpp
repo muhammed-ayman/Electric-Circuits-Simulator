@@ -21,6 +21,8 @@
 #include "Actions\ActionCut.h"
 #include "Actions\ActionPaste.h"
 #include "Actions\ActionDelete.h"
+#include "Actions\ActionRedo.h"
+#include "Actions\ActionUndo.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -155,6 +157,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case LOAD:
 			pAct = new ActionLoad(this);
+			break;
+
+		case UNDO:
+			pAct = new ActionUndo(this);
+			break;
+
+		case REDO:
+			pAct = new ActionRedo(this);
 			break;
 
 		case EXIT:
