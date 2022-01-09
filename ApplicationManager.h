@@ -107,6 +107,11 @@ public:
 
 	void deleteSelectedComponent(int reductionValue);
 
+	// Redo & Undo Related Methods
+	void Undo();
+	void Redo();
+	void SaveActionToStack(Action* act);
+
 	//destructor
 	~ApplicationManager();
 };

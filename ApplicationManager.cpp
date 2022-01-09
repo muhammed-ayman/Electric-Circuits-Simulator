@@ -394,3 +394,38 @@ void ApplicationManager::deleteSelectedComponent(int reductionValue) {
 	pUI->CreateDrawingArea();
 	UpdateInterface();
 }
+
+
+/*///////////////////////////////////////////
+				UNDO & REDO
+///////////////////////////////////////////*/
+
+void ApplicationManager::Undo() {
+	if (this->ActionsUndoStack.empty()) {
+		pUI->PrintMsg("Undo Stack is Empty");
+		return;
+	}
+
+	this->ActionsUndoStack.top()->Undo();
+	this->ActionsRedoStack.push(this->ActionsRedoStack.top());
+	this->ActionsUndoStack.pop();
+
+	pUI->PrintMsg("Action Reversed!");
+}
+
+void ApplicationManager::Redo() {
+	if (this->ActionsRedoStack.empty()) {
+		pUI->PrintMsg("Redo Stack is Empty");
+		return;
+	}
+
+	this->ActionsRedoStack.top()->Redo();
+	this->ActionsUndoStack.push(this->ActionsRedoStack.top());
+	this->ActionsRedoStack.pop();
+
+	pUI->PrintMsg("Action Recovered!");
+}
+
+void ApplicationManager::SaveActionToStack(Action* act) {
+	this->ActionsUndoStack.push(act);
+}
