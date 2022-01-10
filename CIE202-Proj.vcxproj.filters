@@ -76,6 +76,7 @@
     <ClCompile Include="Actions\ActionUndo.cpp" />
     <ClCompile Include="Actions\ActionMeasureVoltage.cpp" />
     <ClCompile Include="Actions\ActionMeausreCurrent.cpp" />
+    <ClCompile Include="Actions\ActionCircuitLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Actions\ActionRedo.h" />
     <ClInclude Include="Actions\ActionMeasureVoltage.h" />
     <ClInclude Include="Actions\ActionMeausreCurrent.h" />
+    <ClInclude Include="Actions\ActionCircuitLog.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt" />

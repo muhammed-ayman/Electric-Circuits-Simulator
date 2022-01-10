@@ -42,6 +42,8 @@ enum ActionType
 	SIM_MODE,	//Switch to Simulatiom mode
 	MOD_MODE,
 
+	LOG,
+
 	EXIT,		//Exit the application
 
 	STATUS_BAR,		//A click on the status bar

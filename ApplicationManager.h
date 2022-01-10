@@ -44,6 +44,11 @@ private:
 	// Undo & Redo Stacks
 	stack<Action*> ActionsRedoStack;
 	stack<Action*> ActionsUndoStack;
+
+	//calculations variables
+	double CircuitTotalVoltage = 0;
+	double CircuitTotalCurrent = 0;
+	double CircuitTotalResistance = 0;
 	
 
 public:	
@@ -116,6 +121,16 @@ public:
 	//closing/opening circuit part
 	bool isCircuitClosed() const;
 	void updateCircuitState();
+
+
+	//functions for circuit variables calculations
+	void updateTotalVoltage();
+	void updateTotalCurrent();
+	void updateTotalResistance();
+	//getters for circuit variables
+	double getTotalVoltage() const;
+	double getTotalCurrent() const;
+	double getTotalResistance() const;
 
 
 	//destructor

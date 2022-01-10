@@ -167,6 +167,7 @@ ActionType UI::GetUserAction() const
 			{
 			case ITM_SIM_DSN: return DSN_MODE;
 			case ITM_SIM_EXIT:	return EXIT;
+			case ITM_LOG: return LOG;
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
 		}
@@ -313,7 +314,7 @@ void UI::CreateSimulationToolBar()
 	MenuItemImages[ITM_SIM_DSN] = "images\\Menu\\Menu_Stop.jpg";
 	MenuItemImages[ITM_VOLT] = "images\\Menu\\Menu_Voltmeter.jpg";
 	MenuItemImages[ITM_AMP] = "images\\Menu\\Menu_Ammeter.jpg";
-
+	MenuItemImages[ITM_LOG] = "images\\Menu\\Circuit_Log.jpg";
 	MenuItemImages[ITM_SIM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	for (int i = 0; i < ITM_SIM_CNT; i++)
