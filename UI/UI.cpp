@@ -117,6 +117,9 @@ ActionType UI::GetUserAction() const
 			case ITM_PASTE: return Paste;
 			case ITM_SAVE: return SAVE;
 			case ITM_LOAD: return LOAD;
+			case ITM_DELETE: return DEL;
+			case ITM_UNDO: return UNDO;
+			case ITM_REDO: return REDO;
 			case ITM_SIM: return SIM_MODE;
 			case ITM_MOD: return MOD_MODE;
 			case ITM_EXIT:	return EXIT;	
@@ -247,10 +250,10 @@ void UI::ClearDrawingArea() const
 
 void UI::CreateDrawingArea() const {
 	pWind->SetPen(BLUE, 3);
-	pWind->DrawLine(0,90,920,90);
-	pWind->DrawLine(0, 590, 920, 590);
+	pWind->DrawLine(0,90,1150,90);
+	pWind->DrawLine(0, 590, 1150, 590);
 	pWind->DrawLine(0, 90, 0, 590);
-	pWind->DrawLine(920, 90, 920, 590);
+	pWind->DrawLine(1150, 90, 1150, 590);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
@@ -274,6 +277,9 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_PASTE] = "images\\Menu\\Menu_Paste.jpg";
 	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
+	MenuItemImages[ITM_DELETE] = "images\\Menu\\Menu_Delete.jpg";
+	MenuItemImages[ITM_UNDO] = "images\\Menu\\Menu_Undo.jpg";
+	MenuItemImages[ITM_REDO] = "images\\Menu\\Menu_Redo.jpg";
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
 	MenuItemImages[ITM_MOD] = "images\\Menu\\Menu_Mod.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
@@ -383,9 +389,9 @@ void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 {
 	string SwImage;
 	if(r_GfxInfo.isClicked)
-		SwImage ="Images\\Comp\\Switch_Closed.jpg";	//use image of highlighted switch
+		SwImage ="Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
 	else  
-		SwImage = "Images\\Comp\\Switch_Open.jpg";	//use image of the normal switch
+		SwImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
 
 	//Draw Switch at Gfx_Info (1st corner)
 	pWind->DrawImage(SwImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);

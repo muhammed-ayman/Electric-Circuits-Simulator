@@ -11,6 +11,7 @@ class Component
 {
 private:
 	string m_Label = "Component"; // Initial label for all components
+	bool clicked; // indicates if the component is clicked
 
 protected:
 
@@ -58,6 +59,7 @@ public:
 	void setGraphicsInfo(GraphicsInfo* m_pGfxInfo);
 	// changes the click of the mouse to true or false. Takes a boolean as a parameter and changes the mouse status as per the boolean
 	void setClick(bool clickStatus);
+	bool isClicked();
 
 	// Label Getter & Setter
 	string getLabel() const;
