@@ -53,6 +53,10 @@ void ActionSimWindow::Execute()
 				Connlist[i]->setClick(false);
 			}
 		}
+
+		//calculting total resistance,voltage,current
+		pManager->updateTotalResistance();
+
 		//creating simulation toolbar
 		pUI->CreateSimulationToolBar();
 		pUI->CreateDrawingArea();

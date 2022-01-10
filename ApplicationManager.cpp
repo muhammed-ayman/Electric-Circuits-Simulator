@@ -23,6 +23,7 @@
 #include "Actions\ActionDelete.h"
 #include "Actions\ActionRedo.h"
 #include "Actions\ActionUndo.h"
+#include "Actions\ActionCircuitLog.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -166,7 +167,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case REDO:
 			pAct = new ActionRedo(this);
 			break;
-
+		case LOG:
+			pAct = new ActionCircuitLog(this);
+			break;
 		case EXIT:
 			pAct = new ActionExit(this);
 			break;
@@ -473,6 +476,31 @@ void ApplicationManager::updateCircuitState()
 		if ((CompList[i] != nullptr)) {
 			if (CompList[i]->GetItemType() != "SWT")
 				CompList[i]->setClosed(state);
+		}
+	}
+}
+
+void ApplicationManager::updateTotalVoltage()
+{
+}
+
+void ApplicationManager::updateTotalCurrent()
+{
+	if (!isCircuitClosed()) {
+		CircuitTotalCurrent = 0;
+	}
+}
+
+void ApplicationManager::updateTotalResistance()
+{
+	CircuitTotalResistance = 0;
+	string comptype;
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] != nullptr) {
+			comptype = CompList[i]->GetItemType();
+			if ((comptype != "SWT") && (comptype != "GND") && (comptype != "BAT") ) {
+				CircuitTotalResistance += CompList[i]->getValue();
+			}
 		}
 	}
 }
