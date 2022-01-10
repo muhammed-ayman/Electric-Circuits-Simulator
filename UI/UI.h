@@ -27,7 +27,9 @@ struct GraphicsInfo
 		PointsCount = PtsCnt;
 		PointsList = new Point[PointsCount];	//allocate required points
 	}
-	int isClicked = false;
+	bool isClicked = false;
+	bool closed = false; // for controling graphical display at sim mode when the circuit is closed 
+	bool exceeded_limit = false; //for showing that the component is burnt if it exceeded current limit
 };
 
 
