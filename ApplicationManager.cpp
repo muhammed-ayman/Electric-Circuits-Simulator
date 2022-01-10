@@ -207,20 +207,7 @@ UI* ApplicationManager::GetUI()
 
 ////////////////////////////////////////////////////////////////////
 
-double ApplicationManager::getTotalVoltage() const
-{
-	return CircuitTotalVoltage;
-}
 
-double ApplicationManager::getTotalCurrent() const
-{
-	return CircuitTotalCurrent;
-}
-
-double ApplicationManager::getTotalResistance() const
-{
-	return CircuitTotalResistance;
-}
 
 ApplicationManager::~ApplicationManager()
 {
@@ -489,6 +476,24 @@ void ApplicationManager::updateTotalCurrent()
 	if (!isCircuitClosed()) {
 		CircuitTotalCurrent = 0;
 	}
+	else {
+		CircuitTotalCurrent = CircuitTotalVoltage / CircuitTotalCurrent;
+	}
+}
+
+double ApplicationManager::getTotalVoltage() const
+{
+	return CircuitTotalVoltage;
+}
+
+double ApplicationManager::getTotalCurrent() const
+{
+	return CircuitTotalCurrent;
+}
+
+double ApplicationManager::getTotalResistance() const
+{
+	return CircuitTotalResistance;
 }
 
 void ApplicationManager::updateTotalResistance()
