@@ -204,6 +204,21 @@ UI* ApplicationManager::GetUI()
 
 ////////////////////////////////////////////////////////////////////
 
+double ApplicationManager::getTotalVoltage() const
+{
+	return CircuitTotalVoltage;
+}
+
+double ApplicationManager::getTotalCurrent() const
+{
+	return CircuitTotalCurrent;
+}
+
+double ApplicationManager::getTotalResistance() const
+{
+	return CircuitTotalResistance;
+}
+
 ApplicationManager::~ApplicationManager()
 {
 	while (!this->ActionsRedoStack.empty()) delete ActionsRedoStack.top(), ActionsRedoStack.pop(); // Clearing the Redo Stack Objects from memory
