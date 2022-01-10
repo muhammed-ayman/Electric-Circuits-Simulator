@@ -25,7 +25,7 @@ void ActionAddGround::Execute()
 	pUI->ClearStatusBar();
 
 
-	if (Cx < 980 && Cx > 20 && Cy >= 130 && Cy < 550) {
+	if (Cx < 1100 && Cx > 20 && Cy >= 130 && Cy < 550) {
 
 		GraphicsInfo* pGInfo = new GraphicsInfo(2); //Gfx info to be used to construct the Comp
 

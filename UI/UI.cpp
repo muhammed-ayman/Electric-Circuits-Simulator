@@ -250,10 +250,10 @@ void UI::ClearDrawingArea() const
 
 void UI::CreateDrawingArea() const {
 	pWind->SetPen(BLUE, 3);
-	pWind->DrawLine(0,90,1020,90);
-	pWind->DrawLine(0, 590, 1020, 590);
+	pWind->DrawLine(0,90,1150,90);
+	pWind->DrawLine(0, 590, 1150, 590);
 	pWind->DrawLine(0, 90, 0, 590);
-	pWind->DrawLine(1020, 90, 1020, 590);
+	pWind->DrawLine(1150, 90, 1150, 590);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //Draws the menu (toolbar) in the Design mode
@@ -389,9 +389,9 @@ void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 {
 	string SwImage;
 	if(r_GfxInfo.isClicked)
-		SwImage ="Images\\Comp\\Switch_Closed.jpg";	//use image of highlighted switch
+		SwImage ="Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
 	else  
-		SwImage = "Images\\Comp\\Switch_Open.jpg";	//use image of the normal switch
+		SwImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
 
 	//Draw Switch at Gfx_Info (1st corner)
 	pWind->DrawImage(SwImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
