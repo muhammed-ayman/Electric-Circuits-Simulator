@@ -123,6 +123,7 @@
     <ClCompile Include="Actions\ActionCopy.cpp" />
     <ClCompile Include="Actions\ActionCut.cpp" />
     <ClCompile Include="Actions\ActionDsnWindow.cpp" />
+    <ClCompile Include="Actions\ActionEditLabel.cpp" />
     <ClCompile Include="Actions\ActionExit.cpp" />
     <ClCompile Include="Actions\ActionLoad.cpp" />
     <ClCompile Include="Actions\ActionMeasureVoltage.cpp" />
@@ -135,7 +136,6 @@
     <ClCompile Include="Actions\ActionAddSwitch.cpp" />
     <ClCompile Include="Actions\ActionSimWindow.cpp" />
     <ClCompile Include="Actions\ActionAddMenu.cpp" />
-    <ClCompile Include="Actions\ActionEditLabel.cpp" />
     <ClCompile Include="Actions\ActionEditValue.cpp" />
     <ClCompile Include="Actions\ActionUndo.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
@@ -202,6 +202,7 @@
     <ClInclude Include="Actions\ActionCopy.h" />
     <ClInclude Include="Actions\ActionCut.h" />
     <ClInclude Include="Actions\ActionDsnWindow.h" />
+    <ClInclude Include="Actions\ActionEditLabel.h" />
     <ClInclude Include="Actions\ActionExit.h" />
     <ClInclude Include="Actions\ActionLoad.h" />
     <ClInclude Include="Actions\ActionMeasureVoltage.h" />
@@ -214,7 +215,6 @@
     <ClInclude Include="Actions\ActionAddSwitch.h" />
     <ClInclude Include="Actions\ActionSimWindow.h" />
     <ClInclude Include="Actions\ActionAddMenu.h" />
-    <ClInclude Include="Actions\ActionEditLabel.h" />
     <ClInclude Include="Actions\ActionEditValue.h" />
     <ClInclude Include="Actions\ActionUndo.h" />
     <ClInclude Include="ApplicationManager.h" />
