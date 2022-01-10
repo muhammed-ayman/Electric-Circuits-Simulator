@@ -118,6 +118,8 @@ ActionType UI::GetUserAction() const
 			case ITM_SAVE: return SAVE;
 			case ITM_LOAD: return LOAD;
 			case ITM_DELETE: return DEL;
+			case ITM_UNDO: return UNDO;
+			case ITM_REDO: return REDO;
 			case ITM_SIM: return SIM_MODE;
 			case ITM_MOD: return MOD_MODE;
 			case ITM_EXIT:	return EXIT;	
@@ -276,6 +278,8 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_SAVE] = "images\\Menu\\Menu_Save.jpg";
 	MenuItemImages[ITM_LOAD] = "images\\Menu\\Menu_Load.jpg";
 	MenuItemImages[ITM_DELETE] = "images\\Menu\\Menu_Delete.jpg";
+	MenuItemImages[ITM_UNDO] = "images\\Menu\\Menu_Undo.jpg";
+	MenuItemImages[ITM_REDO] = "images\\Menu\\Menu_Redo.jpg";
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
 	MenuItemImages[ITM_MOD] = "images\\Menu\\Menu_Mod.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
