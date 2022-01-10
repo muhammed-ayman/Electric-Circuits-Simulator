@@ -33,6 +33,9 @@ void Component::setClick(bool clickStatus) {
 	clicked = clickStatus;
 }
 
+bool Component::getClick() {
+	return this->clicked;
+}
  
 string Component::getLabel() const {
 	return this->m_Label;
@@ -72,12 +75,6 @@ Connection* Component::getTerm1Conn() const
 void Component::setTerm1Conn(Connection *conn)
 {
 	term_connections[0] = conn;
-}
-
-
-bool Component::isCompClicked() {
-	if (clicked == true) return true;
-	else return false;
 }
 
 Connection* Component::getTerm2Conn() const

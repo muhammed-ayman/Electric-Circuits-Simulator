@@ -16,19 +16,14 @@ void ActionDelete::Execute()
 	int ctr = 0;
 	int ctrDeleted = 0;
 	UI* pUI = pManager->GetUI();
-	Component* CompList[MaxCompCount];
-	pManager->GetComponentList(CompList);
-	if (pManager->GetComponentCount() == 0) pUI->PrintMsg("No Components to delete!");
+	if (pManager->getSelectedComponentId() == -1) pUI->PrintMsg("No Selected Components!");
 	else {
-		for (int i = 0; i < pManager->GetComponentCount(); i++) {
-			if (!CompList[i]->isCompClicked()) { ctr++; }
-			else { ctrDeleted++; }
-		}
-		if ((ctr == pManager->GetComponentCount()) && (ctrDeleted == 0) && (pManager->GetComponentCount()) != 0) { pUI->PrintMsg("No Selected Components!"); }
-		else pManager->deleteSelectedComponent(ctrDeleted);
-		}
-
+		pManager->deleteSelectedComponent();
+		pUI->PrintMsg("Deleted selected components!");
 	}
+
+	// TODO: check for connection selection
+}
 
 void ActionDelete::Undo()
 {}

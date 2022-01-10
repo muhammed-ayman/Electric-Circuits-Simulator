@@ -105,7 +105,7 @@ public:
 	void ReduceCompCountByOne();
 
 
-	void deleteSelectedComponent(int reductionValue);
+	void deleteSelectedComponent();
 
 	// Redo & Undo Related Methods
 	void Undo();
