@@ -21,6 +21,8 @@
 #include "Actions\ActionCut.h"
 #include "Actions\ActionPaste.h"
 #include "Actions\ActionDelete.h"
+#include "Actions\ActionRedo.h"
+#include "Actions\ActionUndo.h"
 
 
 ApplicationManager::ApplicationManager()
@@ -157,6 +159,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new ActionLoad(this);
 			break;
 
+		case UNDO:
+			pAct = new ActionUndo(this);
+			break;
+
+		case REDO:
+			pAct = new ActionRedo(this);
+			break;
+
 		case EXIT:
 			pAct = new ActionExit(this);
 			break;
@@ -164,8 +174,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	if(pAct)
 	{
 		pAct->Execute();
-		delete pAct;
-		pAct = nullptr;
+		if (ActType != REDO && 
+			ActType != UNDO &&
+			ActType != SELECT) this->SaveActionToStack(pAct);
 	}
 }
 ////////////////////////////////////////////////////////////////////
@@ -195,6 +206,9 @@ UI* ApplicationManager::GetUI()
 
 ApplicationManager::~ApplicationManager()
 {
+	while (!this->ActionsRedoStack.empty()) delete ActionsRedoStack.top(), ActionsRedoStack.pop(); // Clearing the Redo Stack Objects from memory
+	while (!this->ActionsUndoStack.empty()) delete ActionsUndoStack.top(), ActionsUndoStack.pop(); // Clearing the Undo Stack Objects from memory
+
 	for (int i = 0; i < CompCount; i++) {
 		delete CompList[i];
 		CompList[i] = nullptr;
@@ -389,4 +403,41 @@ void ApplicationManager::deleteSelectedComponent() {
 	pUI->ClearDrawingArea();
 	pUI->CreateDrawingArea();
 	UpdateInterface();
+}
+
+
+/*///////////////////////////////////////////
+				UNDO & REDO
+///////////////////////////////////////////*/
+
+void ApplicationManager::Undo() {
+	if (this->ActionsUndoStack.empty()) {
+		pUI->PrintMsg("Undo Stack is Empty");
+		return;
+	}
+
+	Action* UndoStackTopElement = this->ActionsUndoStack.top();
+	UndoStackTopElement->Undo();
+	this->ActionsRedoStack.push(UndoStackTopElement);
+	this->ActionsUndoStack.pop();
+
+	pUI->PrintMsg("Action Reversed!");
+}
+
+void ApplicationManager::Redo() {
+	if (this->ActionsRedoStack.empty()) {
+		pUI->PrintMsg("Redo Stack is Empty");
+		return;
+	}
+
+	Action* RedoStackTopElement = this->ActionsRedoStack.top();
+	RedoStackTopElement->Redo();
+	this->ActionsUndoStack.push(RedoStackTopElement);
+	this->ActionsRedoStack.pop();
+
+	pUI->PrintMsg("Action Recovered!");
+}
+
+void ApplicationManager::SaveActionToStack(Action* act) {
+	this->ActionsUndoStack.push(act);
 }
