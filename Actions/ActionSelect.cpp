@@ -66,18 +66,33 @@ void ActionSelect::Execute()
 	if (clicked == 0) {
 		for (int i = 0; i < MaxConnCount; i++) {
 			if (ConnList[i] != nullptr) {
+				cout << "Connection is not null: " << i << endl;
 				GraphicsInfo* ConnListGraphicsInfo = ConnList[i]->getGraphicsInfo();
 				double lineSlope = double(ConnListGraphicsInfo->PointsList[0].y
 					- ConnListGraphicsInfo->PointsList[1].y) / (ConnListGraphicsInfo->PointsList[0].x
 						- ConnListGraphicsInfo->PointsList[1].x);
+
 				double lineIntercept = ConnListGraphicsInfo->PointsList[0].y - lineSlope * ConnListGraphicsInfo->PointsList[0].x;
-				if (y <= lineSlope * x + lineIntercept + 5 && y >= lineSlope * x + lineIntercept - 5 && x >= ConnListGraphicsInfo->PointsList[0].x && x <= ConnListGraphicsInfo->PointsList[1].x) {
+
+				double expectedY = lineSlope * x + lineIntercept;
+				double leftX = ConnListGraphicsInfo->PointsList[1].x;
+				double rightX = ConnListGraphicsInfo->PointsList[0].x;
+
+				if (leftX > rightX) {
+					swap(leftX, rightX);
+				}
+
+				// Press Info:
+				//cout << "Line equation: " << "y=" << lineSlope << "*x" << "+" << lineIntercept << endl;
+				//cout << "You pressed on (" << x << "," << y << ")" << endl;
+				//cout << "Expected Y is " << expectedY << endl;
+
+				if (y <= expectedY + 10 && y >= expectedY - 10 && x >= leftX - 5 && x <= rightX + 5) {
 					pUI->PrintMsg("Connection Clicked");
 					clicked = 1;
 					ConnList[i]->setClick(true);
 					pManager->setSelectedConnectionId(i);
-					Menu->DrawConnectionMenu(ConnList[i]);
-					
+					Menu->DrawConnectionMenu(ConnList[i]);	
 					
 					break;
 				}
