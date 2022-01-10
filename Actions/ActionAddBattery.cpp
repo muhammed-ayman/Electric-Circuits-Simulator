@@ -39,13 +39,23 @@ void ActionAddBattery::Execute()
 
 		Battery* pR = new Battery(pGInfo);
 		pManager->AddComponent(pR);
+		this->SaveComponentParameters(pR);
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }
 
+void ActionAddBattery::SaveComponentParameters(Battery* batPointer) {
+	this->BatteryPointer = batPointer;
+}
+
 void ActionAddBattery::Undo()
-{}
+{
+	pManager->MakeCompNull(this->BatteryPointer);
+}
 
 void ActionAddBattery::Redo()
-{}
+{
+	pManager->AddComponent(this->BatteryPointer);
+}
+
 

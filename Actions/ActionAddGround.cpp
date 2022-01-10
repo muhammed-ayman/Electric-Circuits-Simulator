@@ -40,12 +40,23 @@ void ActionAddGround::Execute()
 
 		Ground* pR = new Ground(pGInfo);
 		pManager->AddComponent(pR);
+		this->SaveComponentParameters(pR);
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }
+
+
+void ActionAddGround::SaveComponentParameters(Ground* groundPointer) {
+	this->GroundPointer = groundPointer;
+}
+
 void ActionAddGround::Undo()
-{}
+{
+	pManager->MakeCompNull(this->GroundPointer);
+}
 
 void ActionAddGround::Redo()
-{}
+{
+	pManager->AddComponent(this->GroundPointer);
+}
 

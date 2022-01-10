@@ -40,13 +40,23 @@ void ActionAddBuzzer::Execute()
 
 		Buzzer* pR = new Buzzer(pGInfo);
 		pManager->AddComponent(pR);
+		this->SaveComponentParameters(pR);
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }
 
+void ActionAddBuzzer::SaveComponentParameters(Buzzer* buzPointer) {
+	this->BuzzerPointer = buzPointer;
+}
+
 void ActionAddBuzzer::Undo()
-{}
+{
+	pManager->MakeCompNull(this->BuzzerPointer);
+}
 
 void ActionAddBuzzer::Redo()
-{}
+{
+	pManager->AddComponent(this->BuzzerPointer);
+}
+
 

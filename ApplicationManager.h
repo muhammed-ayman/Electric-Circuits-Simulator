@@ -111,6 +111,7 @@ public:
 	void Undo();
 	void Redo();
 	void SaveActionToStack(Action* act);
+	void MakeCompNull(Component* comp);
 
 	//destructor
 	~ApplicationManager();

@@ -435,3 +435,25 @@ void ApplicationManager::Redo() {
 void ApplicationManager::SaveActionToStack(Action* act) {
 	this->ActionsUndoStack.push(act);
 }
+
+
+
+
+void ApplicationManager::MakeCompNull(Component* comp) {
+	bool found = 0;
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] == comp) {
+			CompList[i] = nullptr;
+			found = 1;
+		}
+		if (found && i + 1 != MaxCompCount) {
+			CompList[i] = CompList[i + 1];
+		}
+	}
+	CompCount--;
+
+	/// TODO: remove connections+
+	pUI->ClearDrawingArea();
+	pUI->CreateDrawingArea();
+	UpdateInterface();
+}
