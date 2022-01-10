@@ -365,19 +365,25 @@ void ApplicationManager::ResetClonedComponent() {
 }
 
 
-void ApplicationManager::deleteSelectedComponent(int reductionValue) {
-	for (int i = 0, k = 0; i < MaxCompCount; i++) {
-		if (i != getSelectedComponentId()) {
-			CompList[k] = CompList[i];
-			k++;
-		}
-		else {
+void ApplicationManager::deleteSelectedComponent() {
+	for (int i = 0, k = 0; k < MaxCompCount; i++, k++) {
+		if (CompList[i] != nullptr && CompList[i]->getClick()) {
 			delete CompList[i];
 			CompList[i] = nullptr;
-			pUI->ClearStatusBar();
+			CompList[i] = CompList[k];
+			CompList[k] = nullptr;
+			CompCount--;
+			i--;
+		}
+		else if (CompList[i] == nullptr) {
+			CompList[i] = CompList[k];
+			CompList[k] = nullptr;
+			i--;
+		}
+		else {
+			k = i;
 		}
 	}
-	CompCount -= reductionValue;
 
 	/// TODO: remove connections+
 	pUI->ClearDrawingArea();

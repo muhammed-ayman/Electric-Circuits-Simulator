@@ -11,7 +11,8 @@ class Component
 {
 private:
 	string m_Label = "Component"; // Initial label for all components
-	bool clicked;
+	bool clicked; // indicates if the component is clicked
+
 protected:
 
 	Items itemType; //Creating an instance of the Items enumerator.
@@ -58,11 +59,11 @@ public:
 	void setGraphicsInfo(GraphicsInfo* m_pGfxInfo);
 	// changes the click of the mouse to true or false. Takes a boolean as a parameter and changes the mouse status as per the boolean
 	void setClick(bool clickStatus);
+	bool getClick();
 
 	// Label Getter & Setter
 	string getLabel() const;
 	void setLabel(string label);
-	virtual bool isCompClicked();
 
 	// Value Getter & Setter
 	double getValue() const;
