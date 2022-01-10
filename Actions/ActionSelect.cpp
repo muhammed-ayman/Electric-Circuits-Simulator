@@ -43,7 +43,15 @@ void ActionSelect::Execute()
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
 				pManager->setSelectedComponentId(i); // Setting the selected component ID as the one currently clicked from the component list
-				Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
+				
+				if (pUI->getAppMode() == DESIGN) {
+					Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
+				}
+				else {
+					if ((CompList[i]->GetItemType()) == "SWT") {
+						CompList[i]->setClosed(!CompList[i]->isClosed());
+					}
+				}
 			}
 		}
 		else break;

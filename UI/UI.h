@@ -163,7 +163,9 @@ public:
 	void ClearEditMenu() const;
 
 	void DrawConnectionEditMenu(string ConnectionLabel);
-	
+
+	MODE getAppMode();
+
 };
 
 #endif
