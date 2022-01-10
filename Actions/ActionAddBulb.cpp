@@ -40,13 +40,22 @@ void ActionAddBulb::Execute()
 
 		Bulb* pR = new Bulb(pGInfo);
 		pManager->AddComponent(pR);
+		this->SaveComponentParameters(pR);
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }
 
+void ActionAddBulb::SaveComponentParameters(Bulb* bulbPointer) {
+	this->BulbPointer = bulbPointer;
+}
+
 void ActionAddBulb::Undo()
-{}
+{
+	pManager->MakeCompNull(this->BulbPointer);
+}
 
 void ActionAddBulb::Redo()
-{}
+{
+	pManager->AddComponent(this->BulbPointer);
+}
 
