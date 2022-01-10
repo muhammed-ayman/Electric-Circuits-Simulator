@@ -77,6 +77,7 @@ void ActionSelect::Execute()
 				double expectedY = lineSlope * x + lineIntercept;
 				double leftX = ConnListGraphicsInfo->PointsList[1].x;
 				double rightX = ConnListGraphicsInfo->PointsList[0].x;
+				double deltaY = 10;
 
 				if (leftX > rightX) {
 					swap(leftX, rightX);
@@ -87,7 +88,13 @@ void ActionSelect::Execute()
 				//cout << "You pressed on (" << x << "," << y << ")" << endl;
 				//cout << "Expected Y is " << expectedY << endl;
 
-				if (y <= expectedY + 10 && y >= expectedY - 10 && x >= leftX - 5 && x <= rightX + 5) {
+				if (rightX - leftX < 10) {
+					expectedY = double(ConnListGraphicsInfo->PointsList[0].y + ConnListGraphicsInfo->PointsList[1].y) / 2;
+					deltaY = double(abs(ConnListGraphicsInfo->PointsList[0].y - ConnListGraphicsInfo->PointsList[1].y)) / 2;
+				}
+
+
+				if (y <= expectedY + deltaY && y >= expectedY - deltaY && x >= leftX - 5 && x <= rightX + 5) {
 					pUI->PrintMsg("Connection Clicked");
 					clicked = 1;
 					ConnList[i]->setClick(true);
