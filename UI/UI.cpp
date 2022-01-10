@@ -1,5 +1,4 @@
 #include "UI.h"
-
 UI::UI()
 {
 	AppMode = DESIGN;	//Design Mode is the startup mode
@@ -371,11 +370,20 @@ void UI::DrawResistor(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawBulb(const GraphicsInfo &r_GfxInfo) const
 {
 	string BulbImage;
-	if(r_GfxInfo.isClicked)
-		BulbImage ="Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
-	else  
-		BulbImage = "Images\\Comp\\Bulb.jpg";	//use image of the normal bulb
-
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			BulbImage = "Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
+		else
+			BulbImage = "Images\\Comp\\Bulb.jpg";	//use image of the normal bulb
+	}
+	else {
+		if (r_GfxInfo.closed) {
+			BulbImage = "Images\\Comp\\Bulb_HI.jpg";
+		}
+		else {
+			BulbImage = "Images\\Comp\\Bulb.jpg";
+		}
+	}
 	//Draw Bulb at Gfx_Info (1st corner)
 	pWind->DrawImage(BulbImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
@@ -553,7 +561,7 @@ void UI::DrawConnectionEditMenu(string ConnectionLabel = "Connection") {
 
 }
 
-MODE UI::getAppMode() {
+MODE UI::getAppMode() const {
 	return AppMode;
 }
 

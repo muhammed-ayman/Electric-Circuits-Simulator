@@ -112,6 +112,11 @@ public:
 	void Redo();
 	void SaveActionToStack(Action* act);
 
+	//closing/opening circuit part
+	bool isCircuitClosed() const;
+	void updateCircuitState();
+
+
 	//destructor
 	~ApplicationManager();
 };

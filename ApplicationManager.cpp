@@ -435,3 +435,28 @@ void ApplicationManager::Redo() {
 void ApplicationManager::SaveActionToStack(Action* act) {
 	this->ActionsUndoStack.push(act);
 }
+
+bool ApplicationManager::isCircuitClosed() const
+{
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] != nullptr) {
+			if ((CompList[i]->GetItemType() == "SWT")) {
+				if(CompList[i]->isClosed() == false)
+					return false;
+			}
+		}
+	}
+	return true;
+}
+
+void ApplicationManager::updateCircuitState()
+{
+	bool state = isCircuitClosed();
+	
+	for (int i = 0; i < MaxCompCount; i++) {
+		if ((CompList[i] != nullptr)) {
+			if (CompList[i]->GetItemType() != "SWT")
+				CompList[i]->setClosed(state);
+		}
+	}
+}

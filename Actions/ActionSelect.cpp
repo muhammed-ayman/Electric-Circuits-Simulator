@@ -50,6 +50,7 @@ void ActionSelect::Execute()
 				else {
 					if ((CompList[i]->GetItemType()) == "SWT") {
 						CompList[i]->setClosed(!CompList[i]->isClosed());
+						pManager->updateCircuitState();
 					}
 				}
 			}

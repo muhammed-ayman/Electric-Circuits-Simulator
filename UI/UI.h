@@ -164,7 +164,7 @@ public:
 
 	void DrawConnectionEditMenu(string ConnectionLabel);
 
-	MODE getAppMode();
+	MODE getAppMode() const;
 
 };
 
