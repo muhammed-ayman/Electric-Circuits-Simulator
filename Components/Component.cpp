@@ -24,6 +24,7 @@ GraphicsInfo* Component::getGraphicsInfo() {
 	return m_pGfxInfo;
 }
 
+
 void Component::setGraphicsInfo(GraphicsInfo* m_pGfxInfo) {
 	this->m_pGfxInfo = m_pGfxInfo;
 }
@@ -33,7 +34,7 @@ void Component::setClick(bool clickStatus) {
 	clicked = clickStatus;
 }
 
-bool Component::getClick() {
+bool Component::isClicked() {
 	return this->clicked;
 }
  
