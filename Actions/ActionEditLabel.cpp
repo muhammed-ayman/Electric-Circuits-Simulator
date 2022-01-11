@@ -31,6 +31,8 @@ void ActionEditLabel::Execute()
 
 		pManager->GetComponentList(CompList);
 
+		this->SaveComponentParameters(pManager->getSelectedComponentId(), CompList[pManager->getSelectedComponentId()]->getLabel());
+
 		CompList[pManager->getSelectedComponentId()]->setLabel(newLabel); // Set the input label value to the current selected component
 
 		pUI->ClearStatusBar();
@@ -46,6 +48,8 @@ void ActionEditLabel::Execute()
 
 		pManager->GetConnectionList(ConnList);
 
+		this->SaveConnectionParameters(pManager->getSelectedConnectionId(), ConnList[pManager->getSelectedConnectionId()]->getConnectionLabel());
+
 		ConnList[pManager->getSelectedConnectionId()]->setConnectionLabel(newLabel); // Set the input label value to the current selected connection
 
 		pUI->ClearStatusBar();
@@ -59,9 +63,42 @@ void ActionEditLabel::Execute()
 	Menu = nullptr;
 }
 
+// Saving the action parameters to be retireved in the undo/redo cases
+
+void ActionEditLabel::SaveComponentParameters(int SelectedItemId, string preLabel) {
+	this->targetComponent = SelectedItemId;
+	this->previousLabel = preLabel;
+}
+
+void ActionEditLabel::SaveConnectionParameters(int SelectedItemId, string preLabel) {
+	this->targetConnection = SelectedItemId;
+	this->previousLabel = preLabel;
+}
+
+
 void ActionEditLabel::Undo()
-{}
+{
+	// Check if The Edit Action is applied to a Connection or a Component
+	if (targetComponent >= 0) {
+		Component* CompList[200];
+		pManager->GetComponentList(CompList);
+		string temp_previousLabel = CompList[this->targetComponent]->getLabel(); // Save the current component's label in a temp variable
+		CompList[this->targetComponent]->setLabel(this->previousLabel);
+		this->previousLabel = temp_previousLabel; // Replace the previous label with the temporary one
+	}
+
+	if (targetConnection >= 0) {
+		Connection* ConnList[MaxConnCount];
+		pManager->GetConnectionList(ConnList);
+		string temp_previousLabel = ConnList[this->targetConnection]->getConnectionLabel(); // Save the current connection's label in a temp variable
+		ConnList[this->targetConnection]->setConnectionLabel(this->previousLabel);
+		this->previousLabel = temp_previousLabel; // Replace the previous label with the temporary one
+	}
+
+}
 
 void ActionEditLabel::Redo()
-{}
+{
+	this->Undo();
+}
 

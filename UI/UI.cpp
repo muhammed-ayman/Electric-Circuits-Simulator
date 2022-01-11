@@ -1,5 +1,4 @@
 #include "UI.h"
-
 UI::UI()
 {
 	AppMode = DESIGN;	//Design Mode is the startup mode
@@ -167,8 +166,16 @@ ActionType UI::GetUserAction() const
 			{
 			case ITM_SIM_DSN: return DSN_MODE;
 			case ITM_SIM_EXIT:	return EXIT;
+			case ITM_AMP:	return CURR_MEASURE;
+			case ITM_VOLT: return VOLT_MEASURE;
+			case ITM_LOG: return LOG;
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
+		}
+
+		if (y >= ToolBarHeight && y < height - StatusBarHeight && x < width - EditMenuWidth)
+		{
+			return SELECT;	//user wants to select/unselect a statement in the flowchart
 		}
 
 	}
@@ -335,7 +342,7 @@ void UI::CreateSimulationToolBar()
 	MenuItemImages[ITM_SIM_DSN] = "images\\Menu\\Menu_Stop.jpg";
 	MenuItemImages[ITM_VOLT] = "images\\Menu\\Menu_Voltmeter.jpg";
 	MenuItemImages[ITM_AMP] = "images\\Menu\\Menu_Ammeter.jpg";
-
+	MenuItemImages[ITM_LOG] = "images\\Menu\\Circuit_Log.jpg";
 	MenuItemImages[ITM_SIM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	for (int i = 0; i < ITM_SIM_CNT; i++)
@@ -388,77 +395,116 @@ void UI::CreateModuleToolBar()
 void UI::DrawResistor(const GraphicsInfo &r_GfxInfo) const
 {
 	string ResImage;
-	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Resistor_HI.jpg";	//use image of highlighted resistor
-	else  
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			ResImage = "Images\\Comp\\Resistor_HI.jpg";	//use image of highlighted resistor
+		else
+			ResImage = "Images\\Comp\\Resistor.jpg";	//use image of the normal resistor
+	}
+	else {
 		ResImage = "Images\\Comp\\Resistor.jpg";	//use image of the normal resistor
-
+	}
 	//Draw Resistor at Gfx_Info (1st corner)
 	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 void UI::DrawBulb(const GraphicsInfo &r_GfxInfo) const
 {
 	string BulbImage;
-	if(r_GfxInfo.isClicked)
-		BulbImage ="Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
-	else  
-		BulbImage = "Images\\Comp\\Bulb.jpg";	//use image of the normal bulb
-
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			BulbImage = "Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
+		else
+			BulbImage = "Images\\Comp\\Bulb.jpg";	//use image of the normal bulb
+	}
+	else {
+		if (r_GfxInfo.closed) {
+			BulbImage = "Images\\Comp\\Bulb_Light.jpg";
+		}
+		else {
+			BulbImage = "Images\\Comp\\Bulb.jpg";
+		}
+	}
 	//Draw Bulb at Gfx_Info (1st corner)
 	pWind->DrawImage(BulbImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 void UI::DrawBattery(const GraphicsInfo &r_GfxInfo) const
 {
 	string BatImage;
-	if(r_GfxInfo.isClicked)
-		BatImage ="Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
-	else  
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			BatImage = "Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
+		else
+			BatImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
+	}
+	else {
 		BatImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
-
+	}
 	//Draw Battery at Gfx_Info (1st corner)
 	pWind->DrawImage(BatImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 {
 	string SwImage;
-	if(r_GfxInfo.isClicked)
-		SwImage ="Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
-	else  
-		SwImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
-
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			SwImage = "Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
+		else
+			SwImage = "Images\\Comp\\Switch.jpg";	//use image of the normal switch
+	}
+	else {
+		if (r_GfxInfo.closed) {SwImage = "Images\\Comp\\Switch_Closed.jpg";}
+		else { SwImage = "Images\\Comp\\Switch.jpg"; }
+	}
 	//Draw Switch at Gfx_Info (1st corner)
 	pWind->DrawImage(SwImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 void UI::DrawGround(const GraphicsInfo &r_GfxInfo) const
 {
 	string GrImage;
-	if(r_GfxInfo.isClicked)
-		GrImage ="Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
-	else  
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			GrImage = "Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
+		else
+			GrImage = "Images\\Comp\\Ground.jpg";	//use image of the normal ground
+	}
+	else {
 		GrImage = "Images\\Comp\\Ground.jpg";	//use image of the normal ground
-
+	}
 	//Draw Ground at Gfx_Info (1st corner)
 	pWind->DrawImage(GrImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo) const
 {
 	string BuzImage;
-	if(r_GfxInfo.isClicked)
-		BuzImage ="Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
-	else  
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			BuzImage = "Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
+		else
+			BuzImage = "Images\\Comp\\Buzzer.jpg";	//use image of the normal buzzer
+	}
+	else {
 		BuzImage = "Images\\Comp\\Buzzer.jpg";	//use image of the normal buzzer
-
+	}
 	//Draw Buzzer at Gfx_Info (1st corner)
 	pWind->DrawImage(BuzImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 void UI::DrawFuse(const GraphicsInfo &r_GfxInfo) const
 {
 	string FusImage;
-	if(r_GfxInfo.isClicked)
-		FusImage ="Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
-	else  
-		FusImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fuse
-
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			FusImage = "Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
+		else
+			FusImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fuse
+	}
+	else {
+		if (r_GfxInfo.exceeded_limit) {
+			FusImage = "Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
+		}
+		else {
+			FusImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fus
+		}
+	}
 	//Draw Fuse at Gfx_Info (1st corner)
 	pWind->DrawImage(FusImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
@@ -478,11 +524,15 @@ void UI::DrawModule(const GraphicsInfo& r_GfxInfo) const
 
 void UI::DrawConnection(const GraphicsInfo &r_GfxInfo) const
 {
-	if (r_GfxInfo.isClicked)
-		pWind->SetPen(RED, 2);
-	else
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			pWind->SetPen(RED, 2);
+		else
+			pWind->SetPen(BLACK, 2);
+	}
+	else {
 		pWind->SetPen(BLACK, 2);
-	
+	}
 	pWind->DrawLine(r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, r_GfxInfo.PointsList[1].x, r_GfxInfo.PointsList[1].y);
 }
 
@@ -575,3 +625,8 @@ void UI::DrawConnectionEditMenu(string ConnectionLabel = "Connection") {
 	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 50, width, height - StatusBarHeight - 50);
 
 }
+
+MODE UI::getAppMode() const {
+	return AppMode;
+}
+

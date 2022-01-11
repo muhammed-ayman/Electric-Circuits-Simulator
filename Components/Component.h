@@ -69,6 +69,11 @@ public:
 	void setClick(bool clickStatus);
 	bool isClicked();
 
+	//changes the state closed
+	void setClosed(bool state);
+	//gets the state closed from the graphics info
+	bool isClosed();
+
 	// Label Getter & Setter
 	string getLabel() const;
 	void setLabel(string label);

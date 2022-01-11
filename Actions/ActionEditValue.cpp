@@ -2,6 +2,7 @@
 #include "../ApplicationManager.h"
 #include "../Components/Component.h"
 #include "../Actions/ActionAddMenu.h"
+#include <string>
 
 ActionEditValue::ActionEditValue(ApplicationManager* pApp) :Action(pApp)
 {
@@ -47,6 +48,8 @@ void ActionEditValue::Execute()
 
 		pManager->GetComponentList(CompList);
 
+		this->SaveComponentParameters(pManager->getSelectedComponentId(), CompList[pManager->getSelectedComponentId()]->getValue());
+
 		CompList[pManager->getSelectedComponentId()]->setValue(stod(newValue)); // Set the input value to the current selected component
 
 		pUI->ClearStatusBar();
@@ -65,9 +68,28 @@ void ActionEditValue::Execute()
 	}
 }
 
+
+// Saving the action parameters to be retireved in the undo/redo cases
+
+void ActionEditValue::SaveComponentParameters(int SelectedItemId, double preVal) {
+	this->targetComponent = SelectedItemId;
+	this->previousValue = preVal;
+}
+
+
 void ActionEditValue::Undo()
-{}
+{
+	// Check if The Edit Action is applied to a Component
+	if (targetComponent >= 0) {
+		Component* CompList[200];
+		pManager->GetComponentList(CompList);
+		double temp_previousValue = CompList[this->targetComponent]->getValue(); // Save the current component's value in a temp variable
+		CompList[this->targetComponent]->setValue(this->previousValue);
+		this->previousValue = temp_previousValue; // Replace the previous value with the temporary one
+	}
+}
 
 void ActionEditValue::Redo()
-{}
-
+{
+	this->Undo();
+}

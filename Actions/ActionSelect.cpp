@@ -43,7 +43,16 @@ void ActionSelect::Execute()
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
 				pManager->setSelectedComponentId(i); // Setting the selected component ID as the one currently clicked from the component list
-				Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
+				
+				if (pUI->getAppMode() == DESIGN) {
+					Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
+				}
+				else {
+					if ((CompList[i]->GetItemType()) == "SWT") {
+						CompList[i]->setClosed(!CompList[i]->isClosed());
+						pManager->updateCircuitState();
+					}
+				}
 			}
 		}
 		else break;
@@ -57,18 +66,40 @@ void ActionSelect::Execute()
 	if (clicked == 0) {
 		for (int i = 0; i < MaxConnCount; i++) {
 			if (ConnList[i] != nullptr) {
+				cout << "Connection is not null: " << i << endl;
 				GraphicsInfo* ConnListGraphicsInfo = ConnList[i]->getGraphicsInfo();
 				double lineSlope = double(ConnListGraphicsInfo->PointsList[0].y
 					- ConnListGraphicsInfo->PointsList[1].y) / (ConnListGraphicsInfo->PointsList[0].x
 						- ConnListGraphicsInfo->PointsList[1].x);
+
 				double lineIntercept = ConnListGraphicsInfo->PointsList[0].y - lineSlope * ConnListGraphicsInfo->PointsList[0].x;
-				if (y <= lineSlope * x + lineIntercept + 5 && y >= lineSlope * x + lineIntercept - 5 && x >= ConnListGraphicsInfo->PointsList[0].x && x <= ConnListGraphicsInfo->PointsList[1].x) {
+
+				double expectedY = lineSlope * x + lineIntercept;
+				double leftX = ConnListGraphicsInfo->PointsList[1].x;
+				double rightX = ConnListGraphicsInfo->PointsList[0].x;
+				double deltaY = 10;
+
+				if (leftX > rightX) {
+					swap(leftX, rightX);
+				}
+
+				// Press Info:
+				//cout << "Line equation: " << "y=" << lineSlope << "*x" << "+" << lineIntercept << endl;
+				//cout << "You pressed on (" << x << "," << y << ")" << endl;
+				//cout << "Expected Y is " << expectedY << endl;
+
+				if (rightX - leftX < 10) {
+					expectedY = double(ConnListGraphicsInfo->PointsList[0].y + ConnListGraphicsInfo->PointsList[1].y) / 2;
+					deltaY = double(abs(ConnListGraphicsInfo->PointsList[0].y - ConnListGraphicsInfo->PointsList[1].y)) / 2;
+				}
+
+
+				if (y <= expectedY + deltaY && y >= expectedY - deltaY && x >= leftX - 5 && x <= rightX + 5) {
 					pUI->PrintMsg("Connection Clicked");
 					clicked = 1;
 					ConnList[i]->setClick(true);
 					pManager->setSelectedConnectionId(i);
-					Menu->DrawConnectionMenu(ConnList[i]);
-					
+					Menu->DrawConnectionMenu(ConnList[i]);	
 					
 					break;
 				}

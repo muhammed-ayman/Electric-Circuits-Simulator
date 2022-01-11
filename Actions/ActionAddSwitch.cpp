@@ -40,13 +40,21 @@ void ActionAddSwitch::Execute()
 
 		Switch* pR = new Switch(pGInfo);
 		pManager->AddComponent(pR);
+		this->SaveComponentParameters(pR);
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }
 
+void ActionAddSwitch::SaveComponentParameters(Switch* switchPointer) {
+	this->SwitchPointer = switchPointer;
+}
+
 void ActionAddSwitch::Undo()
-{}
+{
+	pManager->MakeCompNull(this->SwitchPointer);
+}
 
 void ActionAddSwitch::Redo()
-{}
-
+{
+	pManager->AddComponent(this->SwitchPointer);
+}

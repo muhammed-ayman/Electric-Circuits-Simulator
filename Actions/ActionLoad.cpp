@@ -109,7 +109,7 @@ void ActionLoad::Execute()
 			else if (compType == "GND") pR = new Ground();
 			else if (compType == "BUZ") pR = new Buzzer();
 			else if (compType == "FUS") pR = new Fuse();
-			else if (compType == "Mod") pR = new Module();
+			else if (compType == "MOD") pR = new Module();
 			else pR = nullptr;
 
 			if (pR) {

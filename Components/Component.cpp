@@ -36,6 +36,16 @@ void Component::setClick(bool clickStatus) {
 bool Component::isClicked() {
 	return this->clicked;
 }
+
+void Component::setClosed(bool state)
+{
+	this->m_pGfxInfo->closed = state;
+}
+
+bool Component::isClosed()
+{
+	return this->m_pGfxInfo->closed;
+}
  
 string Component::getLabel() const {
 	return this->m_Label;

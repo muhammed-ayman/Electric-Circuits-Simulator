@@ -12,7 +12,6 @@
     <ClCompile Include="Actions\ActionAddSwitch.cpp" />
     <ClCompile Include="Actions\ActionSimWindow.cpp" />
     <ClCompile Include="Actions\ActionAddMenu.cpp" />
-    <ClCompile Include="Actions\ActionEditLabel.cpp" />
     <ClCompile Include="Actions\ActionEditValue.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
     <ClCompile Include="CMUgraphicsLib\CMUgraphics.cpp" />
@@ -74,6 +73,10 @@
     <ClCompile Include="Actions\ActionDelete.cpp" />
     <ClCompile Include="Actions\ActionRedo.cpp" />
     <ClCompile Include="Actions\ActionUndo.cpp" />
+    <ClCompile Include="Actions\ActionMeasureVoltage.cpp" />
+    <ClCompile Include="Actions\ActionMeausreCurrent.cpp" />
+    <ClCompile Include="Actions\ActionCircuitLog.cpp" />
+    <ClCompile Include="Actions\ActionEditLabel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -88,7 +91,6 @@
     <ClInclude Include="Actions\ActionAddSwitch.h" />
     <ClInclude Include="Actions\ActionSimWindow.h" />
     <ClInclude Include="Actions\ActionAddMenu.h" />
-    <ClInclude Include="Actions\ActionEditLabel.h" />
     <ClInclude Include="Actions\ActionEditValue.h" />
     <ClInclude Include="ApplicationManager.h" />
     <ClInclude Include="CMUgraphicsLib\CMUgraphics.h" />
@@ -134,6 +136,10 @@
     <ClInclude Include="Actions\ActionDelete.h" />
     <ClInclude Include="Actions\ActionUndo.h" />
     <ClInclude Include="Actions\ActionRedo.h" />
+    <ClInclude Include="Actions\ActionMeasureVoltage.h" />
+    <ClInclude Include="Actions\ActionMeausreCurrent.h" />
+    <ClInclude Include="Actions\ActionCircuitLog.h" />
+    <ClInclude Include="Actions\ActionEditLabel.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt" />

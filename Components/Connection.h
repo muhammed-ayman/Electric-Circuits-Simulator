@@ -35,6 +35,20 @@ public:
 	void setConnectionLabel(string label);
 	void setClick(bool clickStatus);
 
+	bool isClicked();
+
 	GraphicsInfo* getGraphicsInfo() const;
+
+	ConnectionInfo* getConnInfo() const {
+		return this->cInfo;
+	}
+
+	Component* getComp1() const {
+		return this->Cmpnt1;
+	}
+
+	Component* getComp2() const {
+		return this->Cmpnt2;
+	}
 
 };

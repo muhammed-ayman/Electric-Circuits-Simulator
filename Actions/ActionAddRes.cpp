@@ -39,13 +39,22 @@ void ActionAddRes::Execute()
 
 		Resistor* pR = new Resistor(pGInfo);
 		pManager->AddComponent(pR);
+		this->SaveComponentParameters(pR);
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }
 
+void ActionAddRes::SaveComponentParameters(Resistor* resPointer) {
+	this->ResistorPointer = resPointer;
+}
+
 void ActionAddRes::Undo()
-{}
+{
+	pManager->MakeCompNull(this->ResistorPointer);
+}
 
 void ActionAddRes::Redo()
-{}
+{
+	pManager->AddComponent(this->ResistorPointer);
+}
 

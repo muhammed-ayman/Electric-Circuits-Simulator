@@ -45,3 +45,7 @@ void Connection::Save(ofstream& saveFile, string id)
 	saveFile << to_string(cInfo->item1_terminal) + ", ";
 	saveFile << to_string(cInfo->item2_terminal) + "\n";
 }
+
+bool Connection::isClicked() {
+	return this->pGfxInfo->isClicked;
+}

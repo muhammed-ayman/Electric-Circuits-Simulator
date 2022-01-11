@@ -40,13 +40,21 @@ void ActionAddFuse::Execute()
 
 		Fuse* pR = new Fuse(pGInfo);
 		pManager->AddComponent(pR);
+		this->SaveComponentParameters(pR);
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }
 
+void ActionAddFuse::SaveComponentParameters(Fuse* fuzPointer) {
+	this->FusePointer = fuzPointer;
+}
+
 void ActionAddFuse::Undo()
-{}
+{
+	pManager->MakeCompNull(this->FusePointer);
+}
 
 void ActionAddFuse::Redo()
-{}
-
+{
+	pManager->AddComponent(this->FusePointer);
+}

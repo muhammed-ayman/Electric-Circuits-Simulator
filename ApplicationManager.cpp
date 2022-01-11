@@ -23,7 +23,9 @@
 #include "Actions\ActionDelete.h"
 #include "Actions\ActionRedo.h"
 #include "Actions\ActionUndo.h"
-
+#include "Actions\ActionCircuitLog.h"
+#include "Actions\ActionMeasureVoltage.h"
+#include "Actions\ActionMeausreCurrent.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -200,7 +202,15 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case REDO:
 			pAct = new ActionRedo(this);
 			break;
-
+		case LOG:
+			pAct = new ActionCircuitLog(this);
+			break;
+		case CURR_MEASURE:
+			pAct = new ActionMeasureCurrent(this);
+			break;
+		case VOLT_MEASURE:
+			pAct = new ActionMeasureVoltage(this);
+			break;
 		case EXIT:
 			pAct = new ActionExit(this);
 			break;
@@ -237,6 +247,8 @@ UI* ApplicationManager::GetUI()
 }
 
 ////////////////////////////////////////////////////////////////////
+
+
 
 ApplicationManager::~ApplicationManager()
 {
@@ -425,6 +437,193 @@ void ApplicationManager::Redo() {
 
 void ApplicationManager::SaveActionToStack(Action* act) {
 	this->ActionsUndoStack.push(act);
+}
+
+
+bool ApplicationManager::isCircuitClosed() const
+{
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] != nullptr) {
+			if ((CompList[i]->GetItemType() == "SWT")) {
+				if(CompList[i]->isClosed() == false)
+					return false;
+			}
+		}
+	}
+	return true;
+}
+
+void ApplicationManager::updateCircuitState()
+{
+	bool state = isCircuitClosed();
+	updateTotalVoltage();
+	updateTotalResistance();
+	updateTotalCurrent();
+	for (int i = 0; i < MaxCompCount; i++) {
+		if ((CompList[i] != nullptr)) {
+			if (CompList[i]->GetItemType() != "SWT")
+				CompList[i]->setClosed(state);
+		}
+	}
+}
+
+void ApplicationManager::updateTotalVoltage()
+{
+	CircuitTotalVoltage = 0;
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] != nullptr) {
+			if (CompList[i]->GetItemType() == "BAT") {
+				CircuitTotalVoltage += CompList[i]->getValue();
+			}
+		}
+	}
+}
+
+void ApplicationManager::updateTotalCurrent()
+{
+	if (!isCircuitClosed()) {
+		CircuitTotalCurrent = 0;
+	}
+	else {
+		CircuitTotalCurrent = CircuitTotalVoltage / CircuitTotalResistance;
+	}
+}
+
+double ApplicationManager::getTotalVoltage() const
+{
+	return CircuitTotalVoltage;
+}
+
+double ApplicationManager::getTotalCurrent() const
+{
+	return CircuitTotalCurrent;
+}
+
+double ApplicationManager::getTotalResistance() const
+{
+	return CircuitTotalResistance;
+}
+
+int ApplicationManager::getComponent(int x, int y) const
+{
+	GraphicsInfo* CompListGraphicsInfo = new GraphicsInfo(2);
+	for (int i = 0; i < MaxCompCount; i++) {
+		// If there is a component inside the drawing area, proceed
+		if (CompList[i] != nullptr) {
+			// Gets the graphical info of component [i]
+			CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
+			// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
+			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
+				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
+				return i;
+			}
+		}
+	}
+	return -1;
+}
+
+void ApplicationManager::updateTotalResistance()
+{
+	CircuitTotalResistance = 0;
+	string comptype;
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] != nullptr) {
+			comptype = CompList[i]->GetItemType();
+			if ((comptype != "SWT") && (comptype != "GND") && (comptype != "BAT") ) {
+				CircuitTotalResistance += CompList[i]->getValue();
+			}
+		}
+	}
+}
+
+
+
+
+void ApplicationManager::MakeCompNull(Component* comp) {
+	bool found = 0;
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] == comp) {
+			CompList[i] = nullptr;
+			found = 1;
+		}
+		if (found && i + 1 != MaxCompCount) {
+			CompList[i] = CompList[i + 1];
+		}
+	}
+	CompCount--;
+
+	/// TODO: remove connections+
+	pUI->ClearDrawingArea();
+	pUI->CreateDrawingArea();
+	UpdateInterface();
+}
+
+void ApplicationManager::MakeConnNull(Connection* conn) {
+	bool found = 0;
+	for (int i = 0; i < MaxConnCount; i++) {
+		if (ConnList[i] == nullptr) {
+			break;
+		}
+		if (ConnList[i] == conn) {
+			ConnList[i] = nullptr;
+			found = 1;
+		}
+		if (found && i + 1 != MaxConnCount) {
+			ConnList[i] = ConnList[i + 1];
+		}
+	}
+	int detectedComponents = 0;
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] == nullptr || detectedComponents == 2) {
+			break;
+		}
+		if (CompList[i]->getTerm1Conn() == conn) {
+			detectedComponents += 1;
+			CompList[i]->setTerm1Conn(nullptr);
+		}
+		if (CompList[i]->getTerm2Conn() == conn) {
+			detectedComponents += 1;
+			CompList[i]->setTerm2Conn(nullptr);
+		}
+	}
+	ConnCount--;
+
+	/// TODO: remove connections+
+	pUI->ClearDrawingArea();
+	pUI->CreateDrawingArea();
+	UpdateInterface();
+}
+
+
+
+// Restoring the connection between the associated components
+void ApplicationManager::RestoreConnection(Connection* conn) {
+	Component* Comp1 = conn->getComp1();
+	Component* Comp2 = conn->getComp2();
+
+	ConnectionInfo* connInfo = conn->getConnInfo();
+
+	// Connect to the correct terminals
+
+	switch (connInfo->item1_terminal) {
+	case 0:
+		Comp1->setTerm1Conn(conn);
+		break;
+	case 1:
+		Comp1->setTerm2Conn(conn);
+		break;
+	}
+
+	switch (connInfo->item2_terminal) {
+	case 0:
+		Comp2->setTerm1Conn(conn);
+		break;
+	case 1:
+		Comp2->setTerm2Conn(conn);
+		break;
+	}
+
+	this->AddConnection(conn);
 }
 
 void ApplicationManager::CreateTemp() {
