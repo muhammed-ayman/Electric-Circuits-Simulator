@@ -15,6 +15,9 @@ ActionSave::~ActionSave(void)
 
 void ActionSave::Execute()
 {
+
+
+	//appMode
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 
@@ -24,27 +27,14 @@ void ActionSave::Execute()
 	saveFile << CompCount << "\n";
 
 	for (int i = 0; i < CompCount; i++) {
-		string* comData = CompList[i]->Save();
-		comData[1] = to_string(i + 1);
-
-		saveFile << comData[0] << ", ";
-		saveFile << comData[1] << ", ";
-		saveFile << comData[2] << ", ";
-		saveFile << comData[3] << ", ";
-		saveFile << comData[4] << ", ";
-		saveFile << comData[5] << "\n";
+		CompList[i]->Save(saveFile, to_string(i + 1));
 	}
 
 	saveFile << "Connections" << "\n";
 	saveFile << ConnCount << "\n";
 
 	for (int i = 0; i < ConnCount; i++) {
-		string* conData = ConnList[i]->Save();
-
-		saveFile << conData[0] << ", ";
-		saveFile << conData[1] << ", ";
-		saveFile << conData[2] << ", ";
-		saveFile << conData[3] << "\n";
+		ConnList[i]->Save(saveFile, to_string(i + 1));
 	}
 
 	saveFile.close();

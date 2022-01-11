@@ -23,7 +23,7 @@ enum ActionType
 	EDIT_Value,			// Edit Value to a Component, a Connection
 	EDIT_Copy,			// Copy a Component, a Connection
 	EDIT_Cut,			// Cut a Component, a Connection
-	Paste,
+	PASTE,
 
 
 	Change_Switch,		//Change Switch Status in Simulation Mode

@@ -11,7 +11,6 @@ Component::Component()
 	m_pGfxInfo = nullptr;
 	term1_volt = term2_volt = 0;
 	term1_conn_count = term2_conn_count = 0;
-
 }
 
 Component::~Component()
@@ -64,6 +63,7 @@ string Component::GetItemType() const {
 		case GND: return "GND";
 		case BUZ: return "BUZ";
 		case FUS: return "FUS";
+		case MOD: return "MOD";
 		default: return "NAN";
 	}
 }

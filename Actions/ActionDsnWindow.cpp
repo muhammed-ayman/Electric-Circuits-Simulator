@@ -13,6 +13,9 @@ void ActionDsnWindow::Execute()
 {
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
+	pManager->UpdateInterface();
+	pUI->ClearDrawingArea();
+	pUI->CreateDrawingArea();
 	//creating design mode toolbar
 	pUI->CreateDesignToolBar();
 	//Print Action Message

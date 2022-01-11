@@ -1,6 +1,16 @@
 #pragma once
 #include "../UI/UI.h"
 
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+using std::cerr;
+using std::endl;
+using std::ofstream;
+using std::ifstream;
+using std::basic_ofstream;
+
+
 class Component;	//forward class declaration
 
 class Connection 
@@ -19,7 +29,8 @@ public:
 	Connection();
 	~Connection();
 	virtual void Draw(UI* );	//for connection to Draw itself
-	virtual string* Save(); //returns components data to save
+	virtual void Save(ofstream& saveFile, string id); //returns components data to save
+	//virtual void Save(ofstream& saveFile);
 	string getConnectionLabel() const;
 	void setConnectionLabel(string label);
 	void setClick(bool clickStatus);

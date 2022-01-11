@@ -34,10 +34,17 @@ private:
 	Component* CompList[MaxCompCount];	//List of all Components (Array of pointers)
 	Connection* ConnList[MaxConnCount]; // List of all Connections (Array of pointers)
 
+	Component* Temp_CompList[MaxCompCount];
+	Connection* Temp_ConnList[MaxConnCount];
+	int Temp_CompCount;
+	int Temp_ConnCount;
+
 	UI* pUI; //pointer to the UI
 
 	int SelectedComponentId = -1; //initial value for selected component ID
 	int SelectedConnectionId = -1; //initial value for selected connection ID
+
+	int TempSelectedComponentId = -1;
 
 	Component* ComponentClone = nullptr;
 
@@ -49,7 +56,12 @@ private:
 public:	
 	ApplicationManager(); //constructor
 
-	void ResetData();
+	void ResetData(); // delete lists
+	void CreateTemp(); // create temp data of current app 
+	void RevertTemp(); // revert the saved temp data
+	void EmptyData(); // nullptr lists
+	void EmptyTempData();
+
 
 	int GetGroundCount();
 
@@ -74,6 +86,8 @@ public:
 	//Retrieves the current list of added components. 	
 	void GetComponentList(Component* CompListNew[]);
 	void GetConnectionList(Connection* ConnListNew[]);
+	void GetTempComponentList(Component* CompListNew[]);
+	void GetTempConnectionList(Connection* ConnListNew[]);
 
 	int GetComponentCount();
 	int GetConnectionCount();
@@ -101,9 +115,6 @@ public:
 	void CloneSelectedComponent();
 	Component* getClonedComponent();
 	void ResetClonedComponent();
-
-	void ReduceCompCountByOne();
-
 
 	void deleteSelectedComponent();
 
