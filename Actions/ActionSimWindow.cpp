@@ -38,6 +38,8 @@ bool ActionSimWindow::ValidateOneCircuit() {
 }
 
 bool ActionSimWindow::Validate() {
+	cout << pManager->GetConnectionCount() << endl;
+	cout << pManager->GetComponentCount() << endl;
 	int counter = 0;
 	Component* CompList[MaxCompCount];
 	pManager->GetComponentList(CompList);
@@ -65,7 +67,7 @@ void ActionSimWindow::Execute()
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 	if (Validate()) {
-		if (ValidateOneCircuit()) {
+		//if (ValidateOneCircuit()) {
 			// unselecting selected objects in simulation mode
 			Component* CompList[MaxCompCount];
 			pManager->GetComponentList(CompList);
@@ -93,10 +95,10 @@ void ActionSimWindow::Execute()
 			pManager->updateCircuitState();
 			//Print Action Message
 			pUI->PrintMsg("Simulation Mode Initialized");
-		}
-		else {
-			pUI->PrintMsg("More than one circuit is drawn!");
-		}
+		//}
+		//else {
+		//	pUI->PrintMsg("More than one circuit is drawn!");
+		//}
 	}
 	else{
 		pUI->PrintMsg("Circuit is not valid! One circuit, one ground (val=0), and full connections, labels, & values! Switch = 0 or 1!");

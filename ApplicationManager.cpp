@@ -186,7 +186,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct->Execute();
 		if (ActType != REDO && 
 			ActType != UNDO &&
-			ActType != SELECT) this->SaveActionToStack(pAct);
+			ActType != SELECT &&
+			ActType != SIM_MODE &&
+			ActType != DSN_MODE &&
+			ActType != MOD_MODE) this->SaveActionToStack(pAct);
 	}
 }
 ////////////////////////////////////////////////////////////////////

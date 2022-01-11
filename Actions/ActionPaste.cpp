@@ -46,14 +46,31 @@ void ActionPaste::Execute()
 
 		Clone->setGraphicsInfo(pGInfo);
 		pManager->AddComponent(Clone);
+		this->SaveActionParameters(Clone, Clone->getTerm1Conn(), Clone->getTerm2Conn());
 		pManager->ResetClonedComponent();
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }
 
+void ActionPaste::SaveActionParameters(Component* Comp, Connection* Conn1, Connection* Conn2) {
+	this->Comp = Comp;
+	this->Conn1 = Conn1;
+	this->Conn2 = Conn2;
+}
+
 void ActionPaste::Undo()
-{}
+{
+	pManager->MakeCompNull(this->Comp);
+	if (this->Comp->getTerm1Conn()) pManager->MakeConnNull(this->Comp->getTerm1Conn());
+	if (this->Comp->getTerm2Conn()) pManager->MakeConnNull(this->Comp->getTerm2Conn());
+}
 
 void ActionPaste::Redo()
-{}
+{
+	pManager->AddComponent(this->Comp);
+	if (this->Conn1) pManager->RestoreConnection(Conn1);
+	if (this->Conn2) pManager->RestoreConnection(Conn2);
+	pManager->ResetClonedComponent();
+}
+
 
