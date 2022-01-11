@@ -28,6 +28,10 @@ public:
 
 	GraphicsInfo* getGraphicsInfo() const;
 
+	ConnectionInfo* getConnInfo() const {
+		return this->cInfo;
+	}
+
 	Component* getComp1() const {
 		return this->Cmpnt1;
 	}

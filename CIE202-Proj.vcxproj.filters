@@ -77,7 +77,6 @@
     <ClCompile Include="Actions\ActionMeausreCurrent.cpp" />
     <ClCompile Include="Actions\ActionCircuitLog.cpp" />
     <ClCompile Include="Actions\ActionEditLabel.cpp" />
-    <ClCompile Include="Actions\ActionDeleteConnection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />

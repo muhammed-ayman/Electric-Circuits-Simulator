@@ -27,6 +27,8 @@ private:
 		void SaveComponentParameters(Component* Comp);
 		void SaveConnectionParameters(Connection* Conn);
 
+		void RestoreConnection(Connection* conn);
+
 		virtual void Undo();
 		virtual void Redo();
 

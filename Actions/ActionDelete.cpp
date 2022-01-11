@@ -27,8 +27,8 @@ void ActionDelete::Execute()
 			if (CompList[i]->isClicked()) {
 				this->SaveComponentParameters(CompList[i]);
 				pManager->MakeCompNull(CompList[i]);
-				CompList[i]->getTerm1Conn()->setClick(true);
-				CompList[i]->getTerm2Conn()->setClick(true);
+				if (CompList[i]->getTerm1Conn()) CompList[i]->getTerm1Conn()->setClick(true);
+				if (CompList[i]->getTerm2Conn()) CompList[i]->getTerm2Conn()->setClick(true);
 			}
 		}
 		pUI->PrintMsg("Deleted selected components!");
@@ -71,6 +71,7 @@ void ActionDelete::Undo()
 	for (int i = 0; i < this->deletedConnectionsUndoCounter; i++) {
 		pManager->AddConnection(this->targetConnectionsUndo.top());
 		this->targetConnectionsRedo.push(this->targetConnectionsUndo.top());
+		this->RestoreConnection(this->targetConnectionsUndo.top());
 		this->targetConnectionsUndo.pop();
 	}
 	swap(this->deletedConnectionsRedoCounter, this->deletedConnectionsUndoCounter);
@@ -87,10 +88,37 @@ void ActionDelete::Redo()
 
 	for (int i = 0; i < this->deletedConnectionsRedoCounter; i++) {
 		pManager->AddConnection(this->targetConnectionsRedo.top());
+		pManager->MakeConnNull(this->targetConnectionsRedo.top());
 		this->targetConnectionsUndo.push(this->targetConnectionsRedo.top());
 		this->targetConnectionsRedo.pop();
 	}
 	swap(this->deletedConnectionsRedoCounter, this->deletedConnectionsUndoCounter);
+}
+
+void ActionDelete::RestoreConnection(Connection* conn) {
+	Component* Comp1 = conn->getComp1();
+	Component* Comp2 = conn->getComp2();
+
+	ConnectionInfo* connInfo = conn->getConnInfo();
+
+	switch (connInfo->item1_terminal) {
+	case 0:
+		Comp1->setTerm1Conn(conn);
+		break;
+	case 1:
+		Comp1->setTerm2Conn(conn);
+		break;
+	}
+
+	switch (connInfo->item2_terminal) {
+	case 0:
+		Comp2->setTerm1Conn(conn);
+		break;
+	case 1:
+		Comp2->setTerm2Conn(conn);
+		break;
+	}
+
 }
 
 ActionDelete::~ActionDelete() {
@@ -98,7 +126,7 @@ ActionDelete::~ActionDelete() {
 	while (!this->targetComponentsRedo.empty()) delete targetComponentsRedo.top(), targetComponentsRedo.pop(); // Clearing the Redo Stack Objects from memory
 	while (!this->targetComponentsUndo.empty()) delete targetComponentsUndo.top(), targetComponentsUndo.pop(); // Clearing the Undo Stack Objects from memory
 
-	while (!this->targetComponentsRedo.empty()) delete targetComponentsRedo.top(), targetComponentsRedo.pop(); // Clearing the Redo Stack Objects from memory
-	while (!this->targetComponentsUndo.empty()) delete targetComponentsUndo.top(), targetComponentsUndo.pop(); // Clearing the Undo Stack Objects from memory
+	while (!this->targetConnectionsRedo.empty()) delete targetConnectionsRedo.top(), targetConnectionsRedo.pop(); // Clearing the Redo Stack Objects from memory
+	while (!this->targetConnectionsUndo.empty()) delete targetConnectionsUndo.top(), targetConnectionsUndo.pop(); // Clearing the Undo Stack Objects from memory
 
 }
