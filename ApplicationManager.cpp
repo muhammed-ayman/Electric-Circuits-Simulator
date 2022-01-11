@@ -458,7 +458,9 @@ bool ApplicationManager::isCircuitClosed() const
 void ApplicationManager::updateCircuitState()
 {
 	bool state = isCircuitClosed();
-	
+	updateTotalVoltage();
+	updateTotalResistance();
+	updateTotalCurrent();
 	for (int i = 0; i < MaxCompCount; i++) {
 		if ((CompList[i] != nullptr)) {
 			if (CompList[i]->GetItemType() != "SWT")
@@ -469,6 +471,14 @@ void ApplicationManager::updateCircuitState()
 
 void ApplicationManager::updateTotalVoltage()
 {
+	CircuitTotalVoltage = 0;
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] != nullptr) {
+			if (CompList[i]->GetItemType() == "BAT") {
+				CircuitTotalVoltage += CompList[i]->getValue();
+			}
+		}
+	}
 }
 
 void ApplicationManager::updateTotalCurrent()
@@ -477,7 +487,7 @@ void ApplicationManager::updateTotalCurrent()
 		CircuitTotalCurrent = 0;
 	}
 	else {
-		CircuitTotalCurrent = CircuitTotalVoltage / CircuitTotalCurrent;
+		CircuitTotalCurrent = CircuitTotalVoltage / CircuitTotalResistance;
 	}
 }
 
