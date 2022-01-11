@@ -6,8 +6,10 @@
 class ActionDelete : public Action
 {
 private:
-	stack<Component*> targetComponents;
-	int deletedComponentCounters;
+	stack<Component*> targetComponentsRedo;
+	stack<Component*> targetComponentsUndo;
+	int deletedComponentRedoCounter;
+	int deletedComponentUndoCounter;
 
 	public:
 		ActionDelete(ApplicationManager* pApp);

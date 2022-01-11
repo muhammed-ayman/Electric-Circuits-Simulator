@@ -31,7 +31,6 @@ void ActionDelete::Execute()
 			if (CompList[i]->isClicked()) {
 				this->SaveComponentParameters(CompList[i]);
 				pManager->MakeCompNull(CompList[i]);
-				this->deletedComponentCounters++;
 			}
 		}
 		pUI->PrintMsg("Deleted selected components!");
@@ -39,18 +38,26 @@ void ActionDelete::Execute()
 }
 
 void ActionDelete::SaveComponentParameters(Component* Comp) {
-	this->targetComponents.push(Comp);
+	this->targetComponentsUndo.push(Comp);
+	this->deletedComponentUndoCounter++;
 }
 
 void ActionDelete::Undo()
 {
-	for (int i = 0; i < this->deletedComponentCounters; i++) {
-		pManager->AddComponent(this->targetComponents.top());
-		this->targetComponents.pop();
+	for (int i = 0; i < this->deletedComponentUndoCounter; i++) {
+		pManager->AddComponent(this->targetComponentsUndo.top());
+		this->targetComponentsRedo.push(this->targetComponentsUndo.top());
+		this->targetComponentsUndo.pop();
 	}
+	swap(this->deletedComponentRedoCounter, this->deletedComponentUndoCounter);
 }
 
 void ActionDelete::Redo()
 {
-	this->Execute();
+	for (int i = 0; i < this->deletedComponentRedoCounter; i++) {
+		pManager->MakeCompNull(this->targetComponentsRedo.top());
+		this->targetComponentsUndo.push(this->targetComponentsRedo.top());
+		this->targetComponentsRedo.pop();
+	}
+	swap(this->deletedComponentRedoCounter, this->deletedComponentUndoCounter);
 }
