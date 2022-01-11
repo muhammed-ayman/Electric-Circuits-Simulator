@@ -174,6 +174,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case CURR_MEASURE:
 			pAct = new ActionMeasureCurrent(this);
 			break;
+		case VOLT_MEASURE:
+			pAct = new ActionMeasureVoltage(this);
+			break;
 		case EXIT:
 			pAct = new ActionExit(this);
 			break;

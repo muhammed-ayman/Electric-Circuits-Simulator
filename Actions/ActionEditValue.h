@@ -1,6 +1,6 @@
 #ifndef ACTION_EDIT_VALUE_H
 #define ACTION_EDIT_VALUE_H
-
+#include <string>
 #include "Action.h"
 
 class ActionEditValue : public Action

@@ -168,6 +168,7 @@ ActionType UI::GetUserAction() const
 			case ITM_SIM_DSN: return DSN_MODE;
 			case ITM_SIM_EXIT:	return EXIT;
 			case ITM_AMP:	return CURR_MEASURE;
+			case ITM_VOLT: return VOLT_MEASURE;
 			case ITM_LOG: return LOG;
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}

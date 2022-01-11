@@ -2,6 +2,7 @@
 #include "../ApplicationManager.h"
 #include "../Components/Component.h"
 #include "../Actions/ActionAddMenu.h"
+#include <string>
 
 ActionEditValue::ActionEditValue(ApplicationManager* pApp) :Action(pApp)
 {

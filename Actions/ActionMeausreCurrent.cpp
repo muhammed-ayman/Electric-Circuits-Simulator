@@ -2,7 +2,7 @@
 #include "../ApplicationManager.h"
 
 
-ActionMeasureCurrent::ActionMeasureCurrent(ApplicationManager* pApp): Action(pApp)
+ActionMeasureCurrent::ActionMeasureCurrent(ApplicationManager* pApp) : Action(pApp)
 {
 	pManager->GetComponentList(CompList);
 }
@@ -23,16 +23,22 @@ void ActionMeasureCurrent::Execute()
 
 	// Retrieves the mouse coordinates clicked by the user
 	pUI->GetPointClicked(x, y);
-	int compId = pManager->getComponent(x,y);
+	int compId = pManager->getComponent(x, y);
 	if (compId == -1) {
 		pUI->PrintMsg("Nothing selected!");
 	}
 	else {
-		string expression = "";
-		expression = "Current in " + CompList[compId]->getLabel()+" : "+to_string(pManager->getTotalCurrent());
-		pUI->PrintMsg(expression);
+		string compType = CompList[compId]->GetItemType();
+		if (compType == "BAT") { pUI->PrintMsg("Cannot Measure Current at Battery"); }
+		else if (compType == "GND") { pUI->PrintMsg("Cannot Measure Current at Ground"); }
+		else {
+			string expression = "";
+			expression = "Current in " + CompList[compId]->getLabel() + " : " + to_string(pManager->getTotalCurrent());
+			pUI->PrintMsg(expression);
+		}
+
 	}
-	
+
 }
 
 void ActionMeasureCurrent::Undo()
