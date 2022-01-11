@@ -42,7 +42,9 @@ enum ActionType
 	SIM_MODE,	//Switch to Simulatiom mode
 	MOD_MODE,
 
-	LOG,
+	LOG, //Circuit parameters log
+	CURR_MEASURE,
+	VOLT_MEASURE,
 
 	EXIT,		//Exit the application
 

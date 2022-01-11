@@ -1,9 +1,11 @@
 #include "Action.h"
+#include "..\Components\Component.h"
+#include "..\Defs.h"
 
 class ActionMeasureCurrent : public Action
 {
-
-
+private:
+	Component* CompList[MaxCompCount];
 public:
 	ActionMeasureCurrent(ApplicationManager* pApp);
 	virtual ~ActionMeasureCurrent(void);

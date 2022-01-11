@@ -24,7 +24,8 @@
 #include "Actions\ActionRedo.h"
 #include "Actions\ActionUndo.h"
 #include "Actions\ActionCircuitLog.h"
-
+#include "Actions\ActionMeasureVoltage.h"
+#include "Actions\ActionMeausreCurrent.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -169,6 +170,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case LOG:
 			pAct = new ActionCircuitLog(this);
+			break;
+		case CURR_MEASURE:
+			pAct = new ActionMeasureCurrent(this);
 			break;
 		case EXIT:
 			pAct = new ActionExit(this);
@@ -504,6 +508,24 @@ double ApplicationManager::getTotalCurrent() const
 double ApplicationManager::getTotalResistance() const
 {
 	return CircuitTotalResistance;
+}
+
+int ApplicationManager::getComponent(int x, int y) const
+{
+	GraphicsInfo* CompListGraphicsInfo = new GraphicsInfo(2);
+	for (int i = 0; i < MaxCompCount; i++) {
+		// If there is a component inside the drawing area, proceed
+		if (CompList[i] != nullptr) {
+			// Gets the graphical info of component [i]
+			CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
+			// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
+			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
+				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
+				return i;
+			}
+		}
+	}
+	return -1;
 }
 
 void ApplicationManager::updateTotalResistance()
