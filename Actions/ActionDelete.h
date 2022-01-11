@@ -13,15 +13,16 @@ private:
 
 	public:
 		ActionDelete(ApplicationManager* pApp);
-		virtual ~ActionDelete(void);
 
 		//Execute action (code depends on action type)
 		virtual void Execute();
 
+		void SaveComponentParameters(Component* Comp); // Saving the Action Parameters
+
 		virtual void Undo();
 		virtual void Redo();
 
-		void SaveComponentParameters(Component* Comp);
+		~ActionDelete();
 
 };
 

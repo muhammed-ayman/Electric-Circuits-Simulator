@@ -5,10 +5,6 @@ ActionDelete::ActionDelete(ApplicationManager* pApp) : Action(pApp)
 {
 }
 
-ActionDelete::~ActionDelete(void)
-{
-}
-
 void ActionDelete::Execute()
 {
 
@@ -60,4 +56,10 @@ void ActionDelete::Redo()
 		this->targetComponentsRedo.pop();
 	}
 	swap(this->deletedComponentRedoCounter, this->deletedComponentUndoCounter);
+}
+
+ActionDelete::~ActionDelete() {
+	// Deleting Dynamic Objects of type Component
+	while (!this->targetComponentsRedo.empty()) delete targetComponentsRedo.top(), targetComponentsRedo.pop(); // Clearing the Redo Stack Objects from memory
+	while (!this->targetComponentsUndo.empty()) delete targetComponentsUndo.top(), targetComponentsUndo.pop(); // Clearing the Undo Stack Objects from memory
 }
