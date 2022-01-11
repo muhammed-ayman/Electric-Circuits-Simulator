@@ -602,3 +602,35 @@ void ApplicationManager::MakeConnNull(Connection* conn) {
 	pUI->CreateDrawingArea();
 	UpdateInterface();
 }
+
+
+
+// Restoring the connection between the associated components
+void ApplicationManager::RestoreConnection(Connection* conn) {
+	Component* Comp1 = conn->getComp1();
+	Component* Comp2 = conn->getComp2();
+
+	ConnectionInfo* connInfo = conn->getConnInfo();
+
+	// Connect to the correct terminals
+
+	switch (connInfo->item1_terminal) {
+	case 0:
+		Comp1->setTerm1Conn(conn);
+		break;
+	case 1:
+		Comp1->setTerm2Conn(conn);
+		break;
+	}
+
+	switch (connInfo->item2_terminal) {
+	case 0:
+		Comp2->setTerm1Conn(conn);
+		break;
+	case 1:
+		Comp2->setTerm2Conn(conn);
+		break;
+	}
+
+	this->AddConnection(conn);
+}

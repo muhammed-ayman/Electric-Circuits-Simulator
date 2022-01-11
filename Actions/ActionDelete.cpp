@@ -77,7 +77,7 @@ void ActionDelete::Undo()
 	for (int i = 0; i < this->deletedConnectionsUndoCounter; i++) {
 		pManager->AddConnection(this->targetConnectionsUndo.top());
 		this->targetConnectionsRedo.push(this->targetConnectionsUndo.top());
-		this->RestoreConnection(this->targetConnectionsUndo.top());
+		pManager->RestoreConnection(this->targetConnectionsUndo.top());
 		this->targetConnectionsUndo.pop();
 	}
 	swap(this->deletedConnectionsRedoCounter, this->deletedConnectionsUndoCounter);
@@ -100,34 +100,6 @@ void ActionDelete::Redo()
 		this->targetConnectionsRedo.pop();
 	}
 	swap(this->deletedConnectionsRedoCounter, this->deletedConnectionsUndoCounter);
-}
-
-// Restoring the connection between the associated components
-void ActionDelete::RestoreConnection(Connection* conn) {
-	Component* Comp1 = conn->getComp1();
-	Component* Comp2 = conn->getComp2();
-
-	ConnectionInfo* connInfo = conn->getConnInfo();
-
-	// Connect to the correct terminals
-
-	switch (connInfo->item1_terminal) {
-	case 0:
-		Comp1->setTerm1Conn(conn);
-		break;
-	case 1:
-		Comp1->setTerm2Conn(conn);
-		break;
-	}
-
-	switch (connInfo->item2_terminal) {
-	case 0:
-		Comp2->setTerm1Conn(conn);
-		break;
-	case 1:
-		Comp2->setTerm2Conn(conn);
-		break;
-	}
 }
 
 ActionDelete::~ActionDelete() {

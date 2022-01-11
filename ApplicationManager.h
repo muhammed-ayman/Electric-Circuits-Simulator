@@ -138,6 +138,9 @@ public:
 	int getComponent(int x, int y) const;
 
 
+	void RestoreConnection(Connection* conn);
+
+
 
 	//destructor
 	~ApplicationManager();
