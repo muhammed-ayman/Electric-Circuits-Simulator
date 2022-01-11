@@ -2,8 +2,6 @@
 #include "../ApplicationManager.h"
 
 
-
-
 ActionAddConn::ActionAddConn(ApplicationManager* pApp) :Action(pApp)
 {
 	pManager->GetComponentList(CompList);
@@ -123,8 +121,6 @@ void ActionAddConn::ProcessConnection(ConnectionInfo* cInfo) {
 	comp1_graph_info = CompList[cInfo->component1]->getGraphicsInfo();
 	comp2_graph_info = CompList[cInfo->component2]->getGraphicsInfo();
 
-	
-
 
 	if (cInfo->item1_terminal == 0) {
 		conn_graph_info->PointsList[0].x = comp1_graph_info->PointsList[0].x+5;
@@ -148,8 +144,6 @@ void ActionAddConn::ProcessConnection(ConnectionInfo* cInfo) {
 	
 	conn = new Connection(cInfo, conn_graph_info, CompList[cInfo->component1], CompList[cInfo->component2]);
 
-	
-
 
 	if (cInfo->item1_terminal == 0) {
 		CompList[cInfo->component1]->setTerm1Conn(conn);
@@ -170,8 +164,13 @@ void ActionAddConn::ProcessConnection(ConnectionInfo* cInfo) {
 
 
 void ActionAddConn::Undo()
-{}
+{
+	pManager->MakeConnNull(this->conn);
+
+}
 
 void ActionAddConn::Redo()
-{}
+{
+	pManager->RestoreConnection(this->conn);
+}
 
