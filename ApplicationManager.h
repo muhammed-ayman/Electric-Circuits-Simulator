@@ -132,11 +132,6 @@ public:
 	double getTotalCurrent() const;
 	double getTotalResistance() const;
 
-
-	// test
-	void deleteComponent(Component* Comp);
-
-
 	//destructor
 	~ApplicationManager();
 };
