@@ -135,6 +135,10 @@ public:
 	//function for getting the id of the component based on its x,y coordinates
 	int getComponent(int x, int y) const;
 
+	// test
+	void deleteComponent(Component* Comp);
+
+
 	//destructor
 	~ApplicationManager();
 };

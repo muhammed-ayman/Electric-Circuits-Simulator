@@ -13,21 +13,51 @@ void ActionDelete::Execute()
 {
 
 	//Get a Pointer to the user Interfaces
-	int ctr = 0;
-	int ctrDeleted = 0;
 	UI* pUI = pManager->GetUI();
-	if (pManager->GetComponentCount() == 0)pUI->PrintMsg("No Components to delete!"); // checks if there are no components
-	else if (pManager->getSelectedComponentId() == -1) pUI->PrintMsg("No Selected Components!"); // if there are components but all are unselected
+
+	if (pManager->GetComponentCount() == 0)
+		pUI->PrintMsg("No Components to delete!"); // checks if there are no components
+	
+	else if (pManager->getSelectedComponentId() == -1) 
+		pUI->PrintMsg("No Selected Components!"); // if there are components but all are unselected
+	
 	else { // else, delete all selected components
-		pManager->deleteSelectedComponent();
+		Component* CompList[MaxCompCount];
+		pManager->GetComponentList(CompList);
+		for (int i = 0; i < MaxCompCount; i++) {
+			if (CompList[i] == nullptr) {
+				break;
+			}
+			if (CompList[i]->isClicked()) {
+				this->SaveComponentParameters(CompList[i]);
+				pManager->MakeCompNull(CompList[i]);
+			}
+		}
 		pUI->PrintMsg("Deleted selected components!");
 	}
+}
 
-	// TODO: check for connection selection
+void ActionDelete::SaveComponentParameters(Component* Comp) {
+	this->targetComponentsUndo.push(Comp);
+	this->deletedComponentUndoCounter++;
 }
 
 void ActionDelete::Undo()
-{}
+{
+	for (int i = 0; i < this->deletedComponentUndoCounter; i++) {
+		pManager->AddComponent(this->targetComponentsUndo.top());
+		this->targetComponentsRedo.push(this->targetComponentsUndo.top());
+		this->targetComponentsUndo.pop();
+	}
+	swap(this->deletedComponentRedoCounter, this->deletedComponentUndoCounter);
+}
 
 void ActionDelete::Redo()
-{}
+{
+	for (int i = 0; i < this->deletedComponentRedoCounter; i++) {
+		pManager->MakeCompNull(this->targetComponentsRedo.top());
+		this->targetComponentsUndo.push(this->targetComponentsRedo.top());
+		this->targetComponentsRedo.pop();
+	}
+	swap(this->deletedComponentRedoCounter, this->deletedComponentUndoCounter);
+}
