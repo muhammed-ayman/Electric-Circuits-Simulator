@@ -24,6 +24,8 @@ public:
 	void setConnectionLabel(string label);
 	void setClick(bool clickStatus);
 
+	bool isClicked();
+
 	GraphicsInfo* getGraphicsInfo() const;
 
 };

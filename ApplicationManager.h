@@ -117,6 +117,7 @@ public:
 	void Redo();
 	void SaveActionToStack(Action* act);
 	void MakeCompNull(Component* comp);
+	void MakeConnNull(Connection* conn);
 
 	//closing/opening circuit part
 	bool isCircuitClosed() const;
@@ -135,9 +136,6 @@ public:
 
 	//function for getting the id of the component based on its x,y coordinates
 	int getComponent(int x, int y) const;
-
-	// test
-	void deleteComponent(Component* Comp);
 
 
 

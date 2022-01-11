@@ -48,3 +48,7 @@ string* Connection::Save()
 	std::cout << to_string(cInfo->component1 + 1) << "\n";
 	return conDataIn;
 }
+
+bool Connection::isClicked() {
+	return this->pGfxInfo->isClicked;
+}

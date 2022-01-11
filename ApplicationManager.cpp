@@ -563,3 +563,39 @@ void ApplicationManager::MakeCompNull(Component* comp) {
 	pUI->CreateDrawingArea();
 	UpdateInterface();
 }
+
+void ApplicationManager::MakeConnNull(Connection* conn) {
+	bool found = 0;
+	for (int i = 0; i < MaxConnCount; i++) {
+		if (ConnList[i] == nullptr) {
+			break;
+		}
+		if (ConnList[i] == conn) {
+			ConnList[i] = nullptr;
+			found = 1;
+		}
+		if (found && i + 1 != MaxConnCount) {
+			ConnList[i] = ConnList[i + 1];
+		}
+	}
+	int detectedComponents = 0;
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i] == nullptr || detectedComponents == 2) {
+			break;
+		}
+		if (CompList[i]->getTerm1Conn() == conn) {
+			detectedComponents += 1;
+			CompList[i]->setTerm1Conn(nullptr);
+		}
+		if (CompList[i]->getTerm2Conn() == conn) {
+			detectedComponents += 1;
+			CompList[i]->setTerm2Conn(nullptr);
+		}
+	}
+	ConnCount--;
+
+	/// TODO: remove connections+
+	pUI->ClearDrawingArea();
+	pUI->CreateDrawingArea();
+	UpdateInterface();
+}
