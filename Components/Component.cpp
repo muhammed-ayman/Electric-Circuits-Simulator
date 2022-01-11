@@ -43,9 +43,14 @@ void Component::setClosed(bool state)
 	this->m_pGfxInfo->closed = state;
 }
 
-bool Component::isClosed()
+bool Component::isClosed() const
 {
 	return this->m_pGfxInfo->closed;
+}
+
+void Component::setExceededLimit(bool value)
+{
+	this->m_pGfxInfo->exceeded_limit = value;
 }
  
 string Component::getLabel() const {

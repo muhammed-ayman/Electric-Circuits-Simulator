@@ -466,7 +466,7 @@ void UI::DrawFuse(const GraphicsInfo &r_GfxInfo) const
 	}
 	else {
 		if (r_GfxInfo.exceeded_limit) {
-			FusImage = "Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
+			FusImage = "Images\\Comp\\Burnt_Fuse.jpg";	//use image of highlighted fuse
 		}
 		else {
 			FusImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fus
