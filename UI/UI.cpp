@@ -379,7 +379,7 @@ void UI::DrawBulb(const GraphicsInfo &r_GfxInfo) const
 	}
 	else {
 		if (r_GfxInfo.closed) {
-			BulbImage = "Images\\Comp\\Bulb_HI.jpg";
+			BulbImage = "Images\\Comp\\Bulb_Light.jpg";
 		}
 		else {
 			BulbImage = "Images\\Comp\\Bulb.jpg";
