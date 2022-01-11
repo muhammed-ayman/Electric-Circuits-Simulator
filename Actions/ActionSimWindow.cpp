@@ -60,6 +60,8 @@ void ActionSimWindow::Execute()
 		//creating simulation toolbar
 		pUI->CreateSimulationToolBar();
 		pUI->CreateDrawingArea();
+		//updating circuit parameters
+		pManager->updateCircuitState();
 		//Print Action Message
 		pUI->PrintMsg("Simulation Mode Initialized");
 	}
