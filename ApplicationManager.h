@@ -133,6 +133,10 @@ public:
 	double getTotalResistance() const;
 
 
+	// test
+	void deleteComponent(Component* Comp);
+
+
 	//destructor
 	~ApplicationManager();
 };

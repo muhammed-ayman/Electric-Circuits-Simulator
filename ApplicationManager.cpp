@@ -531,3 +531,29 @@ void ApplicationManager::MakeCompNull(Component* comp) {
 	pUI->CreateDrawingArea();
 	UpdateInterface();
 }
+
+
+
+
+
+////////////////
+//void ApplicationManager::deleteComponent(Component* Comp) {
+//	bool componentFound = 0;
+//	for (int i = 0; i < MaxCompCount; i++) {
+//		if (CompList[i] != nullptr) {
+//			if (CompList[i] == Comp) {
+//				CompList[i] = nullptr;
+//				componentFound = 1;
+//			}
+//		}
+//		if (componentFound && i + 1 != MaxCompCount) {
+//			CompList[i] = CompList[i + 1];
+//		}
+//	}
+//	CompCount--;
+//
+//	/// TODO: remove connections+
+//	pUI->ClearDrawingArea();
+//	pUI->CreateDrawingArea();
+//	UpdateInterface();
+//}
