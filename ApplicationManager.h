@@ -49,7 +49,7 @@ private:
 	double CircuitTotalVoltage = 0;
 	double CircuitTotalCurrent = 0;
 	double CircuitTotalResistance = 0;
-	
+	double MaxCurrent = 5;
 
 public:	
 	ApplicationManager(); //constructor

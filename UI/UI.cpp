@@ -362,11 +362,15 @@ void UI::CreateModuleToolBar()
 void UI::DrawResistor(const GraphicsInfo &r_GfxInfo) const
 {
 	string ResImage;
-	if(r_GfxInfo.isClicked)
-		ResImage ="Images\\Comp\\Resistor_HI.jpg";	//use image of highlighted resistor
-	else  
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			ResImage = "Images\\Comp\\Resistor_HI.jpg";	//use image of highlighted resistor
+		else
+			ResImage = "Images\\Comp\\Resistor.jpg";	//use image of the normal resistor
+	}
+	else {
 		ResImage = "Images\\Comp\\Resistor.jpg";	//use image of the normal resistor
-
+	}
 	//Draw Resistor at Gfx_Info (1st corner)
 	pWind->DrawImage(ResImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
@@ -393,11 +397,15 @@ void UI::DrawBulb(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawBattery(const GraphicsInfo &r_GfxInfo) const
 {
 	string BatImage;
-	if(r_GfxInfo.isClicked)
-		BatImage ="Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
-	else  
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			BatImage = "Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
+		else
+			BatImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
+	}
+	else {
 		BatImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
-
+	}
 	//Draw Battery at Gfx_Info (1st corner)
 	pWind->DrawImage(BatImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
@@ -420,33 +428,50 @@ void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawGround(const GraphicsInfo &r_GfxInfo) const
 {
 	string GrImage;
-	if(r_GfxInfo.isClicked)
-		GrImage ="Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
-	else  
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			GrImage = "Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
+		else
+			GrImage = "Images\\Comp\\Ground.jpg";	//use image of the normal ground
+	}
+	else {
 		GrImage = "Images\\Comp\\Ground.jpg";	//use image of the normal ground
-
+	}
 	//Draw Ground at Gfx_Info (1st corner)
 	pWind->DrawImage(GrImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo) const
 {
 	string BuzImage;
-	if(r_GfxInfo.isClicked)
-		BuzImage ="Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
-	else  
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			BuzImage = "Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
+		else
+			BuzImage = "Images\\Comp\\Buzzer.jpg";	//use image of the normal buzzer
+	}
+	else {
 		BuzImage = "Images\\Comp\\Buzzer.jpg";	//use image of the normal buzzer
-
+	}
 	//Draw Buzzer at Gfx_Info (1st corner)
 	pWind->DrawImage(BuzImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
 void UI::DrawFuse(const GraphicsInfo &r_GfxInfo) const
 {
 	string FusImage;
-	if(r_GfxInfo.isClicked)
-		FusImage ="Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
-	else  
-		FusImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fuse
-
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			FusImage = "Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
+		else
+			FusImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fuse
+	}
+	else {
+		if (r_GfxInfo.exceeded_limit) {
+			FusImage = "Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
+		}
+		else {
+			FusImage = "Images\\Comp\\Fuse.jpg";	//use image of the normal fus
+		}
+	}
 	//Draw Fuse at Gfx_Info (1st corner)
 	pWind->DrawImage(FusImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
 }
@@ -466,11 +491,15 @@ void UI::DrawModule(const GraphicsInfo& r_GfxInfo) const
 
 void UI::DrawConnection(const GraphicsInfo &r_GfxInfo) const
 {
-	if (r_GfxInfo.isClicked)
-		pWind->SetPen(RED, 2);
-	else
+	if (AppMode == DESIGN) {
+		if (r_GfxInfo.isClicked)
+			pWind->SetPen(RED, 2);
+		else
+			pWind->SetPen(BLACK, 2);
+	}
+	else {
 		pWind->SetPen(BLACK, 2);
-	
+	}
 	pWind->DrawLine(r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, r_GfxInfo.PointsList[1].x, r_GfxInfo.PointsList[1].y);
 }
 
