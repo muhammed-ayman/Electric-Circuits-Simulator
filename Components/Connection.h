@@ -28,4 +28,12 @@ public:
 
 	GraphicsInfo* getGraphicsInfo() const;
 
+	Component* getComp1() const {
+		return this->Cmpnt1;
+	}
+
+	Component* getComp2() const {
+		return this->Cmpnt2;
+	}
+
 };
