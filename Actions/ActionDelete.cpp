@@ -18,6 +18,8 @@ void ActionDelete::Execute()
 		pUI->PrintMsg("No Selected Items!");
 	
 	else { // else, delete all selected components & connections
+		
+		// Get the Component List, save the component parameters, and make it null
 		Component* CompList[MaxCompCount];
 		pManager->GetComponentList(CompList);
 		for (int i = 0; i < MaxCompCount; i++) {
@@ -31,8 +33,8 @@ void ActionDelete::Execute()
 				if (CompList[i]->getTerm2Conn()) CompList[i]->getTerm2Conn()->setClick(true);
 			}
 		}
-		pUI->PrintMsg("Deleted selected components!");
 
+		// Get the Connection List, save the connection parameters, and make it null
 		Connection* ConnList[MaxConnCount];
 		pManager->GetConnectionList(ConnList);
 		for (int i = 0; i < MaxConnCount; i++) {
@@ -44,10 +46,13 @@ void ActionDelete::Execute()
 				pManager->MakeConnNull(ConnList[i]);
 			}
 		}
-		pUI->PrintMsg("Deleted selected connections!");
+
+		pUI->PrintMsg("Deleted selected Items!");
 
 	}
 }
+
+// Saving the action parameters
 
 void ActionDelete::SaveComponentParameters(Component* Comp) {
 	this->targetComponentsUndo.push(Comp);
@@ -61,6 +66,7 @@ void ActionDelete::SaveConnectionParameters(Connection* Conn) {
 
 void ActionDelete::Undo()
 {
+	// Looping over the ActionDelete Undo & Redo Stacks and recover the deleted items
 	for (int i = 0; i < this->deletedComponentUndoCounter; i++) {
 		pManager->AddComponent(this->targetComponentsUndo.top());
 		this->targetComponentsRedo.push(this->targetComponentsUndo.top());
@@ -79,6 +85,7 @@ void ActionDelete::Undo()
 
 void ActionDelete::Redo()
 {
+	// Looping over the ActionDelete Undo & Redo Stacks and redelete the recovered items
 	for (int i = 0; i < this->deletedComponentRedoCounter; i++) {
 		pManager->MakeCompNull(this->targetComponentsRedo.top());
 		this->targetComponentsUndo.push(this->targetComponentsRedo.top());
@@ -95,11 +102,14 @@ void ActionDelete::Redo()
 	swap(this->deletedConnectionsRedoCounter, this->deletedConnectionsUndoCounter);
 }
 
+// Restoring the connection between the associated components
 void ActionDelete::RestoreConnection(Connection* conn) {
 	Component* Comp1 = conn->getComp1();
 	Component* Comp2 = conn->getComp2();
 
 	ConnectionInfo* connInfo = conn->getConnInfo();
+
+	// Connect to the correct terminals
 
 	switch (connInfo->item1_terminal) {
 	case 0:
@@ -118,7 +128,6 @@ void ActionDelete::RestoreConnection(Connection* conn) {
 		Comp2->setTerm2Conn(conn);
 		break;
 	}
-
 }
 
 ActionDelete::~ActionDelete() {
