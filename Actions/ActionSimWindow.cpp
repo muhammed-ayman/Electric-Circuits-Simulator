@@ -36,8 +36,9 @@ void ActionSimWindow::Execute()
 {
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
-	if (Validate()) {
-		// unselecting selected objects in simulation mode
+	if (!Validate())pUI->PrintMsg("Circuit is not valid! One circuit, one ground (val=0), and full connections, labels, & values! Switch = 0 or 1!");
+	else{	
+	// unselecting selected objects in simulation mode
 		Component* CompList[MaxCompCount];
 		pManager->GetComponentList(CompList);
 		for (int i = 0; i < MaxCompCount; i++) {
@@ -65,7 +66,7 @@ void ActionSimWindow::Execute()
 		//Print Action Message
 		pUI->PrintMsg("Simulation Mode Initialized");
 	}
-	else pUI->PrintMsg("Circuit is not valid! One circuit, one ground (val=0), and full connections, labels, & values! Switch = 0 or 1!");
+	
 }
 
 void ActionSimWindow::Undo()
