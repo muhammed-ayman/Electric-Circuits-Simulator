@@ -64,7 +64,10 @@ public:
 	//changes the state closed
 	void setClosed(bool state);
 	//gets the state closed from the graphics info
-	bool isClosed();
+	bool isClosed() const;
+
+	//changes the exceeded limit bool value
+	void setExceededLimit(bool value);
 
 	// Label Getter & Setter
 	string getLabel() const;
