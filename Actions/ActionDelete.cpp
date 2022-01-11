@@ -75,7 +75,7 @@ void ActionDelete::Undo()
 	swap(this->deletedComponentRedoCounter, this->deletedComponentUndoCounter);
 
 	for (int i = 0; i < this->deletedConnectionsUndoCounter; i++) {
-		pManager->AddConnection(this->targetConnectionsUndo.top());
+		//pManager->AddConnection(this->targetConnectionsUndo.top());
 		this->targetConnectionsRedo.push(this->targetConnectionsUndo.top());
 		pManager->RestoreConnection(this->targetConnectionsUndo.top());
 		this->targetConnectionsUndo.pop();
@@ -94,7 +94,7 @@ void ActionDelete::Redo()
 	swap(this->deletedComponentRedoCounter, this->deletedComponentUndoCounter);
 
 	for (int i = 0; i < this->deletedConnectionsRedoCounter; i++) {
-		pManager->AddConnection(this->targetConnectionsRedo.top());
+		//pManager->AddConnection(this->targetConnectionsRedo.top());
 		pManager->MakeConnNull(this->targetConnectionsRedo.top());
 		this->targetConnectionsUndo.push(this->targetConnectionsRedo.top());
 		this->targetConnectionsRedo.pop();

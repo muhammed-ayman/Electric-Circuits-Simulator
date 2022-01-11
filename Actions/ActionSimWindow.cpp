@@ -13,15 +13,20 @@ ActionSimWindow::~ActionSimWindow(void)
 
 bool ActionSimWindow::ValidateOneCircuit() {
 	cout << pManager->GetConnectionCount() << endl;
+	cout << pManager->GetComponentCount() << endl;
 	Component* CompList[MaxCompCount];
 	pManager->GetComponentList(CompList);
+
+	for (int i = 0; i < pManager->GetComponentCount(); i++) {
+		cout << CompList[i]->getLabel() << endl;
+	}
 
 	Component* Comp1 = CompList[0];
 	Component* Comp2 = Comp1;
 	Connection* Conn1 = Comp2->getTerm1Conn();
 
 	for (int i = 0; i < pManager->GetConnectionCount(); i++) {
-		if (Comp1 == Comp2 && i + 1 != pManager->GetConnectionCount()) {
+		if (Comp1 == Comp2 && i + 1 != pManager->GetConnectionCount() && pManager->GetComponentCount() != 2) {
 			return false;
 		}
 		Conn1 = Comp2->getTerm1Conn();

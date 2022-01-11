@@ -220,7 +220,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct->Execute();
 		if (ActType != REDO && 
 			ActType != UNDO &&
-			ActType != SELECT) this->SaveActionToStack(pAct);
+			ActType != SELECT &&
+			ActType != SIM_MODE &&
+			ActType != DSN_MODE &&
+			ActType != MOD_MODE) this->SaveActionToStack(pAct);
 	}
 }
 ////////////////////////////////////////////////////////////////////
@@ -442,6 +445,10 @@ void ApplicationManager::SaveActionToStack(Action* act) {
 
 bool ApplicationManager::isCircuitClosed() const
 {
+	if (CircuitTotalCurrent > MaxCurrent) {
+		return false;
+	}
+	
 	for (int i = 0; i < MaxCompCount; i++) {
 		if (CompList[i] != nullptr) {
 			if ((CompList[i]->GetItemType() == "SWT")) {
@@ -450,6 +457,7 @@ bool ApplicationManager::isCircuitClosed() const
 			}
 		}
 	}
+	
 	return true;
 }
 
@@ -459,10 +467,19 @@ void ApplicationManager::updateCircuitState()
 	updateTotalVoltage();
 	updateTotalResistance();
 	updateTotalCurrent();
+	
+	state = isCircuitClosed();
+	bool exceeded_limit = false;
+	if (CircuitTotalCurrent > MaxCurrent) {
+		exceeded_limit = true;
+	}
+
 	for (int i = 0; i < MaxCompCount; i++) {
 		if ((CompList[i] != nullptr)) {
-			if (CompList[i]->GetItemType() != "SWT")
+			if (CompList[i]->GetItemType() != "SWT") {
 				CompList[i]->setClosed(state);
+				CompList[i]->setExceededLimit(exceeded_limit);
+			}
 		}
 	}
 }
