@@ -18,14 +18,14 @@ using std::basic_ofstream;
 class Component
 {
 private:
-	string m_Label = "Component2"; // Initial label for all components
 	bool clicked; // indicates if the component is clicked
 
 protected:
+	string m_Label = "Component"; // Initial label for all components
 
 	Items itemType; //Creating an instance of the Items enumerator.
-	
-	double value = 3; // Variable that holds the value of each component
+
+	double value; // Variable that holds the value of each component
 
 	//Each component has two ending terminals (term1, term2)
 	double term1_volt, term2_volt;	//voltage at terminals 1&2

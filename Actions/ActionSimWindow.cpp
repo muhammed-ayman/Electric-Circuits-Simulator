@@ -1,5 +1,6 @@
 #include "ActionSimWindow.h"
 #include "..\ApplicationManager.h"
+#include "../Components/Component.h"
 #include <iostream>
 using namespace std;
 
@@ -9,11 +10,6 @@ ActionSimWindow::ActionSimWindow(ApplicationManager* pApp) :Action(pApp)
 
 ActionSimWindow::~ActionSimWindow(void)
 {
-}
-
-bool ActionSimWindow::ValidateOneCircuit() {
-
-	return true;
 }
 
 bool ActionSimWindow::Validate() {
@@ -44,9 +40,6 @@ void ActionSimWindow::Execute()
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 	if (Validate()) {
-		if (ValidateOneCircuit()) {
-			//unselecting selected objects in simulation mode
-		/*if (ValidateOneCircuit()) {*/
 			// unselecting selected objects in simulation mode
 			Component* CompList[MaxCompCount];
 			pManager->GetComponentList(CompList);
@@ -74,10 +67,6 @@ void ActionSimWindow::Execute()
 			pManager->updateCircuitState();
 			//Print Action Message
 			pUI->PrintMsg("Simulation Mode Initialized");
-		/*}
-		else {
-			pUI->PrintMsg("More than one circuit is drawn!");
-		}*/
 	}
 	else{
 		pUI->PrintMsg("Circuit is not valid! One circuit, one ground (val=0), and full connections, labels, & values! Switch = 0 or 1!");
