@@ -1,6 +1,9 @@
 #include "ActionMeasureVoltage.h"
 #include "../ApplicationManager.h"
-
+#include "..\Components\Switch.h"
+#include "..\Components\Buzzer.h"
+#include "..\Components\Ground.h"
+#include "..\Components\Battery.h"
 
 ActionMeasureVoltage::ActionMeasureVoltage(ApplicationManager* pApp) : Action(pApp)
 {
@@ -29,14 +32,16 @@ void ActionMeasureVoltage::Execute()
 	else {
 		string expression = "";
 
-		string compType = CompList[compId]->GetItemType();
+		Battery* bat = dynamic_cast<Battery*>(CompList[compId]);
+		Ground* grd = dynamic_cast<Ground*>(CompList[compId]); 
+		Switch* swt = dynamic_cast<Switch*>(CompList[compId]);
 
-		if (compType == "BAT") {
+		if (bat != nullptr) {
 			expression = "Voltage in " + CompList[compId]->getLabel() + " : " + to_string(CompList[compId]->getValue());
 
 			pUI->PrintMsg(expression);
 		}
-		else if ((compType == "GND") || (compType == "SWT")) {
+		else if ((grd != nullptr) || (swt != nullptr)) {
 			expression = "Voltage in " + CompList[compId]->getLabel() + " : " + to_string(0);
 			pUI->PrintMsg(expression);
 		}
@@ -45,9 +50,11 @@ void ActionMeasureVoltage::Execute()
 			expression = "Voltage in " + CompList[compId]->getLabel() + " : " + to_string(CompList[compId]->getValue() * pManager->getTotalCurrent());
 			pUI->PrintMsg(expression);
 		}
+		
+	}
 	}
 
-}
+	
 
 void ActionMeasureVoltage::Undo()
 {
