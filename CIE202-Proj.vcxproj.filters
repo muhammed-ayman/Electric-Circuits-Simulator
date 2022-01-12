@@ -78,6 +78,7 @@
     <ClCompile Include="Actions\ActionCircuitLog.cpp" />
     <ClCompile Include="Actions\ActionEditLabel.cpp" />
     <ClCompile Include="Actions\ActionAddDefault.cpp" />
+    <ClCompile Include="Actions\ActionMove.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actions\Action.h" />
@@ -142,6 +143,7 @@
     <ClInclude Include="Actions\ActionCircuitLog.h" />
     <ClInclude Include="Actions\ActionEditLabel.h" />
     <ClInclude Include="Actions\ActionAddDefault.h" />
+    <ClInclude Include="Actions\ActionMove.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMUgraphicsLib\Manual.txt" />

@@ -7,6 +7,8 @@ private:
 	int CompCount = 0;
 	int ConnCount = 0;
 
+	bool writeable = true;
+
 	Component* CompList[MaxCompCount];
 	Connection* ConnList[MaxConnCount];
 
@@ -26,4 +28,6 @@ public:
 	void SetConnCount(int ConnCount);
 	int GetCompCount();
 	int GetConnCount();
+	void setWriteMode(bool mode);
+	bool getWriteMode();
 };

@@ -351,6 +351,9 @@ int ApplicationManager::getSelectedComponentId() {
 	return this->SelectedComponentId;
 }
 
+int ApplicationManager::getTempSelectedComponentId() {
+	return this->TempSelectedComponentId;
+}
 
 ////////////////////////////////////////////////////////////////////
 
@@ -402,6 +405,8 @@ void ApplicationManager::CloneSelectedComponent() {
 
 			ComponentClone->SetCompCount(SelectedComponent->GetCompCount());
 			ComponentClone->SetConnCount(SelectedComponent->GetConnCount());
+
+			ComponentClone->setWriteMode(SelectedComponent->getWriteMode());
 		}
 		ComponentClone->setLabel(SelectedComponent->getLabel());
 		ComponentClone->setValue(SelectedComponent->getValue());

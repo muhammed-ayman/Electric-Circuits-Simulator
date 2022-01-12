@@ -20,7 +20,13 @@ void ActionAddDefault::Execute()
 		return;
 	}
 
+	Component* TempCompList[MaxCompCount];
+	pManager->GetTempComponentList(TempCompList);
+	TempCompList[pManager->getTempSelectedComponentId()]->setWriteMode(false);
+
 	pUI->setWriteMode(false);
+	
+
 
 	Action* pAct = new ActionLoad(pManager);
 	pAct->Execute();

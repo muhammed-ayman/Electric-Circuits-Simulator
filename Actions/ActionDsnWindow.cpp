@@ -50,15 +50,16 @@ void ActionDsnWindow::Execute()
 
 			pManager->GetComponentList(CompList);
 			
-			int value = (1 / ((1 /(CompList[0]->getValue() + CompList[1]->getValue())) + (1 / (CompList[2]->getValue() + CompList[3]->getValue()))));
+			double value = (1 / ((1 /(CompList[0]->getValue() + CompList[1]->getValue())) + (1 / (CompList[2]->getValue() + CompList[3]->getValue()))));
 
-			//Component* TempCompList[MaxCompCount];
-			//pManager->GetTempComponentList(TempCompList);
-			//TempCompList[pManager->getTempSelectedComponentId]->setValue(value);
+			Component* TempCompList[MaxCompCount];
+			pManager->GetTempComponentList(TempCompList);
+			TempCompList[pManager->getTempSelectedComponentId()]->setValue(value);
+
 			pManager->GetUI()->setWriteMode(true);
 		}
 		else if (Validate()) {
-			int value = 0;
+			double value = 0;
 			Component* CompList[MaxCompCount];
 
 			pManager->GetComponentList(CompList);
@@ -69,6 +70,7 @@ void ActionDsnWindow::Execute()
 
 			Component* TempCompList[MaxCompCount];
 			pManager->GetTempComponentList(TempCompList);
+			TempCompList[pManager->getTempSelectedComponentId()]->setValue(value);
 		}
 		else {
 			pUI->PrintMsg("Failed to validate the module");
