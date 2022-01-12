@@ -113,14 +113,13 @@ ActionType UI::GetUserAction() const
 			case ITM_FUSE:	return ADD_FUSE;
 			case ITM_MODULE: return ADD_MODULE;
 			case ITM_CONNECTION: return ADD_CONNECTION;
-			case ITM_PASTE: return Paste;
+			case ITM_PASTE: return PASTE;
 			case ITM_SAVE: return SAVE;
 			case ITM_LOAD: return LOAD;
 			case ITM_DELETE: return DEL;
 			case ITM_UNDO: return UNDO;
 			case ITM_REDO: return REDO;
 			case ITM_SIM: return SIM_MODE;
-			case ITM_MOD: return MOD_MODE;
 			case ITM_EXIT:	return EXIT;	
 			
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
@@ -192,12 +191,40 @@ ActionType UI::GetUserAction() const
 
 			switch (ClickedItemOrder)
 			{
-			case ITM_MOD_DSN: return DSN_MODE;
-			case ITM_MOD_EXIT:	return EXIT;
+			case ITM_MOD_DESIGN: return DSN_MODE;
+			//case ITM_MOD_DEFAULT: return ADD_DEFAULT_MOD;
+			case ITM_MOD_RESISTOR: return ADD_RESISTOR;
+			case ITM_MOD_CONNECTION: return ADD_CONNECTION;
+			case ITM_MOD_PASTE: return PASTE;
+			case ITM_MOD_DELETE: return DEL;
+			case ITM_MOD_SAVE: return SAVE;
+			case ITM_MOD_LOAD: return LOAD;
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
 		}
 
+		// [2] User clicks on the drawing area
+		if (y >= ToolBarHeight && y < height - StatusBarHeight && x < width - EditMenuWidth)
+		{
+			return SELECT;	//user wants to select/unselect a statement in the flowchart
+		}
+
+		// [3] User clicks on the edit menu area
+		if (y >= ToolBarHeight && y < height - StatusBarHeight && x >= width - EditMenuWidth)
+		{
+			if (y >= height - StatusBarHeight - 200 && y < height - StatusBarHeight - 150) {
+				return EDIT_Copy;	// user wants to copy the component
+			}
+			if (y >= height - StatusBarHeight - 150 && y <= height - StatusBarHeight - 100) {
+				return EDIT_Cut;	// user user wants to cut the component
+			}
+			if (y >= height - StatusBarHeight - 100 && y < height - StatusBarHeight - 50) {
+				return EDIT_Value;	// user wants to edit the component's value
+			}
+			if (y >= height - StatusBarHeight - 50 && y <= height - StatusBarHeight) {
+				return EDIT_Label;	// user wants to edit the component's label
+			}
+		}
 	}
 
 
@@ -288,7 +315,6 @@ void UI::CreateDesignToolBar()
 	MenuItemImages[ITM_UNDO] = "images\\Menu\\Menu_Undo.jpg";
 	MenuItemImages[ITM_REDO] = "images\\Menu\\Menu_Redo.jpg";
 	MenuItemImages[ITM_SIM] = "images\\Menu\\Menu_Simulate.jpg";
-	MenuItemImages[ITM_MOD] = "images\\Menu\\Menu_Mod.jpg";
 	MenuItemImages[ITM_EXIT] = "images\\Menu\\Menu_Exit.jpg";
 
 	//TODO: Prepare image for each menu item and add it to the list
@@ -340,8 +366,15 @@ void UI::CreateModuleToolBar()
 	pWind->SetBrush(WHITE);
 	pWind->DrawRectangle(0, 0, pWind->GetWidth(), ToolBarHeight);
 	string MenuItemImages[ITM_MOD_CNT];
-	MenuItemImages[ITM_MOD_DSN] = "images\\Menu\\Menu_Stop.jpg";
-	MenuItemImages[ITM_MOD_EXIT] = "images\\Menu\\Menu_Exit.jpg";
+
+	MenuItemImages[ITM_MOD_DESIGN] = "images\\Menu\\Menu_Stop.jpg";
+	MenuItemImages[ITM_MOD_DEFAULT] = "images\\Menu\\Menu_Default.jpg";
+	MenuItemImages[ITM_MOD_RESISTOR] = "images\\Menu\\Menu_Resistor.jpg";
+	MenuItemImages[ITM_MOD_CONNECTION] = "images\\Menu\\Menu_Connection.jpg";
+	MenuItemImages[ITM_MOD_PASTE] = "images\\Menu\\Menu_Paste.jpg";
+	MenuItemImages[ITM_MOD_DELETE] = "images\\Menu\\Menu_Delete.jpg";
+	MenuItemImages[ITM_MOD_SAVE] = "images\\Menu\\Menu_Save.jpg";
+	MenuItemImages[ITM_MOD_LOAD] = "images\\Menu\\Menu_Load.jpg";
 
 	for (int i = 0; i < ITM_MOD_CNT; i++)
 		pWind->DrawImage(MenuItemImages[i], i * ToolItemWidth, 0, ToolItemWidth - 5, ToolBarHeight - 5);
@@ -362,7 +395,7 @@ void UI::CreateModuleToolBar()
 void UI::DrawResistor(const GraphicsInfo &r_GfxInfo) const
 {
 	string ResImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			ResImage = "Images\\Comp\\Resistor_HI.jpg";	//use image of highlighted resistor
 		else
@@ -377,7 +410,7 @@ void UI::DrawResistor(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawBulb(const GraphicsInfo &r_GfxInfo) const
 {
 	string BulbImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			BulbImage = "Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
 		else
@@ -397,7 +430,7 @@ void UI::DrawBulb(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawBattery(const GraphicsInfo &r_GfxInfo) const
 {
 	string BatImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			BatImage = "Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
 		else
@@ -412,7 +445,7 @@ void UI::DrawBattery(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 {
 	string SwImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			SwImage = "Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
 		else
@@ -428,7 +461,7 @@ void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawGround(const GraphicsInfo &r_GfxInfo) const
 {
 	string GrImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			GrImage = "Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
 		else
@@ -443,7 +476,7 @@ void UI::DrawGround(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo) const
 {
 	string BuzImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			BuzImage = "Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
 		else
@@ -458,7 +491,7 @@ void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawFuse(const GraphicsInfo &r_GfxInfo) const
 {
 	string FusImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			FusImage = "Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
 		else
@@ -479,10 +512,16 @@ void UI::DrawFuse(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawModule(const GraphicsInfo& r_GfxInfo) const
 {
 	string ModImage;
-	if (r_GfxInfo.isClicked)
-		ModImage = "Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
+
+	if (AppMode != SIMULATION) {
+		if (r_GfxInfo.isClicked)
+			ModImage = "Images\\Comp\\Module_HI.jpg";	//use image of highlighted battery
+		else
+			ModImage = "Images\\Comp\\Module.jpg";	//use image of the normal battery
+	}
 	else
-		ModImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
+		ModImage = "Images\\Comp\\Module.jpg";	//use image of the normal battery
+	
 
 	//Draw Battery at Gfx_Info (1st corner)
 	pWind->DrawImage(ModImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
@@ -491,7 +530,7 @@ void UI::DrawModule(const GraphicsInfo& r_GfxInfo) const
 
 void UI::DrawConnection(const GraphicsInfo &r_GfxInfo) const
 {
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			pWind->SetPen(RED, 2);
 		else

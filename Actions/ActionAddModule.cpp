@@ -16,7 +16,7 @@ void ActionAddModule::Execute()
 	UI* pUI = pManager->GetUI();
 
 	//Print Action Message
-	pUI->PrintMsg("Adding a new battery: Click anywhere to add");
+	pUI->PrintMsg("Adding a new Module: Click anywhere to add");
 
 	//Get Center point of the area where the Comp should be drawn
 	pUI->GetPointClicked(Cx, Cy);

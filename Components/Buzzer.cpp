@@ -5,6 +5,10 @@ Buzzer::Buzzer(GraphicsInfo *r_GfxInfo):Component(r_GfxInfo)
 	this->itemType = BUZ;
 }
 
+Buzzer::Buzzer() {
+
+}
+
 void Buzzer::Draw(UI* pUI)
 {
 	//Call output class and pass buzzer drawing info to it.
@@ -17,16 +21,20 @@ void Buzzer::Operate()
 
 }
 
-string* Buzzer::Save()
+void Buzzer::Save(ofstream& saveFile, string id)
 {
 	GraphicsInfo* gInfo = getGraphicsInfo();
-	string* data = new string[6];
 
-	data[0] = GetItemType();
-	data[2] = getLabel();
-	data[3] = to_string(getValue());
-	data[4] = to_string(gInfo->PointsList[0].x);
-	data[5] = to_string(gInfo->PointsList[0].y);
+	saveFile << GetItemType() + ", ";
+	saveFile << id + ", ";
+	saveFile << getLabel() + ", ";
+	saveFile << to_string(getValue()) + ", ";
+	saveFile << to_string(gInfo->PointsList[0].x) + ", ";
+	saveFile << to_string(gInfo->PointsList[0].y) + "\n";
+}
 
-	return data;
+void Buzzer::Load(GraphicsInfo* r_GfxInfo, string label, double value) {
+	this->m_pGfxInfo = r_GfxInfo;
+	this->m_Label = label;
+	this->value = value;
 }

@@ -1,0 +1,4 @@
+1
+RES, 1, Component1, 3.000000, 408, 179
+Connections
+0
