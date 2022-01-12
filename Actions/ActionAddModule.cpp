@@ -38,14 +38,24 @@ void ActionAddModule::Execute()
 		pGInfo->PointsList[1].y = Cy + compHeight / 2;
 
 		Module* pR = new Module(pGInfo);
+		this->SaveComponentParameters(pR);
 		pManager->AddComponent(pR);
 	}
 	else pUI->PrintMsg("Cannot draw except in the drawing area!");
 }
 
+
+void ActionAddModule::SaveComponentParameters(Module* modulePointer) {
+	this->ModulePointer = modulePointer;
+}
+
 void ActionAddModule::Undo()
-{}
+{
+	pManager->MakeCompNull(this->ModulePointer);
+}
 
 void ActionAddModule::Redo()
-{}
+{
+	pManager->AddComponent(this->ModulePointer);
+}
 
