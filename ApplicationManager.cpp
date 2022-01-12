@@ -181,7 +181,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case DSN_MODE:
-			if (this->TempSelectedComponentId >= 0 && dynamic_cast<Module*>(Temp_CompList[this->TempSelectedComponentId])) RevertTemp();
+			//if (this->TempSelectedComponentId >= 0 && dynamic_cast<Module*>(Temp_CompList[this->TempSelectedComponentId])) RevertTemp();
 			pAct = new ActionDsnWindow(this);
 			break;
 
