@@ -5,6 +5,10 @@ Battery::Battery(GraphicsInfo *r_GfxInfo):Component(r_GfxInfo)
 	this->itemType = BAT;
 }
 
+Battery::Battery() {
+
+}
+
 void Battery::Draw(UI* pUI)
 {
 	//Call output class and pass battery drawing info to it.
@@ -17,16 +21,20 @@ void Battery::Operate()
 
 }
 
-string* Battery::Save() 
+void Battery::Save(ofstream& saveFile, string id)
 {
 	GraphicsInfo* gInfo = getGraphicsInfo();
-	string* data = new string[6];
 
-	data[0] = GetItemType();
-	data[2] = getLabel();
-	data[3] = to_string(getValue());
-	data[4] = to_string(gInfo->PointsList[0].x);
-	data[5] = to_string(gInfo->PointsList[0].y);
+	saveFile << GetItemType() + ", ";
+	saveFile << id + ", ";
+	saveFile << getLabel() + ", ";
+	saveFile << to_string(getValue()) + ", ";
+	saveFile << to_string(gInfo->PointsList[0].x) + ", ";
+	saveFile << to_string(gInfo->PointsList[0].y) + "\n";
+}
 
-	return data;
+void Battery::Load(GraphicsInfo* r_GfxInfo, string label, double value) {
+	this->m_pGfxInfo = r_GfxInfo;
+	this->m_Label = label;
+	this->value = value;
 }

@@ -5,19 +5,27 @@
 #include "..\UI\UI.h"
 #include "Connection.h"
 
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+using std::cerr;
+using std::endl;
+using std::ofstream;
+using std::ifstream;
+using std::basic_ofstream;
 
 //Base class for all components (resistor, capacitor,....etc) .
 class Component
 {
 private:
-	string m_Label = "Component"; // Initial label for all components
 	bool clicked; // indicates if the component is clicked
 
 protected:
+	string m_Label = "Component1"; // Initial label for all components
 
 	Items itemType; //Creating an instance of the Items enumerator.
-
-	double value; // Variable that holds the value of each component
+	
+	double value = 3; // Variable that holds the value of each component
 
 	//Each component has two ending terminals (term1, term2)
 	double term1_volt, term2_volt;	//voltage at terminals 1&2
@@ -40,8 +48,8 @@ public:
 
 	virtual void Operate() = 0;	//Calculates the output voltage according to the inputs
 	virtual void Draw(UI* ) = 0;	//for each component to Draw itself
-	virtual string* Save() = 0; //return save data of the component
-	
+	virtual void Save(ofstream& saveFile, string id) = 0; //return save data of the component
+	virtual void Load(GraphicsInfo* r_GfxInfo, string label, double value) = 0;
 	
 	//virtual int GetOutPinStatus()=0;	//returns status of outputpin if LED, return -1
 	//virtual int GetInputPinStatus(int n)=0;	//returns status of Inputpin # n if SWITCH, return -1
@@ -87,6 +95,18 @@ public:
 	//getter and setter for the component term1 connection
 	Connection* getTerm2Conn() const;
 	void setTerm2Conn(Connection *conn);
+
+
+	// module virtuals
+	virtual void SetCompList(Component* CompListNew[]){};
+	virtual void SetConnList(Connection* CompListNew[]){};
+	virtual void GetCompList(Component* CompListNew[]){};
+	virtual void GetConnList(Connection* CompListNew[]){};
+	virtual void SetCompCount(int CompCount){};
+	virtual void SetConnCount(int ConnCount){};
+	virtual int GetCompCount() { return 0; };
+	virtual int GetConnCount() { return 0; };
+
 
 };
 

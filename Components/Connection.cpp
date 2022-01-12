@@ -38,15 +38,12 @@ GraphicsInfo* Connection::getGraphicsInfo() const {
 	return this->pGfxInfo;
 }
 
-string* Connection::Save()
+void Connection::Save(ofstream& saveFile, string id)
 {	
-	conDataIn[0] = to_string(cInfo->component1+1);
-	conDataIn[1] = to_string(cInfo->component2+1);
-	conDataIn[2] = to_string(cInfo->item1_terminal);
-	conDataIn[3] = to_string(cInfo->item2_terminal);
-
-	std::cout << to_string(cInfo->component1 + 1) << "\n";
-	return conDataIn;
+	saveFile << to_string(cInfo->component1+1) + ", ";
+	saveFile << to_string(cInfo->component2+1) + ", ";
+	saveFile << to_string(cInfo->item1_terminal) + ", ";
+	saveFile << to_string(cInfo->item2_terminal) + "\n";
 }
 
 bool Connection::isClicked() {
