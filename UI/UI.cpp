@@ -192,7 +192,7 @@ ActionType UI::GetUserAction() const
 			switch (ClickedItemOrder)
 			{
 			case ITM_MOD_DESIGN: return DSN_MODE;
-			//case ITM_MOD_DEFAULT: return ADD_DEFAULT_MOD;
+			case ITM_MOD_DEFAULT: return ADD_DEFAULT_MOD;
 			case ITM_MOD_RESISTOR: return ADD_RESISTOR;
 			case ITM_MOD_CONNECTION: return ADD_CONNECTION;
 			case ITM_MOD_PASTE: return PASTE;
@@ -635,4 +635,13 @@ void UI::DrawConnectionEditMenu(string ConnectionLabel = "Connection") {
 MODE UI::getAppMode() const {
 	return AppMode;
 }
+
+void UI::setWriteMode(bool WriteMode) {
+	this->WriteMode = WriteMode;
+}
+
+bool UI::getWriteMode() {
+	return this->WriteMode;
+}
+
 

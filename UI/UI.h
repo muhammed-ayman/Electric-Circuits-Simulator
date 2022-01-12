@@ -116,7 +116,10 @@ class UI
 
 
 	window *pWind;
-	
+
+private:
+	bool WriteMode = true;
+
 public:
 	
 	UI();
@@ -171,6 +174,9 @@ public:
 	void DrawConnectionEditMenu(string ConnectionLabel);
 
 	MODE getAppMode() const;
+	
+	void setWriteMode(bool mode);
+	bool getWriteMode();
 
 };
 

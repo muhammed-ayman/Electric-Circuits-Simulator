@@ -26,6 +26,7 @@
 #include "Actions\ActionCircuitLog.h"
 #include "Actions\ActionMeasureVoltage.h"
 #include "Actions\ActionMeausreCurrent.h"
+#include "Actions\ActionAddDefault.h"
 #include "Components\Switch.h"
 #include "Components\Buzzer.h"
 #include "Components\Ground.h"
@@ -139,6 +140,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		
 		case ADD_MODULE:
 			pAct = new ActionAddModule(this);
+			break;
+
+		case ADD_DEFAULT_MOD:
+			pAct = new ActionAddDefault(this);
 			break;
 
 		case SELECT:
