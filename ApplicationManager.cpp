@@ -470,6 +470,7 @@ void ApplicationManager::SaveActionToStack(Action* act) {
 bool ApplicationManager::isCircuitClosed() const
 {
 	if (CircuitTotalCurrent > MaxCurrent) {
+		pUI->PrintMsg("Components are burnt out as current exceeded maximum limit!");
 		return false;
 	}
 	Switch* s;
