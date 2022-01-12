@@ -45,7 +45,7 @@ void ActionSelect::Execute()
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
 				pManager->setSelectedComponentId(i); // Setting the selected component ID as the one currently clicked from the component list
 				
-				if (pUI->getAppMode() == DESIGN) {
+				if (pUI->getAppMode() != SIMULATION) {
 					Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
 				}
 				else {

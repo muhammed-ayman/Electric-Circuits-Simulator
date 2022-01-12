@@ -56,7 +56,6 @@ class UI
 		ITM_UNDO,		// Undo Item in menu
 		ITM_REDO,		// Redo Item in menu
 		ITM_SIM,		// Simulation module item in menu
-		ITM_MOD,		// Module mode item in menu
 		ITM_EXIT,		//Exit item
 		//TODO: Add more items names here
 	
@@ -79,8 +78,14 @@ class UI
 	enum ModMenuItem //The items of the simulation menu (you should add more items)
 	{
 		//Note: Items are ordered here as they appear in menu
-		ITM_MOD_DSN,
-		ITM_MOD_EXIT,
+		ITM_MOD_DESIGN,
+		ITM_MOD_DEFAULT,
+		ITM_MOD_RESISTOR,
+		ITM_MOD_CONNECTION,
+		ITM_MOD_PASTE,
+		ITM_MOD_DELETE,
+		ITM_MOD_SAVE,
+		ITM_MOD_LOAD,
 		ITM_MOD_CNT		//no. of simulation menu items ==> This should be the last line in this enum
 
 	};

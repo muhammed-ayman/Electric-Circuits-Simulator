@@ -44,6 +44,8 @@ void ActionSimWindow::Execute()
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 	if (Validate()) {
+		if (ValidateOneCircuit()) {
+			//unselecting selected objects in simulation mode
 		/*if (ValidateOneCircuit()) {*/
 			// unselecting selected objects in simulation mode
 			Component* CompList[MaxCompCount];

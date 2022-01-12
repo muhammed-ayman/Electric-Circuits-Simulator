@@ -1,6 +1,21 @@
 #include "ActionLoad.h"
 #include "..\ApplicationManager.h"
 
+#include "../Components/Battery.h"
+#include "../Components/Bulb.h"
+#include "../Components/Buzzer.h"
+#include "../Components/Fuse.h"
+#include "../Components/Ground.h"
+#include "../Components/Module.h"
+#include "../Components/Resistor.h"
+#include "../Components/Switch.h"
+
+#include "../Components/Component.h"
+#include "../Components/Connection.h"
+
+#include "ActionAddConn.h"
+
+
 ActionLoad::ActionLoad(ApplicationManager* pApp) :Action(pApp)
 {
 }
@@ -18,8 +33,20 @@ void ActionLoad::Execute()
 	
 	string fileLines[MaxCompCount + MaxConnCount + 3];
 
+	pManager->ResetData();
+
 	ifstream loadFile;
-	loadFile.open("Saves\\circuit.txt");
+
+	pUI->PrintMsg("Type the file name");
+
+	string filename = pUI->GetSrting();
+
+	if (pUI->getAppMode() == MODULE) {
+		loadFile.open("Modules\\" + filename + ".txt");
+	}
+	else {
+		loadFile.open("Saves\\" + filename + ".txt");
+	}
 
 	if (!loadFile)
 	{
@@ -58,20 +85,14 @@ void ActionLoad::Execute()
 	}
 
 	// array of parsed data
-	string*** parsedData = new string **[2];
-	parsedData[0] = new string * [comCount];
-	parsedData[1] = new string * [conCount];
-
-	for (int i = 0; i < comCount; i++) {
-		parsedData[0][i] = new string[6];
-	}
-
-	for (int i = 0; i < conCount; i++) {
-		parsedData[1][i] = new string[4];
-	}
+	string* LoadedComponent = new string[6];
+	string* LoadedConnection = new string[4];
 	
 	int comCounter = 0;
 	int conCounter = 0;
+
+	GraphicsInfo* pGInfo;
+	Component* pR;
 
 	for (int i = 0; i < filesize; i++) {
 		if (i > 0 && i <= comCount) {
@@ -83,11 +104,42 @@ void ActionLoad::Execute()
 			pch = strtok_s(line, ", ", &context);
 			while (pch != NULL)
 			{
-				parsedData[0][comCounter][index] = pch;
+				LoadedComponent[index] = pch;
 				index += 1;
 				pch = strtok_s(NULL, ", ", &context);
 			}
 			comCounter += 1;
+			
+			string compType = LoadedComponent[0];
+
+			if (compType == "RES") pR = new Resistor();
+			else if (compType == "BLB")  pR = new Bulb();
+			else if (compType == "BAT") pR = new Battery();
+			else if (compType == "SWT") pR = new Switch();
+			else if (compType == "GND") pR = new Ground();
+			else if (compType == "BUZ") pR = new Buzzer();
+			else if (compType == "FUS") pR = new Fuse();
+			else if (compType == "MOD") pR = new Module();
+			else pR = nullptr;
+
+			if (pR) {
+				pGInfo = new GraphicsInfo(2);
+
+				int compWidth = pUI->getCompWidth();
+				int compHeight = pUI->getCompHeight();
+
+				pGInfo->PointsList[0].x = stoi(LoadedComponent[4]);
+				pGInfo->PointsList[0].y = stoi(LoadedComponent[5]);
+				pGInfo->PointsList[1].x = stoi(LoadedComponent[4]) + compWidth;
+				pGInfo->PointsList[1].y = stoi(LoadedComponent[5]) + compHeight;
+
+				string label = LoadedComponent[2];
+				double value = stod(LoadedComponent[3]);
+				pR->Load(pGInfo, label, value);
+
+
+				pManager->AddComponent(pR);
+			}
 		}
 		else if (i > comCount +2) {
 			char* pch;
@@ -98,30 +150,35 @@ void ActionLoad::Execute()
 			pch = strtok_s(line, ", ", &context);
 			while (pch != NULL)
 			{
-				parsedData[1][conCounter][index] = pch;
+				LoadedConnection[index] = pch;
 				index += 1;
 				pch = strtok_s(NULL, ", ", &context);
 			}
+
+			ConnectionInfo* cInfo = new ConnectionInfo;
+			ActionAddConn* AddConnection = new ActionAddConn(pManager);
+
+			cInfo->component1 = stoi(LoadedConnection[0]) - 1;
+			cInfo->component2 = stoi(LoadedConnection[1]) - 1;
+			cInfo->item1_terminal = stoi(LoadedConnection[2]);
+			cInfo->item2_terminal = stoi(LoadedConnection[3]);
+			AddConnection->ProcessConnection(cInfo);
+
 			conCounter += 1;
 		}
 	}
 
+
+	pManager->UpdateInterface();
+
 	//load circut
-	pManager->LoadCircuit(parsedData, comCount, conCount);
+	//pManager->LoadCircuit(parsedData, comCount, conCount);
 
 	//Print Action Message
 	pUI->PrintMsg("Circuit Loaded");
 
-	for (int i = 0; i < comCount; i++) {
-		delete[] parsedData[0][i];
-	}
-	delete[] parsedData[0];
-
-	for (int i = 0; i < conCount; i++) {
-		delete[] parsedData[1][i];
-	}
-	delete[] parsedData[1];
-	delete[] parsedData;
+	delete[] LoadedComponent;
+	delete[] LoadedConnection;
 }
 
 void ActionLoad::Undo()

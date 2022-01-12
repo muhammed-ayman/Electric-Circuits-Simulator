@@ -1,0 +1,8 @@
+3
+RES, 1, Component1, 3.000000, 497, 280
+RES, 2, Component1, 11.000000, 197, 116
+RES, 3, Component1, 3.000000, 196, 256
+Connections
+2
+2, 1, 1, 1
+2, 3, 0, 1

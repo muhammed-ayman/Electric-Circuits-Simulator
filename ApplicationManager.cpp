@@ -26,13 +26,23 @@
 #include "Actions\ActionCircuitLog.h"
 #include "Actions\ActionMeasureVoltage.h"
 #include "Actions\ActionMeausreCurrent.h"
+#include "Components\Switch.h"
+#include "Components\Buzzer.h"
+#include "Components\Ground.h"
+#include "Components\Battery.h"
+#include <iostream>
+#include <windows.h>
+#include "MMSystem.h"
+using namespace std;
 #include "Actions\ActionMove.h"
+
+
 
 ApplicationManager::ApplicationManager()
 {
+	pUI = new UI;
 	ResetData();
 	//Creates the UI Object & Initialize the UI
-	pUI = new UI;
 }
 
 int ApplicationManager::GetGroundCount() {
@@ -43,11 +53,41 @@ void ApplicationManager::ResetData() {
 	CompCount = 0;
 	ConnCount = 0;
 
+	if (pUI->getAppMode() != MODULE) Temp_CompCount = 0, Temp_ConnCount = 0;
+
+	for (int i = 0; i < MaxCompCount; i++) {
+		if (CompList[i]) { delete CompList[i];  if (pUI->getAppMode() != MODULE) { delete Temp_CompList[i]; Temp_CompList[i] = nullptr;} }
+		CompList[i] = nullptr;
+	}
+
+	for (int i = 0; i < MaxConnCount; i++) {
+		if (ConnList[i]) { delete ConnList[i];  if (pUI->getAppMode() != MODULE) { delete Temp_ConnList[i];	Temp_ConnList[i] = nullptr;} }
+		ConnList[i] = nullptr;
+	}
+		
+}
+
+void ApplicationManager::EmptyData() {
+	CompCount = 0;
+	ConnCount = 0;
+
 	for (int i = 0; i < MaxCompCount; i++)
 		CompList[i] = nullptr;
 
 	for (int i = 0; i < MaxConnCount; i++)
 		ConnList[i] = nullptr;
+}
+
+void ApplicationManager::EmptyTempData() {
+	Temp_CompCount = 0;
+	Temp_ConnCount = 0;
+	TempSelectedComponentId = -1;
+
+	for (int i = 0; i < MaxCompCount; i++)
+		Temp_CompList[i] = nullptr;
+
+	for (int i = 0; i < MaxConnCount; i++)
+		Temp_ConnList[i] = nullptr;
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -117,8 +157,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case EDIT_Value:
-			if (this->SelectedComponentId >= 0) {
+			if (this->SelectedComponentId >= 0 && !dynamic_cast<Module*>(CompList[this->SelectedComponentId])){
 				pAct = new ActionEditValue(this);
+			}
+			else if (this->SelectedComponentId >= 0 && dynamic_cast<Module*>(CompList[this->SelectedComponentId])) {
+				pAct = new ActionModWindow(this);
 			}
 			break;
 
@@ -134,7 +177,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			}
 			break;
 
-		case Paste:
+		case PASTE:
 			pAct = new ActionPaste(this);
 			break;
 
@@ -143,6 +186,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case DSN_MODE:
+			if (this->TempSelectedComponentId >= 0 && dynamic_cast<Module*>(Temp_CompList[this->TempSelectedComponentId])) RevertTemp();
 			pAct = new ActionDsnWindow(this);
 			break;
 
@@ -244,6 +288,24 @@ void ApplicationManager::GetComponentList(Component* CompListNew[]) {
 	}
 }
 
+void ApplicationManager::GetConnectionList(Connection* ConnListNew[]) {
+	for (int i = 0; i < MaxConnCount; i++) {
+		ConnListNew[i] = ConnList[i];
+	}
+}
+
+void ApplicationManager::GetTempComponentList(Component* CompListNew[]) {
+	for (int i = 0; i < MaxCompCount; i++) {
+		CompListNew[i] = Temp_CompList[i];
+	}
+}
+
+void ApplicationManager::GetTempConnectionList(Connection* ConnListNew[]) {
+	for (int i = 0; i < MaxConnCount; i++) {
+		ConnListNew[i] = Temp_ConnList[i];
+	}
+}
+
 bool ApplicationManager::isGround(Component* c) const {
 	return (c->GetItemType() == "GND");
 	//if (c->GetItemType() == "GND") return true;
@@ -264,12 +326,6 @@ double ApplicationManager::getCompValue(Component* component) {
 string ApplicationManager::getCompLabel(Component* component) {
 
 	return component->getLabel();
-}
-
-void ApplicationManager::GetConnectionList(Connection* ConnListNew[]) {
-	for (int i = 0; i < MaxConnCount; i++) {
-		ConnListNew[i] = ConnList[i];
-	}
 }
 
 int ApplicationManager::GetComponentCount() {
@@ -310,62 +366,7 @@ void ApplicationManager::AddConnection(Connection* pConn)
 	ConnList[ConnCount++] = pConn;
 }
 
-
 /////////////////////////////////////////////////////////
-
-void ApplicationManager::LoadCircuit(string*** parsedData, int comCount, int conCount) {
-
-	//reset application manager
-	ResetData();
-
-
-	GraphicsInfo* pGInfo;
-	Component* pR;
-	// load components part
-	for (int comIndex = 0; comIndex < comCount; comIndex++) {
-		pGInfo = new GraphicsInfo(2);
-
-		int compWidth = pUI->getCompWidth();
-		int compHeight = pUI->getCompHeight();
-
-		pGInfo->PointsList[0].x = stoi(parsedData[0][comIndex][4]);
-		pGInfo->PointsList[0].y = stoi(parsedData[0][comIndex][5]);
-		pGInfo->PointsList[1].x = stoi(parsedData[0][comIndex][4]) + compWidth;
-		pGInfo->PointsList[1].y = stoi(parsedData[0][comIndex][5]) + compHeight;
-
-		string compType = parsedData[0][comIndex][0];
-
-		if (compType == "RES") pR = new Resistor(pGInfo);
-		else if (compType == "BLB")  pR = new Bulb(pGInfo);
-		else if (compType == "BAT") pR = new Battery(pGInfo);
-		else if (compType == "SWT") pR = new Switch(pGInfo);
-		else if (compType == "GND") pR = new Ground(pGInfo);
-		else if (compType == "BUZ") pR = new Buzzer(pGInfo);
-		else if (compType == "FUS") pR = new Fuse(pGInfo);
-		else pR = nullptr;
-
-		if (pR) {
-			pR->setLabel(parsedData[0][comIndex][2]);
-			pR->setValue(stod(parsedData[0][comIndex][3]));
-			AddComponent(pR);
-		}
-		
-	}
-
-	for (int conIndex = 0; conIndex < conCount; conIndex++) {
-		ConnectionInfo* cInfo = new ConnectionInfo;
-		ActionAddConn* AddConnection = new ActionAddConn(this);
-
-		cInfo->component1 = stoi(parsedData[1][conIndex][0])-1;
-		cInfo->component2 = stoi(parsedData[1][conIndex][1])-1;
-		cInfo->item1_terminal = stoi(parsedData[1][conIndex][2]);
-		cInfo->item2_terminal = stoi(parsedData[1][conIndex][3]);
-		AddConnection->ProcessConnection(cInfo);
-	}
-	
-
-	UpdateInterface();
-}
 
 void ApplicationManager::CloneSelectedComponent() {
 
@@ -373,16 +374,30 @@ void ApplicationManager::CloneSelectedComponent() {
 	string compType = SelectedComponent->GetItemType();
 	GraphicsInfo* pGInfo = new GraphicsInfo(2);
 	
-	if (compType == "RES") ComponentClone = new Resistor(pGInfo);
-	else if (compType == "BLB") ComponentClone = new Bulb(pGInfo);
-	else if (compType == "BAT") ComponentClone = new Battery(pGInfo);
-	else if (compType == "SWT") ComponentClone = new Switch(pGInfo);
-	else if (compType == "GND") ComponentClone = new Ground(pGInfo);
-	else if (compType == "BUZ") ComponentClone = new Buzzer(pGInfo);
-	else if (compType == "FUS") ComponentClone = new Fuse(pGInfo);
+	if (dynamic_cast<Resistor*>(SelectedComponent)) ComponentClone = new Resistor(pGInfo);
+	else if (dynamic_cast<Bulb*>(SelectedComponent)) ComponentClone = new Bulb(pGInfo);
+	else if (dynamic_cast<Battery*>(SelectedComponent)) ComponentClone = new Battery(pGInfo);
+	else if (dynamic_cast<Switch*>(SelectedComponent)) ComponentClone = new Switch(pGInfo);
+	else if (dynamic_cast<Ground*>(SelectedComponent)) ComponentClone = new Ground(pGInfo);
+	else if (dynamic_cast<Buzzer*>(SelectedComponent)) ComponentClone = new Buzzer(pGInfo);
+	else if (dynamic_cast<Fuse*>(SelectedComponent)) ComponentClone = new Fuse(pGInfo);
+	else if (dynamic_cast<Module*>(SelectedComponent)) ComponentClone = new Module(pGInfo); // TODO:: copy list
 	else ComponentClone = nullptr;
 
 	if (ComponentClone) {
+		if (dynamic_cast<Module*>(SelectedComponent)) {
+			Component* NewCompList[MaxCompCount];
+			Connection* NewConnList[MaxConnCount];
+
+			SelectedComponent->GetCompList(NewCompList); 
+			ComponentClone->SetCompList(NewCompList);
+
+			SelectedComponent->GetConnList(NewConnList);
+			ComponentClone->SetConnList(NewConnList);
+
+			ComponentClone->SetCompCount(SelectedComponent->GetCompCount());
+			ComponentClone->SetConnCount(SelectedComponent->GetConnCount());
+		}
 		ComponentClone->setLabel(SelectedComponent->getLabel());
 		ComponentClone->setValue(SelectedComponent->getValue());
 	}
@@ -459,12 +474,14 @@ void ApplicationManager::SaveActionToStack(Action* act) {
 bool ApplicationManager::isCircuitClosed() const
 {
 	if (CircuitTotalCurrent > MaxCurrent) {
+		pUI->PrintMsg("Components are burnt out as current exceeded maximum limit!");
 		return false;
 	}
-	
+	Switch* s;
 	for (int i = 0; i < MaxCompCount; i++) {
 		if (CompList[i] != nullptr) {
-			if ((CompList[i]->GetItemType() == "SWT")) {
+			s = dynamic_cast<Switch*>(CompList[i]);
+			if (s != nullptr) {
 				if(CompList[i]->isClosed() == false)
 					return false;
 			}
@@ -487,11 +504,22 @@ void ApplicationManager::updateCircuitState()
 		exceeded_limit = true;
 	}
 
+	Switch* s = nullptr;
+	Buzzer* b = nullptr;
+
+
 	for (int i = 0; i < MaxCompCount; i++) {
 		if ((CompList[i] != nullptr)) {
-			if (CompList[i]->GetItemType() != "SWT") {
+			s = dynamic_cast<Switch*>(CompList[i]);
+			b = dynamic_cast<Buzzer*>(CompList[i]);
+			if (s == nullptr) {
 				CompList[i]->setClosed(state);
 				CompList[i]->setExceededLimit(exceeded_limit);
+				if (state) {
+					if (b != nullptr) {
+						PlaySound(TEXT("buzzer_sound.wav"),0,SND_ASYNC);
+					}
+				}
 			}
 		}
 	}
@@ -500,13 +528,16 @@ void ApplicationManager::updateCircuitState()
 void ApplicationManager::updateTotalVoltage()
 {
 	CircuitTotalVoltage = 0;
+	Battery* b = nullptr;
 	for (int i = 0; i < MaxCompCount; i++) {
 		if (CompList[i] != nullptr) {
-			if (CompList[i]->GetItemType() == "BAT") {
+			b = dynamic_cast<Battery*>(CompList[i]);
+			if (b != nullptr) {
 				CircuitTotalVoltage += CompList[i]->getValue();
 			}
 		}
 	}
+
 }
 
 void ApplicationManager::updateTotalCurrent()
@@ -555,15 +586,20 @@ int ApplicationManager::getComponent(int x, int y) const
 void ApplicationManager::updateTotalResistance()
 {
 	CircuitTotalResistance = 0;
-	string comptype;
+	Switch* s = nullptr;
+	Ground* g = nullptr;
+	Battery* bat;
 	for (int i = 0; i < MaxCompCount; i++) {
 		if (CompList[i] != nullptr) {
-			comptype = CompList[i]->GetItemType();
-			if ((comptype != "SWT") && (comptype != "GND") && (comptype != "BAT") ) {
+			s = dynamic_cast<Switch*>(CompList[i]);
+			g = dynamic_cast<Ground*>(CompList[i]);
+			bat = dynamic_cast<Battery*>(CompList[i]);
+			if ((s == nullptr) && (g == nullptr) && (bat == nullptr) ) {
 				CircuitTotalResistance += CompList[i]->getValue();
 			}
 		}
 	}
+
 }
 
 
@@ -654,4 +690,36 @@ void ApplicationManager::RestoreConnection(Connection* conn) {
 	}
 
 	this->AddConnection(conn);
+}
+
+void ApplicationManager::CreateTemp() {
+	Temp_CompCount = CompCount;
+	Temp_ConnCount = ConnCount;
+	GetComponentList(Temp_CompList);
+	GetConnectionList(Temp_ConnList);
+
+	EmptyData();
+
+	Temp_CompList[this->SelectedComponentId]->GetCompList(CompList);
+	Temp_CompList[this->SelectedComponentId]->GetConnList(ConnList);
+	CompCount = Temp_CompList[this->SelectedComponentId]->GetCompCount();
+	ConnCount = Temp_CompList[this->SelectedComponentId]->GetConnCount();
+
+	this->TempSelectedComponentId = this->SelectedComponentId;
+}
+
+void ApplicationManager::RevertTemp() {
+	this->SelectedComponentId = this->TempSelectedComponentId;
+
+	Temp_CompList[this->SelectedComponentId]->SetCompList(CompList);
+	Temp_CompList[this->SelectedComponentId]->SetConnList(ConnList);
+	Temp_CompList[this->SelectedComponentId]->SetCompCount(CompCount);
+	Temp_CompList[this->SelectedComponentId]->SetConnCount(ConnCount);
+
+	CompCount = Temp_CompCount;
+	ConnCount = Temp_ConnCount;
+	GetTempComponentList(CompList);
+	GetTempConnectionList(ConnList);
+
+	EmptyTempData();
 }
