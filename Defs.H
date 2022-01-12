@@ -3,6 +3,7 @@
 
 //This header file contains some defenitions to be used all over the application
 
+
 //All possible actions
 enum ActionType
 {
@@ -15,9 +16,9 @@ enum ActionType
 	ADD_FUSE,			//Add Fuse
 	ADD_MODULE,			//Add Module
 	ADD_CONNECTION,		//Add Wire Connection
-
+	ADD_DEFAULT_MOD,	//Add default module
 	ADD_Label,			//Add Label to a Component, a Connection
-	ADD_Value,			// Add Value to a Component, a Connection
+	ADD_Value,			//Add Value to a Component, a Connection
 
 	EDIT_Label,			//Edit Label of a Component, a Connection
 	EDIT_Value,			// Edit Value to a Component, a Connection
@@ -82,8 +83,6 @@ struct ConnectionInfo
 	int item1_terminal = 0;
 	int item2_terminal = 0;
 };
-
-
 
 //Maximum number of connections that can be connected to any output components
 #define MAX_CONNS 20

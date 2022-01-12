@@ -15,6 +15,11 @@ void ActionAddRes::Execute()
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 
+	if (!pUI->getWriteMode()) {
+		pUI->PrintMsg("You can not perform this action");
+		return;
+	}
+
 	//Print Action Message
 	pUI->PrintMsg("Adding a new resistor: Click anywhere to add");
 

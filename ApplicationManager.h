@@ -99,6 +99,7 @@ public:
 
 	void setSelectedComponentId(int selectedCompId); // setter for selected component ID
 	int getSelectedComponentId(); // getter for selected component ID
+	int getTempSelectedComponentId();
 
 	void setSelectedConnectionId(int selectedConnId); // setter for selected connection ID
 	int getSelectedConnectionId(); // getter for selected connection ID

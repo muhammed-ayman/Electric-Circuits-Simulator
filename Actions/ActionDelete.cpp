@@ -11,6 +11,11 @@ void ActionDelete::Execute()
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 
+	if (!pUI->getWriteMode()) {
+		pUI->PrintMsg("You can not perform this action");
+		return;
+	}
+
 	if (pManager->GetComponentCount() == 0)
 		pUI->PrintMsg("No Components to delete!"); // checks if there are no components
 

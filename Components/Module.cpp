@@ -78,3 +78,11 @@ int Module::GetCompCount() {
 int Module::GetConnCount() {
 	return this->ConnCount;
 }
+
+void Module::setWriteMode(bool WriteMode) {
+	this->writeable = WriteMode;
+}
+
+bool Module::getWriteMode() {
+	return this->writeable;
+}

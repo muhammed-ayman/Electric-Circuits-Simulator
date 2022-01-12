@@ -45,7 +45,34 @@ void ActionDsnWindow::Execute()
 	UI* pUI = pManager->GetUI();
 
 	if (pManager->GetUI()->getAppMode() == MODULE) {
-		if (!Validate()) {
+		if (!pManager->GetUI()->getWriteMode()) {
+			Component* CompList[MaxCompCount];
+
+			pManager->GetComponentList(CompList);
+			
+			double value = (1 / ((1 /(CompList[0]->getValue() + CompList[1]->getValue())) + (1 / (CompList[2]->getValue() + CompList[3]->getValue()))));
+
+			Component* TempCompList[MaxCompCount];
+			pManager->GetTempComponentList(TempCompList);
+			TempCompList[pManager->getTempSelectedComponentId()]->setValue(value);
+
+			pManager->GetUI()->setWriteMode(true);
+		}
+		else if (Validate()) {
+			double value = 0;
+			Component* CompList[MaxCompCount];
+
+			pManager->GetComponentList(CompList);
+
+			for (int i = 0; i < pManager->GetComponentCount(); i++) {
+				value += CompList[i]->getValue();
+			}
+
+			Component* TempCompList[MaxCompCount];
+			pManager->GetTempComponentList(TempCompList);
+			TempCompList[pManager->getTempSelectedComponentId()]->setValue(value);
+		}
+		else {
 			pUI->PrintMsg("Failed to validate the module");
 			return;
 		}

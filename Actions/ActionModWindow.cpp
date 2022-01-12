@@ -15,7 +15,15 @@ void ActionModWindow::Execute()
 	UI* pUI = pManager->GetUI();
 
 	pManager->CreateTemp();
-	
+
+
+	Component* TempCompList[MaxCompCount];
+	pManager->GetTempComponentList(TempCompList);
+
+	if (!TempCompList[pManager->getTempSelectedComponentId()]->getWriteMode()) {
+		pUI->setWriteMode(false);
+	}	
+
 	//creating simulation toolbar
 
 	pManager->UpdateInterface();

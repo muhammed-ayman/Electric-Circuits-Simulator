@@ -106,6 +106,8 @@ public:
 	virtual void SetConnCount(int ConnCount){};
 	virtual int GetCompCount() { return 0; };
 	virtual int GetConnCount() { return 0; };
+	virtual void setWriteMode(bool mode){};
+	virtual bool getWriteMode() { return true; };
 
 
 };

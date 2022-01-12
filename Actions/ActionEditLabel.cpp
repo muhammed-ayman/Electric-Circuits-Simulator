@@ -18,6 +18,11 @@ void ActionEditLabel::Execute()
 	// Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 
+	if (!pUI->getWriteMode()) {
+		pUI->PrintMsg("You can not perform this action");
+		return;
+	}
+
 	pUI->PrintMsg("Type in the new Label & Press Enter when you finish");
 	
 	string newLabel = pUI->GetSrting(); // Get the new label input from the user

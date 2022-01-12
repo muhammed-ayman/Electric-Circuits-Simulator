@@ -31,6 +31,11 @@ void ActionLoad::Execute()
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 	
+	if (!pUI->getWriteMode() && pManager->GetComponentCount() > 0) {
+		pUI->PrintMsg("You can not perform this action");
+		return;
+	}
+
 	string fileLines[MaxCompCount + MaxConnCount + 3];
 
 	pManager->ResetData();
@@ -39,12 +44,18 @@ void ActionLoad::Execute()
 
 	pUI->PrintMsg("Type the file name");
 
-	string filename = pUI->GetSrting();
-
 	if (pUI->getAppMode() == MODULE) {
-		loadFile.open("Modules\\" + filename + ".txt");
+		if (pUI->getWriteMode()) {
+			string filename = pUI->GetSrting();
+			loadFile.open("Modules\\" + filename + ".txt");
+		}
+		else {
+			loadFile.open("Modules\\default.txt");
+		}
+		
 	}
 	else {
+		string filename = pUI->GetSrting();
 		loadFile.open("Saves\\" + filename + ".txt");
 	}
 
