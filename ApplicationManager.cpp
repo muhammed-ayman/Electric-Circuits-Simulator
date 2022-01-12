@@ -26,6 +26,12 @@
 #include "Actions\ActionCircuitLog.h"
 #include "Actions\ActionMeasureVoltage.h"
 #include "Actions\ActionMeausreCurrent.h"
+#include <iostream>
+#include <windows.h>
+#include "MMSystem.h"
+using namespace std;
+
+
 
 ApplicationManager::ApplicationManager()
 {
@@ -479,9 +485,16 @@ void ApplicationManager::updateCircuitState()
 			if (CompList[i]->GetItemType() != "SWT") {
 				CompList[i]->setClosed(state);
 				CompList[i]->setExceededLimit(exceeded_limit);
+				if (state) {
+					if (CompList[i]->GetItemType() == "BUZ") {
+						PlaySound(TEXT("buzzer_sound.wav"),0,SND_ASYNC);
+					}
+				}
 			}
 		}
 	}
+
+	
 }
 
 void ApplicationManager::updateTotalVoltage()
