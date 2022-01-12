@@ -36,7 +36,17 @@ void ActionLoad::Execute()
 	pManager->ResetData();
 
 	ifstream loadFile;
-	loadFile.open("Saves\\circuit.txt");
+
+	pUI->PrintMsg("Type the file name");
+
+	string filename = pUI->GetSrting();
+
+	if (pUI->getAppMode() == MODULE) {
+		loadFile.open("Modules\\" + filename + ".txt");
+	}
+	else {
+		loadFile.open("Saves\\" + filename + ".txt");
+	}
 
 	if (!loadFile)
 	{
@@ -126,6 +136,8 @@ void ActionLoad::Execute()
 				string label = LoadedComponent[2];
 				double value = stod(LoadedComponent[3]);
 				pR->Load(pGInfo, label, value);
+
+
 				pManager->AddComponent(pR);
 			}
 		}

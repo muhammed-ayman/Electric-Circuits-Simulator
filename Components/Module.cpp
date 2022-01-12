@@ -12,7 +12,7 @@ Module::Module() {
 void Module::Draw(UI* pUI)
 {
 	//Call output class and pass battery drawing info to it.
-	pUI->DrawBattery(*m_pGfxInfo); //update to draw battery
+	pUI->DrawModule(*m_pGfxInfo); //update to draw battery
 
 }
 

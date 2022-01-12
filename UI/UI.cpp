@@ -197,8 +197,8 @@ ActionType UI::GetUserAction() const
 			case ITM_MOD_CONNECTION: return ADD_CONNECTION;
 			case ITM_MOD_PASTE: return PASTE;
 			case ITM_MOD_DELETE: return DEL;
-			//case ITM_MOD_SAVE: return SAVE;
-			//case ITM_MOD_LOAD: return LOAD;
+			case ITM_MOD_SAVE: return SAVE;
+			case ITM_MOD_LOAD: return LOAD;
 			default: return DSN_TOOL;	//A click on empty place in desgin toolbar
 			}
 		}
@@ -395,7 +395,7 @@ void UI::CreateModuleToolBar()
 void UI::DrawResistor(const GraphicsInfo &r_GfxInfo) const
 {
 	string ResImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			ResImage = "Images\\Comp\\Resistor_HI.jpg";	//use image of highlighted resistor
 		else
@@ -410,7 +410,7 @@ void UI::DrawResistor(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawBulb(const GraphicsInfo &r_GfxInfo) const
 {
 	string BulbImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			BulbImage = "Images\\Comp\\Bulb_HI.jpg";	//use image of highlighted bulb
 		else
@@ -430,7 +430,7 @@ void UI::DrawBulb(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawBattery(const GraphicsInfo &r_GfxInfo) const
 {
 	string BatImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			BatImage = "Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
 		else
@@ -445,7 +445,7 @@ void UI::DrawBattery(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 {
 	string SwImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			SwImage = "Images\\Comp\\Switch_HI.jpg";	//use image of highlighted switch
 		else
@@ -461,7 +461,7 @@ void UI::DrawSwitch(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawGround(const GraphicsInfo &r_GfxInfo) const
 {
 	string GrImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			GrImage = "Images\\Comp\\Ground_HI.jpg";	//use image of highlighted ground
 		else
@@ -476,7 +476,7 @@ void UI::DrawGround(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo) const
 {
 	string BuzImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			BuzImage = "Images\\Comp\\Buzzer_HI.jpg";	//use image of highlighted buzzer
 		else
@@ -491,7 +491,7 @@ void UI::DrawBuzzer(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawFuse(const GraphicsInfo &r_GfxInfo) const
 {
 	string FusImage;
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			FusImage = "Images\\Comp\\Fuse_HI.jpg";	//use image of highlighted fuse
 		else
@@ -512,10 +512,16 @@ void UI::DrawFuse(const GraphicsInfo &r_GfxInfo) const
 void UI::DrawModule(const GraphicsInfo& r_GfxInfo) const
 {
 	string ModImage;
-	if (r_GfxInfo.isClicked)
-		ModImage = "Images\\Comp\\Battery_HI.jpg";	//use image of highlighted battery
+
+	if (AppMode != SIMULATION) {
+		if (r_GfxInfo.isClicked)
+			ModImage = "Images\\Comp\\Module_HI.jpg";	//use image of highlighted battery
+		else
+			ModImage = "Images\\Comp\\Module.jpg";	//use image of the normal battery
+	}
 	else
-		ModImage = "Images\\Comp\\Battery.jpg";	//use image of the normal battery
+		ModImage = "Images\\Comp\\Module.jpg";	//use image of the normal battery
+	
 
 	//Draw Battery at Gfx_Info (1st corner)
 	pWind->DrawImage(ModImage, r_GfxInfo.PointsList[0].x, r_GfxInfo.PointsList[0].y, COMP_WIDTH, COMP_HEIGHT);
@@ -524,7 +530,7 @@ void UI::DrawModule(const GraphicsInfo& r_GfxInfo) const
 
 void UI::DrawConnection(const GraphicsInfo &r_GfxInfo) const
 {
-	if (AppMode == DESIGN) {
+	if (AppMode != SIMULATION) {
 		if (r_GfxInfo.isClicked)
 			pWind->SetPen(RED, 2);
 		else

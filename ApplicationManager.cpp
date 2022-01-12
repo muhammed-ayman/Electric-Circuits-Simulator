@@ -29,9 +29,9 @@
 
 ApplicationManager::ApplicationManager()
 {
+	pUI = new UI;
 	ResetData();
 	//Creates the UI Object & Initialize the UI
-	pUI = new UI;
 }
 
 int ApplicationManager::GetGroundCount() {
@@ -42,16 +42,16 @@ void ApplicationManager::ResetData() {
 	CompCount = 0;
 	ConnCount = 0;
 
+	if (pUI->getAppMode() != MODULE) Temp_CompCount = 0, Temp_ConnCount = 0;
+
 	for (int i = 0; i < MaxCompCount; i++) {
-		if(CompList[i]) delete CompList[i], delete Temp_CompList[i];
+		if (CompList[i]) { delete CompList[i];  if (pUI->getAppMode() != MODULE) { delete Temp_CompList[i]; Temp_CompList[i] = nullptr;} }
 		CompList[i] = nullptr;
-		Temp_CompList[i] = nullptr;
 	}
 
-	for (int i = 0; i < MaxConnCount; i++) {;
-		if (ConnList[i]) delete ConnList[i], delete Temp_ConnList[i];
+	for (int i = 0; i < MaxConnCount; i++) {
+		if (ConnList[i]) { delete ConnList[i];  if (pUI->getAppMode() != MODULE) { delete Temp_ConnList[i];	Temp_ConnList[i] = nullptr;} }
 		ConnList[i] = nullptr;
-		Temp_ConnList[i] = nullptr;
 	}
 		
 }
@@ -360,16 +360,30 @@ void ApplicationManager::CloneSelectedComponent() {
 	string compType = SelectedComponent->GetItemType();
 	GraphicsInfo* pGInfo = new GraphicsInfo(2);
 	
-	if (compType == "RES") ComponentClone = new Resistor(pGInfo);
-	else if (compType == "BLB") ComponentClone = new Bulb(pGInfo);
-	else if (compType == "BAT") ComponentClone = new Battery(pGInfo);
-	else if (compType == "SWT") ComponentClone = new Switch(pGInfo);
-	else if (compType == "GND") ComponentClone = new Ground(pGInfo);
-	else if (compType == "BUZ") ComponentClone = new Buzzer(pGInfo);
-	else if (compType == "FUS") ComponentClone = new Fuse(pGInfo);
+	if (dynamic_cast<Resistor*>(SelectedComponent)) ComponentClone = new Resistor(pGInfo);
+	else if (dynamic_cast<Bulb*>(SelectedComponent)) ComponentClone = new Bulb(pGInfo);
+	else if (dynamic_cast<Battery*>(SelectedComponent)) ComponentClone = new Battery(pGInfo);
+	else if (dynamic_cast<Switch*>(SelectedComponent)) ComponentClone = new Switch(pGInfo);
+	else if (dynamic_cast<Ground*>(SelectedComponent)) ComponentClone = new Ground(pGInfo);
+	else if (dynamic_cast<Buzzer*>(SelectedComponent)) ComponentClone = new Buzzer(pGInfo);
+	else if (dynamic_cast<Fuse*>(SelectedComponent)) ComponentClone = new Fuse(pGInfo);
+	else if (dynamic_cast<Module*>(SelectedComponent)) ComponentClone = new Module(pGInfo); // TODO:: copy list
 	else ComponentClone = nullptr;
 
 	if (ComponentClone) {
+		if (dynamic_cast<Module*>(SelectedComponent)) {
+			Component* NewCompList[MaxCompCount];
+			Connection* NewConnList[MaxConnCount];
+
+			SelectedComponent->GetCompList(NewCompList); 
+			ComponentClone->SetCompList(NewCompList);
+
+			SelectedComponent->GetConnList(NewConnList);
+			ComponentClone->SetConnList(NewConnList);
+
+			ComponentClone->SetCompCount(SelectedComponent->GetCompCount());
+			ComponentClone->SetConnCount(SelectedComponent->GetConnCount());
+		}
 		ComponentClone->setLabel(SelectedComponent->getLabel());
 		ComponentClone->setValue(SelectedComponent->getValue());
 	}
