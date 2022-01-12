@@ -71,7 +71,7 @@ void ActionSimWindow::Execute()
 	UI* pUI = pManager->GetUI();
 	if (Validate()) {
 		if (ValidateOneCircuit()) {
-			// unselecting selected objects in simulation mode
+			//unselecting selected objects in simulation mode
 			Component* CompList[MaxCompCount];
 			pManager->GetComponentList(CompList);
 			for (int i = 0; i < MaxCompCount; i++) {

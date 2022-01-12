@@ -26,6 +26,10 @@
 #include "Actions\ActionCircuitLog.h"
 #include "Actions\ActionMeasureVoltage.h"
 #include "Actions\ActionMeausreCurrent.h"
+#include "Components\Switch.h"
+#include "Components\Buzzer.h"
+#include "Components\Ground.h"
+#include "Components\Battery.h"
 #include <iostream>
 #include <windows.h>
 #include "MMSystem.h"
@@ -466,12 +470,14 @@ void ApplicationManager::SaveActionToStack(Action* act) {
 bool ApplicationManager::isCircuitClosed() const
 {
 	if (CircuitTotalCurrent > MaxCurrent) {
+		pUI->PrintMsg("Components are burnt out as current exceeded maximum limit!");
 		return false;
 	}
-	
+	Switch* s;
 	for (int i = 0; i < MaxCompCount; i++) {
 		if (CompList[i] != nullptr) {
-			if ((CompList[i]->GetItemType() == "SWT")) {
+			s = dynamic_cast<Switch*>(CompList[i]);
+			if (s != nullptr) {
 				if(CompList[i]->isClosed() == false)
 					return false;
 			}
@@ -494,33 +500,40 @@ void ApplicationManager::updateCircuitState()
 		exceeded_limit = true;
 	}
 
+	Switch* s = nullptr;
+	Buzzer* b = nullptr;
+
+
 	for (int i = 0; i < MaxCompCount; i++) {
 		if ((CompList[i] != nullptr)) {
-			if (CompList[i]->GetItemType() != "SWT") {
+			s = dynamic_cast<Switch*>(CompList[i]);
+			b = dynamic_cast<Buzzer*>(CompList[i]);
+			if (s == nullptr) {
 				CompList[i]->setClosed(state);
 				CompList[i]->setExceededLimit(exceeded_limit);
 				if (state) {
-					if (CompList[i]->GetItemType() == "BUZ") {
+					if (b != nullptr) {
 						PlaySound(TEXT("buzzer_sound.wav"),0,SND_ASYNC);
 					}
 				}
 			}
 		}
 	}
-
-	
 }
 
 void ApplicationManager::updateTotalVoltage()
 {
 	CircuitTotalVoltage = 0;
+	Battery* b = nullptr;
 	for (int i = 0; i < MaxCompCount; i++) {
 		if (CompList[i] != nullptr) {
-			if (CompList[i]->GetItemType() == "BAT") {
+			b = dynamic_cast<Battery*>(CompList[i]);
+			if (b != nullptr) {
 				CircuitTotalVoltage += CompList[i]->getValue();
 			}
 		}
 	}
+
 }
 
 void ApplicationManager::updateTotalCurrent()
@@ -569,15 +582,20 @@ int ApplicationManager::getComponent(int x, int y) const
 void ApplicationManager::updateTotalResistance()
 {
 	CircuitTotalResistance = 0;
-	string comptype;
+	Switch* s = nullptr;
+	Ground* g = nullptr;
+	Battery* bat;
 	for (int i = 0; i < MaxCompCount; i++) {
 		if (CompList[i] != nullptr) {
-			comptype = CompList[i]->GetItemType();
-			if ((comptype != "SWT") && (comptype != "GND") && (comptype != "BAT") ) {
+			s = dynamic_cast<Switch*>(CompList[i]);
+			g = dynamic_cast<Ground*>(CompList[i]);
+			bat = dynamic_cast<Battery*>(CompList[i]);
+			if ((s == nullptr) && (g == nullptr) && (bat == nullptr) ) {
 				CircuitTotalResistance += CompList[i]->getValue();
 			}
 		}
 	}
+
 }
 
 
