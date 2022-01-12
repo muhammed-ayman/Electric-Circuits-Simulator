@@ -195,7 +195,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			ActType != SELECT &&
 			ActType != SIM_MODE &&
 			ActType != DSN_MODE &&
-			ActType != MOD_MODE) this->SaveActionToStack(pAct);
+			ActType != MOD_MODE && pUI->getAppMode() == DESIGN) this->SaveActionToStack(pAct);
 	}
 }
 ////////////////////////////////////////////////////////////////////
