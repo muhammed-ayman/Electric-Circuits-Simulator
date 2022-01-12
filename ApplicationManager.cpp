@@ -26,6 +26,7 @@
 #include "Actions\ActionCircuitLog.h"
 #include "Actions\ActionMeasureVoltage.h"
 #include "Actions\ActionMeausreCurrent.h"
+#include "Actions\ActionMove.h"
 
 ApplicationManager::ApplicationManager()
 {
@@ -176,6 +177,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case VOLT_MEASURE:
 			pAct = new ActionMeasureVoltage(this);
+			break;
+		case MOVE:
+			pAct = new ActionMove(this);
 			break;
 		case EXIT:
 			pAct = new ActionExit(this);
