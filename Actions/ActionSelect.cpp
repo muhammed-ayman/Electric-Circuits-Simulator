@@ -67,7 +67,6 @@ void ActionSelect::Execute()
 	if (clicked == 0) {
 		for (int i = 0; i < MaxConnCount; i++) {
 			if (ConnList[i] != nullptr) {
-				cout << "Connection is not null: " << i << endl;
 				GraphicsInfo* ConnListGraphicsInfo = ConnList[i]->getGraphicsInfo();
 				double lineSlope = double(ConnListGraphicsInfo->PointsList[0].y
 					- ConnListGraphicsInfo->PointsList[1].y) / (ConnListGraphicsInfo->PointsList[0].x
