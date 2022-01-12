@@ -113,6 +113,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Actions\ActionMove.cpp" />
     <ClCompile Include="Actions\ActionCircuitLog.cpp" />
     <ClCompile Include="Actions\ActionDelete.cpp" />
     <ClCompile Include="Actions\ActionAddBattery.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="UI\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actions\ActionMove.h" />
     <ClInclude Include="Actions\ActionCircuitLog.h" />
     <ClInclude Include="Actions\ActionDelete.h" />
     <ClInclude Include="Actions\Action.h" />

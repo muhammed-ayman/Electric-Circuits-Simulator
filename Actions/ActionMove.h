@@ -1,19 +1,17 @@
-
 #pragma once
 #include "Action.h"
-
-class ActionSimWindow : public Action
+class ActionMove :
+    public Action
 {
-private:
-
 public:
-	ActionSimWindow(ApplicationManager* pApp);
-	virtual ~ActionSimWindow(void);
+	ActionMove(ApplicationManager* pApp);
+	virtual ~ActionMove(void);
 
 	//Execute action (code depends on action type)
 	virtual void Execute();
-	virtual bool Validate();
+
 	virtual void Undo();
 	virtual void Redo();
+
 
 };

@@ -135,6 +135,9 @@ ActionType UI::GetUserAction() const
 		// [3] User clicks on the edit menu area
 		if (y >= ToolBarHeight && y < height - StatusBarHeight && x >= width - EditMenuWidth)
 		{
+			if (y >= height - StatusBarHeight - 250 && y <= height - StatusBarHeight - 200) {
+				return MOVE;	// user wants to edit the component's label
+			}
 			if (y >= height - StatusBarHeight - 200 && y < height - StatusBarHeight - 150) {
 				return EDIT_Copy;	// user wants to copy the component
 			}
@@ -576,6 +579,7 @@ void UI::DrawEditMenu(string ComponentLabel="Component", string ComponentValue =
 
 	// Draw the edit buttons & their borders
 	pWind->SetPen(BLACK);
+	pWind->DrawString(width - 200, height - StatusBarHeight - 235, "Move");
 	pWind->DrawString(width - 200, height - StatusBarHeight - 185, "Copy");
 	pWind->DrawString(width - 200, height - StatusBarHeight - 135, "Cut");
 	pWind->DrawString(width - 200, height - StatusBarHeight - 85, "Edit Value");
@@ -583,6 +587,7 @@ void UI::DrawEditMenu(string ComponentLabel="Component", string ComponentValue =
 
 
 	pWind->SetPen(RED,3);
+	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 250, width, height - StatusBarHeight - 250);
 	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 200, width, height - StatusBarHeight - 200);
 	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 150, width, height - StatusBarHeight - 150);
 	pWind->DrawLine(width - EditMenuWidth, height - StatusBarHeight - 100, width, height - StatusBarHeight - 100);
@@ -636,3 +641,7 @@ MODE UI::getAppMode() const {
 	return AppMode;
 }
 
+
+window* UI::getpWind() const {
+	return this->pWind;
+}

@@ -172,6 +172,8 @@ public:
 
 	MODE getAppMode() const;
 
+	window* getpWind() const;
+
 };
 
 #endif

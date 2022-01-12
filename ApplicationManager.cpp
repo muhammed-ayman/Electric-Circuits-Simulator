@@ -34,6 +34,7 @@
 #include <windows.h>
 #include "MMSystem.h"
 using namespace std;
+#include "Actions\ActionMove.h"
 
 
 
@@ -220,6 +221,9 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 		case VOLT_MEASURE:
 			pAct = new ActionMeasureVoltage(this);
+			break;
+		case MOVE:
+			pAct = new ActionMove(this);
 			break;
 		case EXIT:
 			pAct = new ActionExit(this);

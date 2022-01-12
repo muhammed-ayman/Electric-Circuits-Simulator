@@ -39,6 +39,7 @@ void ActionSelect::Execute()
 			GraphicsInfo* CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
 			// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
 			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
+
 				pUI->PrintMsg("Component Clicked");
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
