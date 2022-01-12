@@ -76,10 +76,11 @@ void ActionDsnWindow::Execute()
 			pUI->PrintMsg("Failed to validate the module");
 			return;
 		}
+		pManager->RevertTemp();
 	}
 	
 
-	pManager->RevertTemp();
+	
 	pManager->UpdateInterface();
 	pUI->ClearDrawingArea();
 	pUI->CreateDrawingArea();
