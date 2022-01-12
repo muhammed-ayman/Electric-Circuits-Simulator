@@ -178,6 +178,8 @@ public:
 	void setWriteMode(bool mode);
 	bool getWriteMode();
 
+	window* getpWind() const;
+
 };
 
 #endif

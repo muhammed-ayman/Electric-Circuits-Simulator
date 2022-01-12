@@ -39,6 +39,7 @@ void ActionSelect::Execute()
 			GraphicsInfo* CompListGraphicsInfo = CompList[i]->getGraphicsInfo();
 			// If the x & y of the mouse lies within the area of the component, make it highlighted and display its information
 			if (x >= CompListGraphicsInfo->PointsList[0].x && x <= CompListGraphicsInfo->PointsList[1].x && y >= CompListGraphicsInfo->PointsList[0].y && y <= CompListGraphicsInfo->PointsList[1].y) {
+
 				pUI->PrintMsg("Component Clicked");
 				clicked = 1; // Change the clicked status to true every time a component is clicked
 				CompList[i]->setClick(true); // setClick(true) makes drawResistor use the highlighted image
@@ -66,7 +67,6 @@ void ActionSelect::Execute()
 	if (clicked == 0) {
 		for (int i = 0; i < MaxConnCount; i++) {
 			if (ConnList[i] != nullptr) {
-				cout << "Connection is not null: " << i << endl;
 				GraphicsInfo* ConnListGraphicsInfo = ConnList[i]->getGraphicsInfo();
 				double lineSlope = double(ConnListGraphicsInfo->PointsList[0].y
 					- ConnListGraphicsInfo->PointsList[1].y) / (ConnListGraphicsInfo->PointsList[0].x
