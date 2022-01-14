@@ -13,6 +13,7 @@ public:
 	//Execute action (code depends on action type)
 	virtual void Execute();
 	virtual bool Validate();
+	virtual bool ValidateOneCircuit();
 	virtual void Undo();
 	virtual void Redo();
 

@@ -12,6 +12,50 @@ ActionSimWindow::~ActionSimWindow(void)
 {
 }
 
+bool ActionSimWindow::ValidateOneCircuit() {
+	Component* CompList[MaxCompCount];
+	pManager->GetComponentList(CompList);
+	Component* currentComp = CompList[0];
+
+	// Get Terminal Connections of the Component
+	// Connection* conn1 = Comp->getTerm1Conn();
+	// Connection* conn2 = Comp->getTerm2Conn();
+
+	//int comp1Terminal = 0; int comp2Terminal = 0;
+	Component* comp1 = nullptr; 
+
+	// Get the correct connection terminal
+	int counter = 0;
+	for (int i = 1; i < MaxCompCount; i++) {
+		
+		Connection* conn1 = CompList[i]->getTerm1Conn();
+		Connection* conn2 = CompList[i]->getTerm2Conn();
+		//Component* comp2 = nullptr;
+		
+		if (currentComp->getTerm1Conn() != nullptr && conn1 != nullptr && (currentComp == conn1->getComp1() || currentComp == conn1->getComp2())) {
+			if (currentComp == conn1->getComp1()) comp1 = conn1->getComp2();
+			if (currentComp == conn1->getComp2()) comp1 = conn1->getComp1();
+			currentComp = comp1;
+			counter++;
+		}
+
+		if (currentComp->getTerm2Conn() != nullptr && conn2 != nullptr && (currentComp == conn2->getComp1() || currentComp == conn2->getComp2() )) {
+			if (currentComp == conn2->getComp1()) comp1 = conn2->getComp2();
+			if (currentComp == conn2->getComp2()) comp1 = conn2->getComp1();
+			currentComp = comp1;
+			counter++;
+		}
+
+		if (currentComp == CompList[0] && counter != 0) break;
+	}
+
+	cout << counter;
+
+	if (counter != pManager->GetConnectionCount()) return false;
+	else return true;
+	
+}
+
 bool ActionSimWindow::Validate() {
 	int counter = 0;
 	Component* CompList[MaxCompCount];
@@ -40,6 +84,8 @@ void ActionSimWindow::Execute()
 	//Get a Pointer to the user Interfaces
 	UI* pUI = pManager->GetUI();
 	if (Validate()) {
+
+		if (ValidateOneCircuit()) {
 			// unselecting selected objects in simulation mode
 			Component* CompList[MaxCompCount];
 			pManager->GetComponentList(CompList);
@@ -67,9 +113,11 @@ void ActionSimWindow::Execute()
 			pManager->updateCircuitState();
 			//Print Action Message
 			pUI->PrintMsg("Simulation Mode Initialized");
+		} else pUI->PrintMsg("Cannot draw more than one circuit!");
+		
 	}
 	else{
-		pUI->PrintMsg("Circuit is not valid! One circuit, one ground (val=0), and full connections, labels, & values! Switch = 0 or 1!");
+		pUI->PrintMsg("Circuit is not valid! One circuit, one ground (val=0), and full connections, labels, & values! Switch = 0!");
 	}
 	
 }
