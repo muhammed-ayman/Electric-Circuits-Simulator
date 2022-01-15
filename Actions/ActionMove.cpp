@@ -60,10 +60,13 @@ void ActionMove::Execute()
 		double compCenterX = (gInfo->PointsList[0].x + gInfo->PointsList[1].x) / 2;
 		double compCenterY = (gInfo->PointsList[0].y + gInfo->PointsList[1].y) / 2;
 
-		gInfo->PointsList[0].x = iX - pUI->getCompWidth()/2;
-		gInfo->PointsList[0].y = iY - pUI->getCompHeight()/2;
-		gInfo->PointsList[1].x = pUI->getCompWidth()/2 + iX;
-		gInfo->PointsList[1].y = pUI->getCompHeight()/2 + iY;
+		if (iX < 1100 && iX > 20 && iY >= 130 && iY < 550) {
+
+			gInfo->PointsList[0].x = iX - pUI->getCompWidth() / 2;
+			gInfo->PointsList[0].y = iY - pUI->getCompHeight() / 2;
+			gInfo->PointsList[1].x = pUI->getCompWidth() / 2 + iX;
+			gInfo->PointsList[1].y = pUI->getCompHeight() / 2 + iY;
+		}
 
 		// Reconstruct the connections if not null upon screen refresh
 		if (conn1 != nullptr) {
@@ -99,7 +102,7 @@ void ActionMove::Execute()
 		pUI->ClearStatusBar();
 		pUI->CreateDrawingArea();
 		pManager->UpdateInterface();
-		Sleep(20);
+		Sleep(100);
 	}
 }
 
