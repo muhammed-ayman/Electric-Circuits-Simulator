@@ -77,11 +77,10 @@ void ActionDsnWindow::Execute()
 			return;
 		}
 		pManager->RevertTemp();
+		pManager->UpdateInterface();
 	}
 	
-
 	
-	pManager->UpdateInterface();
 	pUI->ClearDrawingArea();
 	pUI->CreateDrawingArea();
 	//creating design mode toolbar
