@@ -60,6 +60,7 @@ bool ActionSimWindow::Validate() {
 	int counter = 0;
 	Component* CompList[MaxCompCount];
 	pManager->GetComponentList(CompList);
+
 	if (pManager->GetGroundCount() == 1 && (pManager->GetComponentCount() == pManager->GetConnectionCount())) {
 		for (int i = 0; i < pManager->GetComponentCount(); i++) {
 			if (CompList[i] != nullptr) {
