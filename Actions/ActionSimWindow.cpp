@@ -26,7 +26,7 @@ bool ActionSimWindow::ValidateOneCircuit() {
 
 	// Get the correct connection terminal
 	int counter = 0;
-	for (int i = 1; i < MaxCompCount; i++) {
+	for (int i = 1; i < pManager->GetComponentCount(); i++) {
 		
 		Connection* conn1 = CompList[i]->getTerm1Conn();
 		Connection* conn2 = CompList[i]->getTerm2Conn();
