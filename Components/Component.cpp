@@ -68,21 +68,6 @@ void Component::setValue(double value) {
 	this->value = value;
 }
 
-
-string Component::GetItemType() const {
-	switch (this->itemType) {
-		case RES: return "RES";
-		case BLB: return "BLB";
-		case BAT: return "BAT";
-		case SWT: return "SWT";
-		case GND: return "GND";
-		case BUZ: return "BUZ";
-		case FUS: return "FUS";
-		case MOD: return "MOD";
-		default: return "NAN";
-	}
-}
-
 Connection* Component::getTerm1Conn() const
 {
 	return term_connections[0];

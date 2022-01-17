@@ -47,6 +47,12 @@ ApplicationManager::ApplicationManager()
 }
 
 int ApplicationManager::GetGroundCount() {
+	int GroundCount = 0;
+	for (int i = 0; i < CompCount; i++) {
+		if (dynamic_cast<Ground*>(CompList[i])) {
+			GroundCount++;
+		}
+	}
 	return GroundCount;
 }
 
@@ -128,7 +134,6 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case ADD_GROUND:
 			pAct = new ActionAddGround(this);
-			GroundCount++;
 			break;
 
 		case ADD_BUZZER:
@@ -312,15 +317,11 @@ void ApplicationManager::GetTempConnectionList(Connection* ConnListNew[]) {
 }
 
 bool ApplicationManager::isGround(Component* c) const {
-	return (c->GetItemType() == "GND");
-	//if (c->GetItemType() == "GND") return true;
-	//else return false;
+	return (dynamic_cast<Ground*>(c));
 }
 
 bool ApplicationManager::isSwitch(Component* c) const {
-	return (c->GetItemType() == "SWT");
-	//if (c->GetItemType() == "SWT") return true;
-	//else return false;
+	return (dynamic_cast<Switch*>(c));
 }
 
 double ApplicationManager::getCompValue(Component* component) {
@@ -379,7 +380,6 @@ void ApplicationManager::AddConnection(Connection* pConn)
 void ApplicationManager::CloneSelectedComponent() {
 
 	Component* SelectedComponent = CompList[getSelectedComponentId()];
-	string compType = SelectedComponent->GetItemType();
 	GraphicsInfo* pGInfo = new GraphicsInfo(2);
 	
 	if (dynamic_cast<Resistor*>(SelectedComponent)) ComponentClone = new Resistor(pGInfo);
@@ -411,6 +411,18 @@ void ApplicationManager::CloneSelectedComponent() {
 		ComponentClone->setLabel(SelectedComponent->getLabel());
 		ComponentClone->setValue(SelectedComponent->getValue());
 	}
+}
+
+string ApplicationManager::GetItemType(Component* comp) const {
+	if (dynamic_cast<Resistor*>(comp)) return "RES";
+	else if (dynamic_cast<Bulb*>(comp)) return "BLB";
+	else if (dynamic_cast<Battery*>(comp)) return "BAT";
+	else if (dynamic_cast<Switch*>(comp)) return "SWT";
+	else if (dynamic_cast<Ground*>(comp)) return "GND";
+	else if (dynamic_cast<Buzzer*>(comp)) return "BUZ";
+	else if (dynamic_cast<Fuse*>(comp)) return "FUS";
+	else if (dynamic_cast<Module*>(comp)) return "MOD";
+	else return "NAN";
 }
 
 Component* ApplicationManager::getClonedComponent() {

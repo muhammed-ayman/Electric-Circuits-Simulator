@@ -2,6 +2,7 @@
 #include "../ApplicationManager.h"
 #include "ActionAddMenu.h"
 #include <sstream>
+#include "../Components/Switch.h"
 
 ActionSelect::ActionSelect(ApplicationManager* pApp) :Action(pApp)
 {
@@ -49,7 +50,7 @@ void ActionSelect::Execute()
 					Menu->DrawComponentMenu(CompList[i]); // Drawing component menu as per the last selected component
 				}
 				else {
-					if ((CompList[i]->GetItemType()) == "SWT") {
+					if ((pManager->GetItemType(CompList[i])) == "SWT") {
 						CompList[i]->setClosed(!CompList[i]->isClosed());
 						pManager->updateCircuitState();
 					}

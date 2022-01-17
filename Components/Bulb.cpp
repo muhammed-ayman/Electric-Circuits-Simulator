@@ -26,7 +26,7 @@ void Bulb::Save(ofstream& saveFile, string id)
 {
 	GraphicsInfo* gInfo = getGraphicsInfo();
 
-	saveFile << GetItemType() + ", ";
+	saveFile << "BLB, ";
 	saveFile << id + ", ";
 	saveFile << getLabel() + ", ";
 	saveFile << to_string(getValue()) + ", ";
