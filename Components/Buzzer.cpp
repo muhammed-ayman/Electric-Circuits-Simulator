@@ -25,7 +25,7 @@ void Buzzer::Save(ofstream& saveFile, string id)
 {
 	GraphicsInfo* gInfo = getGraphicsInfo();
 
-	saveFile << GetItemType() + ", ";
+	saveFile << "BUZ, ";
 	saveFile << id + ", ";
 	saveFile << getLabel() + ", ";
 	saveFile << to_string(getValue()) + ", ";

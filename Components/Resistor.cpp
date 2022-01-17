@@ -25,7 +25,7 @@ void Resistor::Save(ofstream& saveFile, string id)
 {
 	GraphicsInfo* gInfo = getGraphicsInfo();
 
-	saveFile << GetItemType() + ", ";
+	saveFile << "RES, ";
 	saveFile << id + ", ";
 	saveFile << getLabel() + ", ";
 	saveFile << to_string(getValue()) + ", ";

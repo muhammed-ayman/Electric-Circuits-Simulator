@@ -86,7 +86,7 @@ public:
 	void setValue(double value);
 
 
-	string GetItemType() const;
+	//string GetItemType() const;
 
 	//getter and setter for the component term1 connection
 	Connection* getTerm1Conn() const;

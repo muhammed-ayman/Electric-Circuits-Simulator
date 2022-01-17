@@ -25,7 +25,7 @@ void Fuse::Save(ofstream& saveFile, string id)
 {
 	GraphicsInfo* gInfo = getGraphicsInfo();
 
-	saveFile << GetItemType() + ", ";
+	saveFile << "FUS, ";
 	saveFile << id + ", ";
 	saveFile << getLabel() + ", ";
 	saveFile << to_string(getValue()) + ", ";

@@ -25,7 +25,7 @@ void Module::Save(ofstream& saveFile, string id)
 {
 	GraphicsInfo* gInfo = getGraphicsInfo();
 
-	saveFile << GetItemType() + ", ";
+	saveFile << "MOD, ";
 	saveFile << id + ", ";
 	saveFile << getLabel() + ", ";
 	saveFile << to_string(getValue()) + ", ";
